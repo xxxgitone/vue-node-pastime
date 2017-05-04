@@ -1,26 +1,34 @@
 const http = require('http')
+// const cheerio = require('cheerio')
 
-const url = 'http://www.toutiao.com/ch/video/'
+const url = 'http://www.tudou.com/'
 
-function fetchPage(url) {
-    return new Promise((resolve, reject) => {
-        http.get(url, res => {
-            let html = ''
+// function filtersVideos (html) {
+//   const $ = cheerio.load(html)
+//   const videoItems = $('.item')
 
-            res.on('data', data => {
-                html += data
-            })
+//   let title = $('.item .rbox .title-box').find('.title').text()
+//   console.log(title)
+// }
 
-            res.on('end', () => {
-                resolve(html)
-            })
+function fetchPage (url) {
+  return new Promise((resolve, reject) => {
+    http.get(url, res => {
+      let html = ''
 
-        }).on('error', e => {
-            reject(e)
-        })
+      res.on('data', data => {
+        html += data
+      })
+
+      res.on('end', () => {
+        resolve(html)
+      })
+    }).on('error', e => {
+      reject(e)
     })
+  })
 }
 
 fetchPage(url).then(html => {
-    console.log(html)
+  console.log(html)
 })
