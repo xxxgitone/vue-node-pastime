@@ -1,7 +1,7 @@
 const http = require('http')
 // const cheerio = require('cheerio')
 
-const url = 'http://www.tudou.com/'
+const url = ''
 
 // function filtersVideos (html) {
 //   const $ = cheerio.load(html)
