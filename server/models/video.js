@@ -3,13 +3,12 @@ const Schema = mongoose.Schema
 
 const VideoSchema = new Schema({
   by: {
-    type: name,
-    required: true
+    type: String
   },
   videosrc: String,
   title: String,
   created_at: { type: Date, default: Date.now() },
-  duration: String,
+  duration: Number,
   supporter: Number,
   fight: Number,
   playcount: Number,
