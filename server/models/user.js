@@ -9,7 +9,7 @@ const UserSchema = new Schema({
     required: [true, 'Name fields is required'],
     unique: true
   },
-  id: String,
+  userId: String,
   password: {
     type: String
   },

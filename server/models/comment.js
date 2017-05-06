@@ -5,6 +5,7 @@ const CommentSchema = new Schema({
   by: {
     type: String
   },
+  commentId: String,
   text: String,
   supporter: Number,
   childrens: [String],

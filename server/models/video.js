@@ -5,6 +5,7 @@ const VideoSchema = new Schema({
   by: {
     type: String
   },
+  videoId: String,
   videosrc: String,
   title: String,
   created_at: { type: Date, default: Date.now() },
