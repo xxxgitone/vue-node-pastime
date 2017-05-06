@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const userRoutes = require('./api/user')
+const videoRoutes = require('./api/video')
+const commentRoutes = require('./api/comment')
 
 // 初始化数据引入model和data
 const usersData = require('./data/user')
@@ -22,25 +24,27 @@ app.set('port', process.env.PORT || 8080)
 app.use(bodyParser.json())
 
 app.use('/api', userRoutes)
+app.use('/api', videoRoutes)
+app.use('/api', commentRoutes)
 
 // 初始化数据
 usersData.forEach(user => {
-  let name = user.name
-  User.find({name: name}).then(u => {
+  let userId = user.userId
+  User.find({userId: userId}).then(u => {
     !u.length && User.create(user)
   })
 })
 
 videoData.forEach(video => {
-  let title = video.title
-  Video.find({title: title}).then(v => {
+  let videoId = video.videoId
+  Video.find({videoId: videoId}).then(v => {
     !v.length && Video.create(video)
   })
 })
 
 commentData.forEach(comment => {
-  let by = comment.by
-  Comment.find({by: by}).then(c => {
+  let commentId = comment.commentId
+  Comment.find({commentId: commentId}).then(c => {
     !c.length && Comment.create(comment)
   })
 })
