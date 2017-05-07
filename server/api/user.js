@@ -10,9 +10,9 @@ router.get('/users', (req, res, next) => {
 })
 
 // 获取单个信息
-router.get('/users/:userId', (req, res, next) => {
-  const userId = req.params.userId
-  User.findOne({ userId: userId }).then(user => {
+router.get('/users/:id', (req, res, next) => {
+  const id = req.params.id
+  User.findById({ _id: id }).then(user => {
     res.send(user)
   }).catch(next)
 })
@@ -25,19 +25,19 @@ router.post('/users', (req, res, next) => {
 })
 
 // 修改
-router.put('/users/:userId', (req, res, next) => {
-  const userId = req.params.userId
-  User.findOneAndUpdate({ userId: userId }, req.body).then(user => {
-    User.findOne({userId: userId}).then((user) => {
+router.put('/users/:id', (req, res, next) => {
+  const id = req.params.id
+  User.findByIdAndUpdate({ _id: id }, req.body).then(user => {
+    User.findById({_id: id}).then((user) => {
       res.send(user)
     })
   })
 })
 
 // 删除一个用户
-router.delete('/users/:userId', (req, res, next) => {
-  const userId = req.params.userId
-  User.findOneAndRemove({ userId: userId }).then(user => {
+router.delete('/users/:id', (req, res, next) => {
+  const id = req.params.id
+  User.findByIdAndRemove({ _id: id }).then(user => {
     res.send(user)
   })
 })

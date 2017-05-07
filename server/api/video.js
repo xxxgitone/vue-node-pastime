@@ -9,8 +9,8 @@ router.get('/videos', (req, res, next) => {
 })
 
 router.get('/videos/:id', (req, res, next) => {
-  const videoId = req.params.id
-  Video.findOne({videoId: videoId}).then(video => {
+  const id = req.params.id
+  Video.findById({_id: id}).then(video => {
     res.send(video)
   }).catch(next)
 })
@@ -22,8 +22,8 @@ router.post('/videos', (req, res, next) => {
 })
 
 router.delete('/videos/:id', (req, res, next) => {
-  const videoId = req.params.id
-  Video.findOneAndRemove({ videoId: videoId }).then(video => {
+  const id = req.params.id
+  Video.findByIdAndRemove({ _id: id }).then(video => {
     res.send(video)
   })
 })
