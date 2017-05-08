@@ -17,6 +17,9 @@
     "axios": "^0.16.1",
     "body-parser": "^1.17.1",
     "mongoose": "^4.9.7",
+    "node-sass": "^4.5.2",
+    "normalize.css": "^7.0.0",
+    "sass-loader": "^6.0.3",
     "vue": "^2.2.6",
     "vue-router": "^2.3.1"
   },
