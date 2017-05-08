@@ -1,23 +1,174 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <header class="header">
+      <div class="navWrap">
+        <span class="logo"><a href="#">vn-pastime</a></span>
+        <nav class="nav">
+          <ul class="nav-list">
+            <li><a href="#">VIDEO</a></li>
+            <li><a href="#">PICTURE</a></li>
+            <li><a href="#">AMIZING</a></li>
+            <li><a href="#">ABOUT</a></li>
+            <li><a href="#">LOGIN</a></li>             
+          </ul>
+        </nav>
+        <div class="search" :class="{ flex: isShow }">
+          <svg @click="showSearch" class="icon" aria-hidden="true">
+              <use xlink:href="#icon-search"></use>
+          </svg>
+          <input ref="search" :class="{ input: isShow }" @blur="showSearch" type="text" placeholder="search">
+        </div>
+      </div>
+    </header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      isShow: false
+    }
+  },
+  methods: {
+    showSearch () {
+      if (this.isShow === false) {
+        this.isShow = true
+        this.$refs.search.focus()
+      } else {
+        this.isShow = false
+      }
+    }
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
+@font-face {
+    font-family: 'Federant';
+    src: url('../static/font/Federant-Regular.ttf');
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+
+.header {
+  width: 100%;
+  height: 3.75rem;
+  position: fixed;
+  background: rgba(0,0,0,.3);
+  padding: 0 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.navWrap {
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .logo {
+    font-family:"Federant", cursive !important;
+    font-size:1.875rem;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    flex: 1;
+    flex-basis: 15%;
+    
+    a {
+      color: red;
+    }
+  }
+
+  .nav {
+    flex: 2;
+    height: 100%;
+    flex-basis: 50%;
+    transition: all 1s;
+
+    .nav-list {
+      display: flex;
+      justify-content:  space-around;
+      align-items: center;
+      height: 100%;
+
+      li {
+        flex: 6;
+        height: 100%;
+        
+      }
+
+      a {
+        font-size: 1rem;
+        color: #fff;
+        display: inline-block;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all .2s;
+
+        &:hover {
+          border-bottom: 3px solid red;
+          background-color: rgba(0, 0, 0, .5);
+        }
+      }
+    }
+  }
+
+  .flex {
+      flex: 1;
+  }
+
+  .search {
+    flex-basis: 14%;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: all .2s;
+    justify-content: center;
+
+    svg {
+      cursor: pointer;
+      position: absolute;
+      right: 83%;
+    }
+
+    input {
+      border: none;
+      outline: none;
+      color: rgba(255, 255, 255, .6);
+      width: 0;
+      background-color: rgba(0,0,0, .0);
+      transition: all .2s;
+    }
+
+    .input {
+      padding: 0.625rem 1.3rem;
+      width: 80%;
+      border-bottom: 2px solid #fff;
+    }
+
+  }
+
+}
+
 </style>
