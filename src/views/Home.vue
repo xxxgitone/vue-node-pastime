@@ -9,12 +9,6 @@
     <section>
       fdg
     </section>
-    <section>
-      fdg
-    </section>
-    <section>
-      fdg
-    </section>
   </div>
 </template>
 
