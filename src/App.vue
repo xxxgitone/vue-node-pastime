@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header class="header">
+    <header class="header" :class="{ headerBg: scrolled}">
       <div class="navWrap">
         <span class="logo"><a href="#">vn-pastime</a></span>
         <nav class="nav">
@@ -16,11 +16,34 @@
           <svg @click="showSearch" class="icon" aria-hidden="true">
               <use xlink:href="#icon-search"></use>
           </svg>
-          <input ref="search" :class="{ input: isShow }" @blur="showSearch" type="text" placeholder="search">
+          <input ref="search" 
+            :class="{ input: isShow }" 
+            @blur="showSearch" 
+            type="text" placeholder="search">
         </div>
       </div>
     </header>
     <router-view></router-view>
+    <footer class="footer">
+      <p class="contact">
+        <a href="https://github.com/xxxgitone" target="_bank">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-github"></use>
+          </svg>
+        </a>
+        <a href="https://xxxgitone.github.io/" target="_bank">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-letter-b"></use>
+          </svg>
+        </a>
+        <a href="https://www.zhihu.com/people/xxxjiang/activities" target="_bank">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-zhihu"></use>
+          </svg>
+        </a>
+      </p>
+      <span class="copy">Copyright © 2017 | <a href="https://github.com/xxxgitone" target="_bank">XUTHUS</a></span>
+    </footer>
   </div>
 </template>
 
@@ -29,7 +52,8 @@ export default {
   name: 'app',
   data () {
     return {
-      isShow: false
+      isShow: false,
+      scrolled: false
     }
   },
   methods: {
@@ -40,7 +64,18 @@ export default {
       } else {
         this.isShow = false
       }
+    },
+    updateScrollTop () {
+      let scrollTop = document.body.scrollTop
+      if (scrollTop > 0) {
+        this.scrolled = true
+      } else {
+        this.scrolled = false
+      }
     }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.updateScrollTop)
   }
 }
 </script>
@@ -55,6 +90,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
 }
 ul {
   list-style-type: none;
@@ -65,13 +101,19 @@ a {
   text-decoration: none;
 }
 
+.headerBg {
+  background-color: #212121 !important;
+}
+
 .header {
   width: 100%;
   height: 3.75rem;
   position: fixed;
-  background: rgba(0,0,0,.3);
+  background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .3));
   padding: 0 1.25rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  transition: background .3s;
 }
 
 .navWrap {
@@ -123,6 +165,7 @@ a {
         justify-content: center;
         align-items: center;
         transition: all .2s;
+        letter-spacing: 1px;
 
         &:hover {
           border-bottom: 3px solid red;
@@ -169,6 +212,57 @@ a {
 
   }
 
+}
+
+.footer {
+  background: #212121;
+  padding: 1rem calc(50% - 500px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .contact {
+    width: 100%;
+    text-align: center;
+
+    a {
+      color: #9b9b9b;
+      display: inline-block;
+      width: 1.875rem;
+      height: 1.875rem;
+      margin: 0 0.3rem;
+
+      svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition: color .3s;
+      }
+
+      &:hover {
+
+        svg {
+          color: red;
+        }
+      }
+
+    }
+  }
+
+  .copy {
+    font-size: 0.8em;
+    color: #fff;
+
+    a {
+      color: #fff;
+
+      &:hover {
+        color: #9b9b9b;
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 </style>
