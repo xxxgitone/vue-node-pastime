@@ -3,7 +3,8 @@
     <header class="land">
       <div class="content">
         <h1 class="title">Entertain Your Life Pastime</h1>
-        <p class="subTitle">If you doubt yourself,then indeed you stand on shaky ground.</p>
+        <p class="subTitle">If you doubt yourself,then indeed you stand on shaky ground. </p>
+        <a href="#" class="button">Let's Go</a>
       </div>
     </header>
     <section>
@@ -60,16 +61,32 @@ export default {
     }
 
     .subTitle {
+      margin-left: 4.5em;
       color: white;
-      font: 150% Consolas, Monaco, monospace;
-      width: 59ch;
-      animation: typing 10s steps(59),
-          caret 1s steps(1) infinite;
-      animation: typing 6s,
-      caret 1s infinite;
+      font: 120% Consolas, Monaco, monospace;
+      width: 60ch;
+      animation: typing 6s steps(59),
+          caret .5s steps(2) infinite;
       white-space: nowrap;
       overflow: hidden;
       border-right: .05em solid;
+    }
+
+    .button {
+      display: inline-block;
+      color: red;
+      font-size: 2em;
+      border: 1px solid rgba(255, 255, 255, .5);
+      padding: .7em 2em;
+      margin: 1.7em 0 0 5em;
+      border-radius: .2em;
+      transition: all .3s;
+
+      &:hover {
+        background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .5));
+        border-color: red;
+        color: white;
+      }
     }
   }
 }
