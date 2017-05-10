@@ -216,7 +216,7 @@ a {
 
 .footer {
   background: #212121;
-  padding: 1rem calc(50% - 500px);
+  padding: 1rem calc(50% - 31.25em);
   display: flex;
   justify-content: center;
   align-items: center;
