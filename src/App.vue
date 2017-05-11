@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <header class="header" :class="{ headerBg: scrolled}">
+    <header class="header" :class="{ headerBg: !isHome || scrolled}">
       <div class="navWrap">
-        <span class="logo"><a href="#">vn-pastime</a></span>
+        <span class="logo"><router-link :to="'/'">vn-pastime</router-link></span>
         <nav class="nav">
           <ul class="nav-list">
-            <li><a href="#">VIDEO</a></li>
+            <li><router-link :to="'/videolist'">VIDEO</router-link></li>
             <li><a href="#">PICTURE</a></li>
             <li><a href="#">AMIZING</a></li>
             <li><a href="#">ABOUT</a></li>
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'app',
   data () {
@@ -55,6 +56,16 @@ export default {
       isShow: false,
       scrolled: false
     }
+  },
+  created () {
+    console.log('1' + this.$store.state.isHome)
+    this.$store.state.isHome = true
+    console.log('2' + this.$store.state.isHome)
+  },
+  computed: {
+    ...mapState({
+      isHome: 'isHome'
+    })
   },
   methods: {
     showSearch () {
