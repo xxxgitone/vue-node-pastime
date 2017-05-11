@@ -38,6 +38,24 @@
         </div>
       </div>
     </section>
+    <section class="picture">
+      <div class="pic-left">
+        <div class="pic-warpper">
+          <img src="https://drscdn.500px.org/photo/211460087/q%3D80_h%3D450/be5a500bd76786b068924c9b0a9d54c1" alt="">
+        </div>
+        <div class="pic-warpper mid">
+          <img src="https://drscdn.500px.org/photo/211414721/q%3D80_h%3D300/2a249ade2ffe9733a9939716b345db31" alt="">
+          <img src="https://drscdn.500px.org/photo/211406037/q%3D80_h%3D300/5f7fe5930b4d1780897d8eb894415d0c" alt="">
+        </div>
+        <div class="pic-warpper">
+          <img src="https://drscdn.500px.org/photo/211474267/q%3D80_h%3D450/6cae18d0359ccb2b6333e694e8ea93ce" alt="">
+        </div>
+      </div>
+      <div class="pic-right">
+        <h2>美女高清大图</h2>
+        <a href="#">READMORE</a>
+      </div>
+    </section>
     <section class="tecStack">
       <div class="row1">
         <figure>
@@ -187,10 +205,106 @@ export default {
   }
 }
 
-section {
-  height: 80em;
-  // 
+section.intro {
+  font-size: 1rem;
+  height: 36rem;
+  padding: 1rem calc(50% - 28.125rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 1px solid #eee;
+
+  .title {
+    color: red;
+    letter-spacing: 2px;
+    font-size: 4em;
+  }
+
+  .contentWrapper {
+    display: flex;
+
+    div {
+      width: 100%;
+      padding: 3em 2em;
+      text-align: center;
+
+      svg {
+        width: 6em;
+        height: 6em;
+      }
+
+      p {
+        text-align: center;
+        font-size: 1em;
+      }
+
+    }
+  }
 }
+
+.picture {
+  font-size: 1rem;
+  padding: 6.8rem calc(50% - 34.375rem);
+  display: flex;
+
+  .pic-left {
+    flex-basis: 70%;
+    display: flex;
+
+    .pic-warpper {
+      width: 100%;
+      margin: 1em 1em;
+
+      img {
+        max-width: 100%;
+        cursor: pointer;
+        transition: all .3s;
+
+        &:hover {
+          transform: scale(1.02);
+        }
+      }
+    }
+    
+    .mid {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  .pic-right {
+    font-family: 'Federant';
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;;
+
+    h2 {
+      color: rgba(0, 0, 0, .5);
+      letter-spacing: 2px;
+      padding: 2rem;
+      font-size: 2rem;
+    }
+
+    a {
+      display: inline-block;
+      padding: 1.3rem 1.8rem;
+      font-size: 1.5rem;
+      color: #fff;
+      background: red;
+      border-radius: .5rem;
+      transition: color .3s;
+
+      &:hover {
+        background: rgba(0, 0, 0, 1);
+      }
+    }
+  }
+}
+
 
 .tecStack {
   height: 36rem;
@@ -256,42 +370,5 @@ section {
   }
 }
 
-  section.intro {
-    font-size: 1rem;
-    height: 36rem;
-    padding: 1rem calc(50% - 28.125rem);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 
-    .title {
-      color: red;
-      letter-spacing: 2px;
-      font-size: 4em;
-    }
-
-    .contentWrapper {
-      display: flex;
-
-      div {
-        width: 100%;
-        padding: 3em 2em;
-        text-align: center;
-
-        svg {
-          width: 6em;
-          height: 6em;
-        }
-
-        p {
-          text-align: center;
-          font-size: 1em;
-        }
-
-      }
-    }
-
-
-  }
 </style>
