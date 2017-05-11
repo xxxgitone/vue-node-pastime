@@ -204,6 +204,7 @@ section {
   .row1, .row2 {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 
     figure {
       width: 11.5em;
@@ -248,7 +249,6 @@ section {
 
   .row1 {
     width: 60%;
-    justify-content: space-between;
   }
 
   .row2 {
