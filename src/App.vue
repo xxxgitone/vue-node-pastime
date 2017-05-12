@@ -57,11 +57,6 @@ export default {
       scrolled: false
     }
   },
-  created () {
-    console.log('1' + this.$store.state.isHome)
-    this.$store.state.isHome = true
-    console.log('2' + this.$store.state.isHome)
-  },
   computed: {
     ...mapState({
       isHome: 'isHome'
@@ -77,7 +72,7 @@ export default {
       }
     },
     updateScrollTop () {
-      let scrollTop = document.body.scrollTop
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
       if (scrollTop > 0) {
         this.scrolled = true
       } else {
