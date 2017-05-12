@@ -115,7 +115,13 @@
 
 <script>
 export default {
-  name: 'home'
+  name: 'home',
+  mounted () {
+    let { isHome } = this.$store.state
+    if (isHome === false) {
+      this.$store.state.isHome = true
+    }
+  }
 }
 </script>
 
