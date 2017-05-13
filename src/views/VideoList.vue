@@ -21,30 +21,18 @@
         </svg>    
       </div>
       <div class="videos">
-        <div class="video">
-          <div class="video-top">
-            <a href="#">
-              <img src="https://i.ytimg.com/vi/vg9cNFPQFqM/hqdefault.jpg?custom=true&w=196&h=110&stc=true&jpg444=true&jpgq=90&sp=68&sigh=m7nPn8TaNQj1pU1JoObiX6voMtY">
-            </a> 
-          </div>
-          <div class="video-info">
-            <h2 class="video-title">主人归家与狗狗重逢，狗狗竟把主人堵在门口还叼出一条绳，看哭了</h2>
-            <div class="auth">
-              <div class="auth-avatar">
-                <img src="http://p2.pstatp.com/large/411001640297c536bda" alt="">
-              </div>
-              <span class="auth-name">哈哈大头</span>
-            </div>
-            <span class="timeago">6分钟前</span>
-          </div>
-        </div>
+        <Video></Video>
       </div>
   </div>
 </template>
 
 <script>
+import Video from '../components/Video'
 export default {
   name: 'videolist',
+  components: {
+    Video
+  },
   mounted () {
     this.$store.state.isHome = false
   }
@@ -81,6 +69,8 @@ export default {
 
 .videos {
   height: 200rem;
-  padding: 35rem calc(50% - 28.25rem) 0  calc(50% - 28.25rem);
+  padding-top: 35rem;
+  width: 70%;
+  margin: 0 auto;
 }
 </style>
