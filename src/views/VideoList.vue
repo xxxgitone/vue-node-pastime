@@ -21,17 +21,37 @@
         </svg>    
       </div>
       <div class="videos">
-        <Video></Video>
+        <VideoItem v-for="(video, index) in videos" 
+          :video="video" 
+          :key="index">
+        </VideoItem>
       </div>
   </div>
 </template>
 
 <script>
-import Video from '../components/Video'
+import VideoItem from '../components/VideoItem'
+import { mapState } from 'vuex'
 export default {
   name: 'videolist',
   components: {
-    Video
+    VideoItem
+  },
+  watch: {
+    '$route': 'fetchVideos'
+  },
+  created () {
+    this.fetchVideos()
+  },
+  computed: {
+    ...mapState({
+      videos: 'videos'
+    })
+  },
+  methods: {
+    fetchVideos () {
+      this.$store.commit('FETCH_VIDEOS')
+    }
   },
   mounted () {
     this.$store.state.isHome = false
@@ -68,9 +88,13 @@ export default {
   }
 
 .videos {
-  height: 200rem;
-  padding-top: 35rem;
-  width: 70%;
+  min-height: 100rem;
+  padding-top: 33rem;
+  padding-bottom: 3rem;
+  width: 78%;
   margin: 0 auto;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
 }
 </style>
