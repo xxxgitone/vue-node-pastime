@@ -2,7 +2,7 @@
     <div class="video">
         <div class="video-top">
         <div class="video-img">
-            <img src="http://p3.pstatp.com/list/190x124/1f7d000324ff5f11a275">
+            <img :src="video.imgSrc">
         </div>
         <div class="video-mask">
             <a href="#">
@@ -14,16 +14,16 @@
         </div>
         <div class="video-info">
         <a href="#">
-            <h2 class="video-title">主人归家与狗狗重逢，狗狗竟把主人堵在门口还叼出一条绳，看哭了</h2>
+            <h2 class="video-title">{{ video.title }}</h2>
         </a>
         <div class="auth">
             <a href="#" class="auth-avatar">
-            <img src="http://p2.pstatp.com/large/411001640297c536bda" alt="">
+              <img src="http://p2.pstatp.com/large/411001640297c536bda" alt="">
             </a>
             <a href="#" class="auth-name">
             <span>哈哈大头</span>
             </a>
-            <span class="timeago">6分钟前</span>
+            <span class="timeago">{{ video.created_at | timeAgo }}</span>
             <a href="#" class="hidden">...</a>
         </div>
         </div>
@@ -32,7 +32,8 @@
 
 <script>
 export default {
-  name: 'video'
+  name: 'videoitem',
+  props: ['video']
 }
 </script>
 
@@ -43,8 +44,8 @@ export default {
   width: 18.75rem;
   border-radius: .5rem;
   overflow: hidden;
-  box-shadow: 0 2px 2px rgba(0,0,0,.5);
-  margin: 1rem 0 0 1rem;
+  box-shadow: 1px 2px 2px rgba(0,0,0,.5);
+  margin: 1.5rem 0 0 1rem;
   position: relative;
 
   .video-top {
