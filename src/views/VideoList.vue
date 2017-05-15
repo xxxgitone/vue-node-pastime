@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     fetchVideos () {
-      this.$store.commit('FETCH_VIDEOS')
+      this.$store.dispatch('FETCH_VIDEOS')
     }
   },
   mounted () {
