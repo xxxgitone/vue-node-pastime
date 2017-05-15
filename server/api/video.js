@@ -3,7 +3,7 @@ const router = express.Router()
 const Video = require('../models/video')
 
 router.get('/videos', (req, res, next) => {
-  Video.find({}).then(videos => {
+  Video.find({}).sort().then(videos => {
     res.send(videos)
   }).catch(next)
 })
