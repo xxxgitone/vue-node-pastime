@@ -13,9 +13,9 @@
         </div> 
         </div>
         <div class="video-info">
-        <a href="#">
+        <router-link :to="`/video/${video.by}`">
             <h2 class="video-title">{{ video.title }}</h2>
-        </a>
+        </router-link>
         <div class="auth">
             <a href="#" class="auth-avatar">
               <img :src="video.avatar_url" alt="">
@@ -24,7 +24,7 @@
             <span>{{ video.name }}</span>
             </a>
             <span class="timeago">{{ video.created_at | timeAgo }}</span>
-            <a href="javascript:viod(0)" class="hidden" @click="hiddenVideo(video)">
+            <a href="javascript:void(0)" class="hidden" @click="hiddenVideo(video)">
               X
               <span class="alter">不感兴趣</span>
             </a>

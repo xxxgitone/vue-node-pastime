@@ -105,6 +105,7 @@ ul {
 }
 a {
   text-decoration: none;
+  outline: none;
 }
 
 .headerBg {
