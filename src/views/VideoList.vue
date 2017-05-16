@@ -91,7 +91,7 @@ export default {
   min-height: 100rem;
   padding-top: 33rem;
   padding-bottom: 3rem;
-  width: 78%;
+  width: 80%;
   margin: 0 auto;
   display: flex;
   flex-flow: wrap;
