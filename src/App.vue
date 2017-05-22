@@ -73,11 +73,7 @@ export default {
     },
     updateScrollTop () {
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
-      if (scrollTop > 0) {
-        this.scrolled = true
-      } else {
-        this.scrolled = false
-      }
+      scrollTop > 0 ? this.scrolled = true : this.scrolled = false
     }
   },
   mounted () {
@@ -87,6 +83,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./assets/scss/normalize.scss";
+@import "./assets/scss/variables.scss";
+@import "./assets/scss/mixins.scss";
+
 @font-face {
     font-family: 'Federant';
     src: url('../static/font/Federant-Regular.ttf');
@@ -109,7 +109,7 @@ a {
 }
 
 .headerBg {
-  background-color: #212121 !important;
+  background-color: $mainBlack !important;
 }
 
 .header {
@@ -127,9 +127,7 @@ a {
   width: 90%;
   height: 100%;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexCenter;
 
   .logo {
     font-family:"Federant", cursive !important;
@@ -168,9 +166,7 @@ a {
         color: #fff;
         display: inline-block;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flexCenter;
         transition: all .2s;
         letter-spacing: 1px;
 
@@ -190,11 +186,9 @@ a {
     flex-basis: 14%;
     text-align: center;
     height: 100%;
-    display: flex;
-    align-items: center;
+    @include flexCenter;
     position: relative;
     transition: all .2s;
-    justify-content: center;
 
     svg {
       cursor: pointer;
@@ -222,11 +216,9 @@ a {
 }
 
 .footer {
-  background: #212121;
+  background: $mainBlack;
   padding: 1rem calc(50% - 31.25em);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexCenter;
   flex-direction: column;
 
   .contact {

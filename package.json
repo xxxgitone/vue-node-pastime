@@ -18,7 +18,7 @@
     "body-parser": "^1.17.1",
     "moment": "^2.18.1",
     "mongoose": "^4.9.7",
-    "node-sass": "^4.5.2",
+    "node-sass": "^4.5.3",
     "normalize.css": "^7.0.0",
     "sass-loader": "^6.0.3",
     "vue": "^2.2.6",

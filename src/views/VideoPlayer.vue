@@ -2,7 +2,7 @@
   <div class="video-player">
     <div class="player-bg">
       <div class="player-wrapper">
-        <video class="player-viewer" src="http://v6.365yg.com/video/m/220fa4fefdbd32e44cb8eea7b0845803ff8114252100001c1532ac0e3d/?Expires=1493991261&AWSAccessKeyId=qh0h9TdcEMoS2oPj7aKX&Signature=Lrh53%2FVCW9TJlKJGNxYTnRi6rNg%3D" autoplay></video>
+        <video class="player-viewer" src="https://player.vimeo.com/external/194837908.sd.mp4?s=c350076905b78c67f74d7ee39fdb4fef01d12420&profile_id=164" autoplay></video>
 
         <div class="player-controls">
           <div class="progress">
