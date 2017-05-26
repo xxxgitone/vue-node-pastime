@@ -2,7 +2,7 @@
   <div class="video-player">
     <div class="player-bg">
       <div class="player-wrapper">
-        <video class="player-viewer" src="https://player.vimeo.com/external/194837908.sd.mp4?s=c350076905b78c67f74d7ee39fdb4fef01d12420&profile_id=164" autoplay></video>
+        <video class="player-viewer" src="http://baobab.kaiyanapp.com/api/v1/playUrl?vid=18376&editionType=default&source=ucloud" autoplay></video>
 
         <div class="player-controls">
           <div class="progress">
@@ -76,6 +76,8 @@ export default {
     bottom: 0;
     left: calc(50% - (55.4375rem / 2))
   }
+
+  
 }
 
 </style>

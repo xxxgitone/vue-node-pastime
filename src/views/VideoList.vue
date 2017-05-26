@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     fetchVideos () {
-      this.$store.dispatch('FETCH_VIDEOS')
+      this.$store.commit('FETCH_VIDEOS')
     }
   },
   mounted () {
@@ -95,6 +95,6 @@ export default {
   margin: 0 auto;
   display: flex;
   flex-flow: wrap;
-  justify-content: space-between;
+  // justify-content: space-between;
 }
 </style>

@@ -2,26 +2,26 @@
     <div class="video">
         <div class="video-top">
         <div class="video-img">
-            <img :src="video.imgSrc">
+            <img :src="video.coverSrc">
         </div>
         <div class="video-mask">
-            <a href="#">
+            <router-link :to="`/video/${video.id}`">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-video1"></use>
             </svg>
-            </a>
+            </router-link>
         </div> 
         </div>
         <div class="video-info">
-        <router-link :to="`/video/${video.by}`">
+        <router-link :to="`/video/${video.id}`">
             <h2 class="video-title">{{ video.title }}</h2>
         </router-link>
         <div class="auth">
             <a href="#" class="auth-avatar">
-              <img :src="video.avatar_url" alt="">
+              <img :src="video.user.avator" alt="">
             </a>
             <a href="#" class="auth-name">
-            <span>{{ video.name }}</span>
+            <span>{{ video.user.name }}</span>
             </a>
             <span class="timeago">{{ video.created_at | timeAgo }}</span>
             <a href="javascript:void(0)" class="hidden" @click="hiddenVideo(video)">
@@ -53,7 +53,7 @@ export default {
   border-radius: .5rem;
   overflow: hidden;
   box-shadow: 1px 2px 2px rgba(0,0,0,.5);
-  margin: 1.5rem 0 0 1rem;
+  margin: 1.5rem 0 0 2rem;
   position: relative;
   height: 17rem;
 
@@ -107,6 +107,10 @@ export default {
     width: 100%;
     border: 1px solid #eee;
 
+    a:hover > h2 {
+      color: red;
+    }
+
     .video-title {
       margin: 0;
       font-size: 1rem;
@@ -138,7 +142,9 @@ export default {
       .auth-name {
         display: block;
         padding: .5rem .5rem .5rem 0;
-        flex-basis: 7rem;
+        flex-basis: 9rem;
+        height: 1.6rem;
+        overflow: hidden;
         align-self: center;
         color: #333;
 
@@ -148,9 +154,11 @@ export default {
       }
 
       .timeago {
+        font-size: 0.625rem;
         flex-basis: 6rem;
         align-self: center;
         padding: .4rem 0;
+        text-align: right;
       }
     }
   }
@@ -158,7 +166,7 @@ export default {
   .hidden {
     display: block;
     font-size: .8rem;
-    padding: 1rem 0 0 2rem;
+    padding: 1rem 0 0 1rem;
     position: relative;
     color: #666;
 
