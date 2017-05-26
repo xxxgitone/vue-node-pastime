@@ -2,10 +2,9 @@ import * as types from './mutations-type'
 import axios from 'axios'
 
 const mutations = {
-  [types.FETCH_USER] (state, by) {
-    axios.get(`/api/users/${by}`).then(res => {
-      const video = state.videos.find(video => video.by === by)
-      Object.assign(video, res.data)
+  [types.FETCH_VIDEOS] (state) {
+    axios.get(`/api/videos`).then(res => {
+      state.videos = res.data
     })
   },
   [types.HIDDEN_VIDEO] (state, video) {
