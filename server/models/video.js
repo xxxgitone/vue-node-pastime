@@ -2,18 +2,23 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const VideoSchema = new Schema({
-  by: {
-    type: String
+  user: {
+    name: String,
+    avator: String
   },
-  videoId: String,
-  videosrc: String,
+  id: Number,
+  playUrl: String,
+  coverSrc: String,
+  videosrc: [
+    {name: String, url: String}
+  ],
   title: String,
   created_at: { type: Date, default: Date.now() },
   duration: Number,
-  supporter: Number,
-  fight: Number,
-  playcount: Number,
-  comments: [String]
+  supportCount: Number,
+  fightCount: Number,
+  collectionCount: Number,
+  playcount: Number
 })
 
 const Video = mongoose.model('Video', VideoSchema)

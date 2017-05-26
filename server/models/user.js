@@ -9,7 +9,6 @@ const UserSchema = new Schema({
     required: [true, 'Name fields is required'],
     unique: true
   },
-  userId: String,
   password: {
     type: String
   },
@@ -22,8 +21,6 @@ const UserSchema = new Schema({
   email: String,
   followers: Number,
   following: Number,
-  videos: [String],
-  pic: [String],
   role: String,
   gender: String
 })
