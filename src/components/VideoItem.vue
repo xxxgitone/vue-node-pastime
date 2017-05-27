@@ -56,6 +56,11 @@ export default {
   margin: 1.5rem 0 0 2rem;
   position: relative;
   height: 17rem;
+  transition: all .2s;
+
+  &:hover {
+    box-shadow: 4px 4px 4px rgba(0,0,0,.3)
+  }
 
   .video-top {
     width: 100%;

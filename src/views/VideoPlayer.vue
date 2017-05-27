@@ -2,20 +2,23 @@
   <div class="video-player">
     <div class="player-bg">
       <div class="player-wrapper">
-        <video class="player-viewer" src="http://baobab.kaiyanapp.com/api/v1/playUrl?vid=18376&editionType=default&source=ucloud" autoplay></video>
+        <video class="player-viewer" :src="videoInfo.playUrl" autoplay></video>
 
         <div class="player-controls">
+
+          <a class="player-button">►</a>
+
           <div class="progress">
             <div class="progress-bar"></div>
           </div>
 
-          <button class="player-button">►</button>
           <div class="player-volume">
             <div>icon</div>
             <div class="volume-bar">
               <span class="volume-levle"></span>
             </div>
           </div>
+          
           <div class="player-rate">
             <select>
               <option value="2.0x">2.0x</option>
@@ -36,9 +39,16 @@
 <script>
 export default {
   name: 'video',
+  computed: {
+    videoInfo () {
+      const { id } = this.$route.params
+      const { videos } = this.$store.state
+      const video = videos.find(video => video.id === Number(id))
+      return video
+    }
+  },
   mounted () {
     this.$store.state.isHome = false
-    // this.$store.state.showNav = false
   }
 }
 </script>
@@ -71,10 +81,10 @@ export default {
   .player-controls {
     position: absolute;
     height: 3rem;
-    width: 55.4375rem;
-    background: red;
+    width: 55.5rem;
+    background: rgba(0, 0, 0, .3);
     bottom: 0;
-    left: calc(50% - (55.4375rem / 2))
+    left: calc(50% - (55.5rem / 2))
   }
 
   
