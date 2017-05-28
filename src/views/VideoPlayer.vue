@@ -2,30 +2,35 @@
   <div class="video-player">
     <div class="player-bg">
       <div class="player-wrapper">
-        <video class="player-viewer" :src="videoInfo.playUrl" autoplay></video>
+        <video ref="video" class="player-viewer" :src="videoInfo.playUrl" autoplay></video>
 
         <div class="player-controls">
 
-          <a class="player-button">►</a>
+          <a class="player-button" @click="togglePlay()">{{ playIcon }}</a>
 
           <div class="progress">
             <div class="progress-bar"></div>
           </div>
 
+          <span class="duration">5:31</span>
+
           <div class="player-volume">
-            <div>icon</div>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-yinliang"></use>
+            </svg>
             <div class="volume-bar">
               <span class="volume-levle"></span>
             </div>
           </div>
           
           <div class="player-rate">
-            <select>
-              <option value="2.0x">2.0x</option>
-              <option value="2.0x">1.5x</option>
-              <option value="2.0x">1.0x</option>
-              <option value="2.0x">0.5x</option>
-            </select>
+              <span class="current-value">1.0x</span>
+              <div class="select">
+                <span>2.0x</span>
+                <span>1.5x</span>
+                <span>1.0x</span>
+                <span>0.5x</span>
+              </div>
           </div>
 
         <a href="#" class="player-vote"></a>
@@ -39,6 +44,20 @@
 <script>
 export default {
   name: 'video',
+  data () {
+    return {
+      playIcon: '►'
+    }
+  },
+  methods: {
+    togglePlay () {
+      let video = this.$refs.video
+      const method = video.paused ? 'play' : 'pause'
+      const playIcon = video.paused ? '►' : 'Ⅱ'
+      this.playIcon = playIcon
+      video[method]()
+    }
+  },
   computed: {
     videoInfo () {
       const { id } = this.$route.params
@@ -76,6 +95,7 @@ export default {
     display: block;
     width: 62.5rem;
     height: 100%;
+    cursor: pointer;
   }
 
   .player-controls {
@@ -84,10 +104,128 @@ export default {
     width: 55.5rem;
     background: rgba(0, 0, 0, .3);
     bottom: 0;
-    left: calc(50% - (55.5rem / 2))
-  }
+    left: calc(50% - (55.5rem / 2));
+    display: flex;
 
-  
+    .player-button {
+      display: block;
+      color: white;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    .progress {
+      border: 1px solid red;
+      width: 40rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+
+      .progress-bar {
+        width: 39rem;
+        height: 5px;
+        background: white;
+        border-radius: 5px;
+      }
+    }
+
+    .duration {
+      display: block;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 .5rem;
+      color: white;
+    }
+
+    .player-volume {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      border: 1px solid red;
+
+      svg {
+        width: 2rem;
+        height: 2rem;
+        color: white;
+      }
+
+      // .volume-bar {
+
+      // }
+
+    }
+
+    .player-rate {
+      align-self: center;
+      // height: 1rem;
+      // overflow: hidden;
+      color: white;
+      width: 4rem;
+      padding: .5rem .5rem;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      height: 100%;
+      transition: all .2s;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .3);
+      }
+
+      &:hover > span {
+        background: rgba(0, 0, 0, .3);
+      }
+
+      .current-value {
+        display: block;
+        width: 80%;
+        height: 100%;
+        font-size: 0.625rem;
+        padding: 0 .4rem;
+        text-align: center;
+        height: 70%;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        transition: all .2s;
+        background: red;
+      }
+
+      &:hover > .select {
+        transform: translateY(-72%);
+        display: block;
+      }
+
+      .select {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        transform: translateY(40%);
+        display: none;
+        background: rgba(0, 0, 0, .4);
+        transition: all .3s;
+
+        span {
+          display: block;
+          width: 100%;
+          text-align: center;
+          padding: .3rem 0;
+          transition: all .2s;
+
+          &:hover {
+            background: rgba(0, 0, 0, .4);
+          }
+        }
+      }
+    }
+  }
 }
 
 </style>
