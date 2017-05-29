@@ -14,6 +14,15 @@ Vue.prototype.$http = axios
 Vue.filter('timeAgo', timestamp => {
   return moment(timestamp).startOf('hour').fromNow()
 })
+
+// 处理视频时长的过滤器
+Vue.filter('durationFormat', duration => {
+  const min = parseInt(duration / 60)
+  const s = duration % 60
+  const time = s >= 10 ? `${min}:${s}` : `${min}:0${s}`
+  return time
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
