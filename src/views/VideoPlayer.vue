@@ -9,10 +9,12 @@
           <a class="player-button" @click="togglePlay()">{{ playIcon }}</a>
 
           <div class="progress">
-            <div class="progress-bar"></div>
+            <div ref="progress" class="progress-bar" @click="updateRate">
+              <span class="progress-rate"></span>
+            </div>
           </div>
 
-          <span class="duration">5:31</span>
+          <span class="duration">{{ videoInfo.duration | durationFormat }}</span>
 
           <div class="player-volume">
             <svg class="icon" aria-hidden="true">
@@ -46,16 +48,21 @@ export default {
   name: 'video',
   data () {
     return {
-      playIcon: '►'
+      playIcon: 'Ⅱ'
     }
   },
   methods: {
     togglePlay () {
       let video = this.$refs.video
       const method = video.paused ? 'play' : 'pause'
-      const playIcon = video.paused ? '►' : 'Ⅱ'
+      const playIcon = video.paused ? 'Ⅱ' : '►'
       this.playIcon = playIcon
       video[method]()
+    },
+    updateRate (event) {
+      const { video, progress } = this.$refs
+      const time = (event.offsetX / progress.offsetWidth) * video.duration
+      video.currentTime = time
     }
   },
   computed: {
@@ -119,7 +126,6 @@ export default {
     }
 
     .progress {
-      border: 1px solid red;
       width: 40rem;
       height: 100%;
       display: flex;
@@ -130,6 +136,15 @@ export default {
         height: 5px;
         background: white;
         border-radius: 5px;
+        position: relative;
+        cursor: pointer;
+
+        .progress-rate {
+          position: absolute;
+          border-radius: 5px;
+          top:0;left: 0;bottom: 0;right: 90%;
+          background: red;
+        }
       }
     }
 
@@ -146,7 +161,7 @@ export default {
       display: flex;
       align-items: center;
       cursor: pointer;
-      border: 1px solid red;
+      position: relative;
 
       svg {
         width: 2rem;
@@ -154,9 +169,16 @@ export default {
         color: white;
       }
 
-      // .volume-bar {
-
-      // }
+      .volume-bar {
+        position: absolute;
+        width: 4px;
+        height: 3.5rem;
+        background: white;
+        bottom: 72%;
+        left: 50%;
+        border-radius: 5px;
+        transform: translateX(-50%);
+      }
 
     }
 
