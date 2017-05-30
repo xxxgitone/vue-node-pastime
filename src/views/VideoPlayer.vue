@@ -2,15 +2,24 @@
   <div class="video-player">
     <div class="player-bg">
       <div class="player-wrapper">
-        <video ref="video" class="player-viewer" :src="videoInfo.playUrl" autoplay></video>
+        <video 
+          @timeupdate="updateBar" 
+          ref="video" 
+          class="player-viewer" 
+          :src="videoInfo.playUrl" 
+          autoplay>
+          </video>
 
         <div class="player-controls">
 
           <a class="player-button" @click="togglePlay()">{{ playIcon }}</a>
 
           <div class="progress">
-            <div ref="progress" class="progress-bar" @click="updateRate">
-              <span class="progress-rate"></span>
+            <div ref="progress" class="progress-bar" @click="updateProgress">
+              <span 
+                ref="progressBar" 
+                class="progress-rate">
+                </span>
             </div>
           </div>
 
@@ -52,6 +61,7 @@ export default {
     }
   },
   methods: {
+    // 控制播放和暂停
     togglePlay () {
       let video = this.$refs.video
       const method = video.paused ? 'play' : 'pause'
@@ -59,10 +69,20 @@ export default {
       this.playIcon = playIcon
       video[method]()
     },
-    updateRate (event) {
+    // 调整进度
+    updateProgress (event) {
       const { video, progress } = this.$refs
       const time = (event.offsetX / progress.offsetWidth) * video.duration
       video.currentTime = time
+    },
+    // 更新红色进度条
+    updateBar () {
+      const { video, progressBar } = this.$refs
+      // 改变红色进度条的右偏移量，进度条是左边开始，所以需要用1减去
+      const precent = (1 - (video.currentTime / video.duration)) * 100
+      progressBar.style.right = `${precent}%`
+
+      this.playIcon = video.currentTime === video.duration || video.paused ? '►' : 'Ⅱ'
     }
   },
   computed: {
