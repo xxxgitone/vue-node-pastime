@@ -10,6 +10,26 @@
           autoplay>
           </video>
 
+        <div class="slide">
+          <div class="silde-top">
+            <span class="collect">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-jinlingyingcaiwangtubiao24"></use>
+              </svg>
+            </span>
+            <span class="support">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-zan2"></use>
+              </svg>
+            </span>
+          </div>
+          <div class="videoSrc">
+            <span v-for="src in videoInfo.videosrc">
+              {{ src.name }}
+            </span>       
+          </div>
+        </div>
+
         <div class="player-controls">
 
           <a class="player-button" @click="togglePlay()">{{ playIcon }}</a>
@@ -23,24 +43,26 @@
             </div>
           </div>
 
-          <span class="duration">{{ videoInfo.duration | durationFormat }}</span>
+          <span class="duration">
+            <span class="curTime">{{ currentTime | durationFormat }}</span>
+            {{ videoInfo.duration | durationFormat }}
+          </span>
 
           <div class="player-volume">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-yinliang"></use>
             </svg>
-            <div class="volume-bar">
-              <span class="volume-levle"></span>
+            <div ref="volumeBar" class="volume-bar" @click="handleVolume">
+              <span ref="volumeLevle" class="volume-levle"></span>
             </div>
           </div>
           
           <div class="player-rate">
-              <span class="current-value">1.0x</span>
+              <span class="current-value">{{ currentSpeed }}</span>
               <div class="select">
-                <span>2.0x</span>
-                <span>1.5x</span>
-                <span>1.0x</span>
-                <span>0.5x</span>
+                <span v-for="rate in wordSpeeds" @click="handleSpeed(rate)">
+                  {{ rate }}
+                  </span>
               </div>
           </div>
 
@@ -57,7 +79,10 @@ export default {
   name: 'video',
   data () {
     return {
-      playIcon: 'Ⅱ'
+      playIcon: 'Ⅱ',
+      currentTime: 0,
+      currentSpeed: '1.0x',
+      wordSpeeds: ['2.0x', '1.5x', '1.0x', '0.5x']
     }
   },
   methods: {
@@ -71,8 +96,10 @@ export default {
     },
     // 调整进度
     updateProgress (event) {
-      const { video, progress } = this.$refs
+      const { video, progress, progressBar } = this.$refs
       const time = (event.offsetX / progress.offsetWidth) * video.duration
+      const precent = (1 - (event.offsetX / progress.offsetWidth)) * 100
+      progressBar.style.right = `${precent}%`
       video.currentTime = time
     },
     // 更新红色进度条
@@ -83,6 +110,21 @@ export default {
       progressBar.style.right = `${precent}%`
 
       this.playIcon = video.currentTime === video.duration || video.paused ? '►' : 'Ⅱ'
+
+      // 更新当前时间
+      this.currentTime = Math.floor(video.currentTime)
+    },
+    // 处理音量
+    handleVolume (e) {
+      const { volumeBar, volumeLevle } = this.$refs
+      const precent = (1 - (e.offsetY / volumeBar.offsetHeight)) * 100 + 1
+      volumeLevle.style.height = `${precent}%`
+    },
+    // 处理语速
+    handleSpeed (rate) {
+      const { video } = this.$refs
+      this.currentSpeed = rate
+      video.playbackRate = parseFloat(this.currentSpeed)
     }
   },
   computed: {
@@ -123,6 +165,52 @@ export default {
     width: 62.5rem;
     height: 100%;
     cursor: pointer;
+  }
+
+  .slide {
+    // border: 1px solid red;
+    background: rgba(0, 0, 0, .2);
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .silde-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // height: 
+      span {
+        cursor: pointer;
+        padding: .3rem 0;
+      }
+      svg {
+        height: 2.5rem;
+        width: 2.3rem;
+        color: white;
+      }
+    }
+
+    .videoSrc {
+      display: flex;
+      flex-direction: column;
+
+      span {
+        font-size: 1.2rem;
+        color: white;
+        padding: .5rem 1rem;
+        border: 1px solid rgba(0, 0, 0, .5);
+        border-radius: 2px;
+        cursor: pointer;
+      }
+
+      span.select {
+        background: red;
+      }
+    }
   }
 
   .player-controls {
@@ -175,6 +263,13 @@ export default {
       align-items: center;
       padding: 0 .5rem;
       color: white;
+
+      .curTime {
+        color: red;
+        font-size: 0.625rem;
+        display: block;
+        padding-right: .5rem;
+      }
     }
 
     .player-volume {
@@ -182,6 +277,10 @@ export default {
       align-items: center;
       cursor: pointer;
       position: relative;
+      
+      &:hover .volume-bar {
+        display: block;
+      }
 
       svg {
         width: 2rem;
@@ -191,11 +290,25 @@ export default {
 
       .volume-bar {
         position: absolute;
+        display: none;
         width: 4px;
         height: 3.5rem;
         background: white;
         bottom: 72%;
         left: 50%;
+        border-radius: 5px;
+        transform: translateX(-50%);
+        outline: 2px;
+        transition: all .2s;
+      }
+
+      .volume-levle {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 4px;
+        background-color: red;
+        // height: 3.5rem;
         border-radius: 5px;
         transform: translateX(-50%);
       }
