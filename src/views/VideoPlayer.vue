@@ -4,27 +4,28 @@
       <div class="player-wrapper">
         <video 
           @timeupdate="updateBar" 
+          @ended="showRepalyButton"
           ref="video" 
           class="player-viewer" 
-          :src="videoInfo.playUrl" 
+          :src="playUrl" 
           autoplay>
           </video>
 
         <div class="slide">
           <div class="silde-top">
-            <span class="collect">
+            <span class="collect" @click="handleCollect" :class="{ selected: selectedCol}">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-jinlingyingcaiwangtubiao24"></use>
               </svg>
             </span>
-            <span class="support">
+            <span class="support" @click="handleSupport" :class="{ selected: selectedSup}">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-zan2"></use>
               </svg>
             </span>
           </div>
           <div class="videoSrc">
-            <span v-for="src in videoInfo.videosrc">
+            <span v-for="src in videoInfo.videosrc" :class="{ select: selectedSrc === src.name }" @click="switchSrc(src)">
               {{ src.name }}
             </span>       
           </div>
@@ -71,6 +72,18 @@
       </div>     
       </div>
     </div>
+
+    <div class="loading" v-show="loading">
+        <img src="../assets/img/loading.jpg"/>
+    </div>
+
+    <div class="replay" v-show="playend" @click="replay">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-zhongbo"></use>
+      </svg>
+      <span class="text">重播</span>
+    </div>
+
   </div>
 </template>
 
@@ -82,7 +95,13 @@ export default {
       playIcon: 'Ⅱ',
       currentTime: 0,
       currentSpeed: '1.0x',
-      wordSpeeds: ['2.0x', '1.5x', '1.0x', '0.5x']
+      wordSpeeds: ['2.0x', '1.5x', '1.0x', '0.5x'],
+      selectedSrc: '标清',
+      playUrl: '',
+      selectedCol: false,
+      selectedSup: false,
+      loading: true,
+      playend: false
     }
   },
   methods: {
@@ -111,6 +130,11 @@ export default {
 
       this.playIcon = video.currentTime === video.duration || video.paused ? '►' : 'Ⅱ'
 
+      if (video.currentTime > 0) {
+        // 隐藏加载
+        this.loading = false
+      }
+
       // 更新当前时间
       this.currentTime = Math.floor(video.currentTime)
     },
@@ -125,6 +149,29 @@ export default {
       const { video } = this.$refs
       this.currentSpeed = rate
       video.playbackRate = parseFloat(this.currentSpeed)
+    },
+    // 切换标清，高清
+    switchSrc (src) {
+      this.selectedSrc = src.name
+      this.playUrl = src.url
+    },
+    // 收藏
+    handleCollect () {
+      this.selectedCol ? this.selectedCol = false : this.selectedCol = true
+    },
+    // 点赞
+    handleSupport () {
+      this.selectedSup ? this.selectedSup = false : this.selectedSup = true
+    },
+    // 显示重播按钮
+    showRepalyButton () {
+      this.playend = true
+    },
+    // 重播
+    replay () {
+      let { video } = this.$refs
+      video.play()
+      this.playend = false
     }
   },
   computed: {
@@ -132,6 +179,7 @@ export default {
       const { id } = this.$route.params
       const { videos } = this.$store.state
       const video = videos.find(video => video.id === Number(id))
+      this.playUrl = video.playUrl
       return video
     }
   },
@@ -159,6 +207,17 @@ export default {
   height: 31.25rem;
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
+
+  &:hover > .slide {
+    transform: translateX(0);
+  }
+
+  &:hover > .player-controls {
+    transform: translateY(0);
+  }
+
+
 
   .player-viewer {
     display: block;
@@ -177,6 +236,12 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    transform: translateX(250%);
+    transition: all .3s;
+
+    &:hover {
+      transform: translateY(0);
+    }
 
     .silde-top {
       display: flex;
@@ -192,6 +257,10 @@ export default {
         width: 2.3rem;
         color: white;
       }
+
+      .selected > svg {
+        color: red;
+      }
     }
 
     .videoSrc {
@@ -202,9 +271,14 @@ export default {
         font-size: 1.2rem;
         color: white;
         padding: .5rem 1rem;
-        border: 1px solid rgba(0, 0, 0, .5);
-        border-radius: 2px;
+        // border: 1px solid rgba(0, 0, 0, .5);
+        border-radius: 5px;
         cursor: pointer;
+        margin-top: 1px;
+
+        &:hover {
+          background: red;
+        }
       }
 
       span.select {
@@ -221,6 +295,8 @@ export default {
     bottom: 0;
     left: calc(50% - (55.5rem / 2));
     display: flex;
+    transform: translateY(100%);
+    transition: all .3s;
 
     .player-button {
       display: block;
@@ -250,7 +326,7 @@ export default {
         .progress-rate {
           position: absolute;
           border-radius: 5px;
-          top:0;left: 0;bottom: 0;right: 90%;
+          top:0;left: 0;bottom: 0;right: 100%;
           background: red;
         }
       }
@@ -308,7 +384,6 @@ export default {
         left: 50%;
         width: 4px;
         background-color: red;
-        // height: 3.5rem;
         border-radius: 5px;
         transform: translateX(-50%);
       }
@@ -317,8 +392,6 @@ export default {
 
     .player-rate {
       align-self: center;
-      // height: 1rem;
-      // overflow: hidden;
       color: white;
       width: 4rem;
       padding: .5rem .5rem;
@@ -382,5 +455,41 @@ export default {
     }
   }
 }
+
+ .loading {
+     height: 32rem;
+     width: 63rem;
+     background: #1A1A1A;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     position: absolute;
+     top:9%;
+     left: 10.8rem;
+
+     img {
+       width: 10%;
+     }
+   }
+
+   .replay {
+     width: 3rem;
+     cursor: pointer;
+     position: absolute;
+     top: 45%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     text-align: center;
+
+     svg {
+       width:3rem;
+       height: 3rem;
+     }
+
+     .text {
+       color: white;
+       font-size: .625rem;
+     }
+   }
 
 </style>
