@@ -140,9 +140,9 @@ export default {
     },
     // 处理音量
     handleVolume (e) {
-      const { volumeBar, volumeLevle } = this.$refs
-      const precent = (1 - (e.offsetY / volumeBar.offsetHeight)) * 100 + 1
-      volumeLevle.style.height = `${precent}%`
+      // const { volumeBar, volumeLevle } = this.$refs
+      // const precent = (1 - (e.offsetY / volumeBar.offsetHeight)) * 100 + 1
+      // volumeLevle.style.height = `${precent}%`
     },
     // 处理语速
     handleSpeed (rate) {
@@ -367,7 +367,7 @@ export default {
       .volume-bar {
         position: absolute;
         display: none;
-        width: 4px;
+        width: 5px;
         height: 3.5rem;
         background: white;
         bottom: 72%;
@@ -382,7 +382,7 @@ export default {
         position: absolute;
         bottom: 0;
         left: 50%;
-        width: 4px;
+        width: 5px;
         background-color: red;
         border-radius: 5px;
         transform: translateX(-50%);
