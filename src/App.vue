@@ -9,7 +9,7 @@
             <li><a href="#">PICTURE</a></li>
             <li><a href="#">AMIZING</a></li>
             <li><a href="#">ABOUT</a></li>
-            <li><a href="#">LOGIN</a></li>             
+            <li><router-link :to="'/signin'">LOGIN</router-link></li>             
           </ul>
         </nav>
         <div class="search" :class="{ flex: isShow }">
