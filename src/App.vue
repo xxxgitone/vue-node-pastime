@@ -9,7 +9,7 @@
             <li><a href="#">PICTURE</a></li>
             <li><a href="#">AMIZING</a></li>
             <li><a href="#">ABOUT</a></li>
-            <li><router-link :to="'/signin'">LOGIN</router-link></li>             
+            <li><a href="javascript:void(0)" @click="signin">LOGIN</a></li>             
           </ul>
         </nav>
         <div class="search" :class="{ flex: isShow }">
@@ -44,17 +44,29 @@
       </p>
       <span class="copy">Copyright © 2017 | <a href="https://github.com/xxxgitone" target="_bank">XUTHUS</a></span>
     </footer>
+    <div class="singinMask" v-show="showSignin">
+      <div class="title">
+        <h2>SIGN IN</h2>
+        <span class="close" @click="signin">&times;</span>
+      </div>
+      <Signin></Signin>
+    </div>
   </div>
 </template>
 
 <script>
+import Signin from './components/Signin'
 import { mapState } from 'vuex'
 export default {
   name: 'app',
+  components: {
+    Signin
+  },
   data () {
     return {
       isShow: false,
-      scrolled: false
+      scrolled: false,
+      showSignin: false
     }
   },
   computed: {
@@ -74,6 +86,10 @@ export default {
     updateScrollTop () {
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
       scrollTop > 0 ? this.scrolled = true : this.scrolled = false
+    },
+    // 显示登录注册框
+    signin () {
+      this.showSignin ? this.showSignin = false : this.showSignin = true
     }
   },
   mounted () {
@@ -259,6 +275,39 @@ a {
       &:hover {
         color: #9b9b9b;
         text-decoration: underline;
+      }
+    }
+  }
+}
+
+.singinMask {
+  position: fixed;
+  top: 50%;left: 50%;
+  z-index: 1;
+  width: 26rem;
+  height: 26rem;
+  background: #AAB2AF;
+  border: 1px solid rgba(0, 0, 0, .5);
+  transform: translate(-45%, -50%);
+  box-shadow: 0 .2em .5em rgba(0, 0, 0, .5),
+    0 0 0 100vmax rgba(0,0,0,.5);
+
+  .title {
+    width: 100%;
+    text-align: center;
+    border: 1px solid transparent; 
+    position: relative;
+
+    .close {
+      position: absolute;
+      top: 5%;
+      right: 4%;
+      cursor: pointer;
+      font-size: 2rem;
+      color: white;
+
+      &:hover {
+        color: red;
       }
     }
   }
