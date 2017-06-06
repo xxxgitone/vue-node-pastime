@@ -5,6 +5,7 @@
         <video 
           @timeupdate="updateBar" 
           @ended="showRepalyButton"
+          @canplay="canplay"
           ref="video" 
           class="player-viewer" 
           :src="playUrl" 
@@ -101,10 +102,19 @@ export default {
       selectedCol: false,
       selectedSup: false,
       loading: true,
-      playend: false
+      playend: false,
+      volume: 0.5
     }
   },
   methods: {
+    // 当视频可以播放时执行
+    canplay () {
+      const { video } = this.$refs
+      // 隐藏加载
+      this.loading = false
+      // 将声音设置成默认0.5
+      video.volume = this.volume
+    },
     // 控制播放和暂停
     togglePlay () {
       let video = this.$refs.video
@@ -130,19 +140,17 @@ export default {
 
       this.playIcon = video.currentTime === video.duration || video.paused ? '►' : 'Ⅱ'
 
-      if (video.currentTime > 0) {
-        // 隐藏加载
-        this.loading = false
-      }
-
       // 更新当前时间
       this.currentTime = Math.floor(video.currentTime)
     },
     // 处理音量
     handleVolume (e) {
-      // const { volumeBar, volumeLevle } = this.$refs
-      // const precent = (1 - (e.offsetY / volumeBar.offsetHeight)) * 100 + 1
-      // volumeLevle.style.height = `${precent}%`
+      const { volumeBar, volumeLevle, video } = this.$refs
+      const clientReact = volumeBar.getBoundingClientRect()
+      const diffY = e.clientY - clientReact.bottom
+      volumeLevle.style.height = -diffY + 'px'
+      this.volumeValue = volumeLevle.offsetHeight / volumeBar.offsetHeight
+      video.volume = this.volumeValue
     },
     // 处理语速
     handleSpeed (rate) {
@@ -380,9 +388,10 @@ export default {
 
       .volume-levle {
         position: absolute;
-        bottom: 0;
-        left: 50%;
-        width: 5px;
+        bottom: 1%;
+        left: 52%;
+        width: 7px;
+        height: 50%;
         background-color: red;
         border-radius: 5px;
         transform: translateX(-50%);
