@@ -51,9 +51,14 @@
           </span>
 
           <div class="player-volume">
-            <svg class="icon" aria-hidden="true">
+            <svg v-show="!volumeoff" class="icon" aria-hidden="true" @click="volumeOff">
               <use xlink:href="#icon-yinliang"></use>
             </svg>
+
+            <svg v-show="volumeoff" class="icon" aria-hidden="true" @click="volumeOn">
+              <use xlink:href="#icon-volumeoff"></use>
+            </svg>
+
             <div ref="volumeBar" class="volume-bar" @click="handleVolume">
               <span ref="volumeLevle" class="volume-levle"></span>
             </div>
@@ -103,7 +108,8 @@ export default {
       selectedSup: false,
       loading: true,
       playend: false,
-      volume: 0.5
+      volume: 0.5,
+      volumeoff: false
     }
   },
   methods: {
@@ -145,6 +151,7 @@ export default {
     },
     // 处理音量
     handleVolume (e) {
+      this.volumeoff = false
       const { volumeBar, volumeLevle, video } = this.$refs
       const clientReact = volumeBar.getBoundingClientRect()
       const diffY = e.clientY - clientReact.bottom
@@ -165,15 +172,30 @@ export default {
     },
     // 收藏
     handleCollect () {
-      this.selectedCol ? this.selectedCol = false : this.selectedCol = true
+      this.selectedCol = !this.selectedCol
     },
     // 点赞
     handleSupport () {
-      this.selectedSup ? this.selectedSup = false : this.selectedSup = true
+      this.selectedSup = !this.selectedSup
     },
     // 显示重播按钮
     showRepalyButton () {
       this.playend = true
+    },
+    // 静音
+    volumeOff () {
+      const { video, volumeLevle } = this.$refs
+      this.volumeoff = true
+      this.volume = video.volume
+      volumeLevle.style.height = 0
+      video.volume = 0
+    },
+    // 解除静音
+    volumeOn () {
+      const { video, volumeLevle, volumeBar } = this.$refs
+      this.volumeoff = false
+      video.volume = this.volume
+      volumeLevle.style.height = volumeBar.offsetHeight * this.volume + 'px'
     },
     // 重播
     replay () {
