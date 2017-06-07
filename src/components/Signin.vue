@@ -1,18 +1,18 @@
 <template>
-    <form class="signinForm">
+    <form class="signinForm" ref="signinForm">
       <div class="form-control">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-yonghuming"></use>
         </svg>
-        <input type="text" placeholder="用户名"/>
+        <input type="text" placeholder="用户名" v-model="username"/>
       </div>
       <div class="form-control">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-mima"></use>
         </svg>
-        <input type="password" placeholder="密码"/>
+        <input type="password" placeholder="密码" v-model="password"/>
       </div>
-      <button class="signin">登录</button>
+      <button type="submit" class="signin" @click.prevent="signin">登录</button>
 
       <a class="signup" href="#">没有帐号？点击注册</a>
     </form>
@@ -20,7 +20,41 @@
 
 <script>
 export default {
-  name: 'signin'
+  name: 'signin',
+  data () {
+    return {
+      username: '',
+      password: ''
+    }
+  },
+  methods: {
+    signin () {
+      let formInfo = {
+        username: this.username,
+        password: this.password
+      }
+      let { signinForm } = this.$refs
+      this.$http.post('/auth/users', formInfo).then((res) => {
+        this.$store.state.message = res.data
+        const data = res.data
+        if (data.success) {
+          sessionStorage.setItem('vn-token', data.token)
+          setTimeout(() => {
+            signinForm.reset()
+            this.$store.state.message = {}
+            this.$store.state.showSignin = false
+          }, 500)
+        } else {
+          sessionStorage.setItem('vn-token', null)
+        }
+      }).catch((err) => {
+        this.$store.state.message = {
+          success: false,
+          message: err
+        }
+      })
+    }
+  }
 }
 </script>
 
