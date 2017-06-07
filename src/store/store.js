@@ -9,7 +9,9 @@ const store = new Vuex.Store({
   state: {
     isHome: true,
     videos: [],
-    user: {}
+    user: {},
+    message: {},
+    showSignin: false
   },
   mutations
 })
