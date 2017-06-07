@@ -46,7 +46,8 @@
     </footer>
     <div class="singinMask" v-show="showSignin">
       <div class="title">
-        <h2>SIGN IN</h2>
+        <h2>SIGN &nbsp;IN</h2>
+        <span class="message" :class="{ messageSuccess: message.success}">{{ message.message }}</span>
         <span class="close" @click="signin">&times;</span>
       </div>
       <Signin></Signin>
@@ -65,13 +66,14 @@ export default {
   data () {
     return {
       isShow: false,
-      scrolled: false,
-      showSignin: false
+      scrolled: false
     }
   },
   computed: {
     ...mapState({
-      isHome: 'isHome'
+      isHome: 'isHome',
+      message: 'message',
+      showSignin: 'showSignin'
     })
   },
   methods: {
@@ -89,7 +91,7 @@ export default {
     },
     // 显示登录注册框
     signin () {
-      this.showSignin ? this.showSignin = false : this.showSignin = true
+      this.$store.state.showSignin = !this.$store.state.showSignin
     }
   },
   mounted () {
@@ -294,9 +296,19 @@ a {
 
   .title {
     width: 100%;
+    height: 5.5rem;
     text-align: center;
     border: 1px solid transparent; 
     position: relative;
+
+    .message {
+      font-size: .875rem;
+      color: red;
+    }
+
+    .messageSuccess {
+      color: green;
+    }
 
     .close {
       position: absolute;
