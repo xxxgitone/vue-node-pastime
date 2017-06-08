@@ -9,7 +9,7 @@
             <li><a href="#">PICTURE</a></li>
             <li><a href="#">AMIZING</a></li>
             <li><a href="#">ABOUT</a></li>
-            <li><a href="javascript:void(0)" @click="signin">LOGIN</a></li>             
+            <!--<li><a href="javascript:void(0)" @click="signin">LOGIN</a></li>       -->
           </ul>
         </nav>
         <div class="search" :class="{ flex: isShow }">
@@ -20,6 +20,17 @@
             :class="{ input: isShow }" 
             @blur="showSearch" 
             type="text" placeholder="search">
+        </div>
+        <div class="personalMenu" @click="showMenu">
+          <img src="http://img.kaiyanapp.com/8d5378f082902ec0aad6f0574d524e12.jpeg?imageMogr2/quality/60/format/jpg" />
+          <nav class="menu" v-show="showMenued">
+            <ul>
+              <li>
+                <router-link :to="'/post/video'">发布视频</router-link>
+                <a href="#">个人主页</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </header>
@@ -66,7 +77,8 @@ export default {
   data () {
     return {
       isShow: false,
-      scrolled: false
+      scrolled: false,
+      showMenued: false
     }
   },
   computed: {
@@ -92,6 +104,10 @@ export default {
     // 显示登录注册框
     signin () {
       this.$store.state.showSignin = !this.$store.state.showSignin
+    },
+    // 显示个人菜单
+    showMenu () {
+      this.showMenued = !this.showMenued
     }
   },
   mounted () {
@@ -229,6 +245,44 @@ a {
       border-bottom: 2px solid #fff;
     }
 
+  }
+
+  .personalMenu {
+    width: 2rem;
+    height: 100%;
+    border-radius: 50%;
+    margin-top: 1.25rem;
+    position: relative;
+    cursor: pointer;
+
+    img {
+      max-width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+    }
+
+    .menu {
+      position: absolute;
+      width: 7rem;
+      text-align: center;
+      top: 85%;
+      right: -140%;
+      background: rgba(0, 0, 0, .5);
+      border-radius: 5px;
+
+      a {
+        color: white;
+        display: block;
+        padding: .5rem;
+        letter-spacing: 1px;
+        transition: all .3s;
+
+        &:hover {
+          background: red;
+        }
+      }
+
+    }
   }
 
 }
