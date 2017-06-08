@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
 // 获取全部用户信息
 router.get('/users', (req, res, next) => {
@@ -21,9 +22,13 @@ router.get('/users/:id', (req, res, next) => {
 // 添加一个用户,用户登录
 router.post('/users', (req, res, next) => {
   let formInfo = req.body
+  // 给密码进行加密处理，更新数据库中密码，实际过程中在注册的时候就进行加码
+  // const salt = bcrypt.genSaltSync(10)
+  // const hash = bcrypt.hashSync(formInfo.password, salt)
+  // console.log(hash) // $2a$10$wsFYIY9aUemnHIDFcppln.WL1u1ISqn.IjwZbajJX/yHzQJrnBjzy
   User.findOne({ name: formInfo.username }).then(user => {
     if (user != null) {
-      if (user.password !== formInfo.password) { // 如果密码错误，返回状态给前端
+      if (!bcrypt.compareSync(formInfo.password, user.password)) { // 如果密码错误，返回状态给前端
         res.json({
           success: false,
           message: '认证失败，密码错误'
@@ -31,7 +36,8 @@ router.post('/users', (req, res, next) => {
       } else { // 密码正确
         const userToken = {
           name: user.name,
-          id: user._id
+          id: user._id,
+          avatar_url: user.avatar_url
         }
         // 密钥
         const secret = 'vnpastime'
