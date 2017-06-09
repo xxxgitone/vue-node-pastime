@@ -19,13 +19,19 @@ router.get('/users/:id', (req, res, next) => {
   }).catch(next)
 })
 
+// 获取单个用户，通过token
+router.get('/user', (req, res, next) => {
+  const token = req.query.token
+  const decode = jwt.verify(token, 'vnpastime')
+  const name = decode.name
+  User.findOne({ name: name }).then(user => {
+    res.send(user)
+  })
+})
+
 // 添加一个用户,用户登录
 router.post('/users', (req, res, next) => {
   let formInfo = req.body
-  // 给密码进行加密处理，更新数据库中密码，实际过程中在注册的时候就进行加码
-  // const salt = bcrypt.genSaltSync(10)
-  // const hash = bcrypt.hashSync(formInfo.password, salt)
-  // console.log(hash) // $2a$10$wsFYIY9aUemnHIDFcppln.WL1u1ISqn.IjwZbajJX/yHzQJrnBjzy
   User.findOne({ name: formInfo.username }).then(user => {
     if (user != null) {
       if (!bcrypt.compareSync(formInfo.password, user.password)) { // 如果密码错误，返回状态给前端
