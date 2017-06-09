@@ -38,14 +38,15 @@ export default {
         this.$store.state.message = res.data
         const data = res.data
         if (data.success) {
-          sessionStorage.setItem('vn-token', data.token)
+          this.$store.state.userInfo.token = data.token
+          localStorage.setItem('vn-token', data.token)
           setTimeout(() => {
             signinForm.reset()
             this.$store.state.message = {}
             this.$store.state.showSignin = false
           }, 500)
         } else {
-          sessionStorage.setItem('vn-token', null)
+          localStorage.setItem('vn-token', null)
         }
       }).catch((err) => {
         this.$store.state.message = {
