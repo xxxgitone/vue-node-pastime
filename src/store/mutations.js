@@ -7,6 +7,7 @@ const mutations = {
       state.videos = res.data
     })
   },
+  // 隐藏不感兴趣
   [types.HIDDEN_VIDEO] (state, video) {
     const index = state.videos.indexOf(video)
     state.videos = [
