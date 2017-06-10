@@ -26,7 +26,7 @@ router.get('/user', (req, res, next) => {
   const name = decode.name
   User.findOne({ name: name }).then(user => {
     res.send(user)
-  })
+  }).catch(next)
 })
 
 // 添加一个用户,用户登录
@@ -61,7 +61,7 @@ router.post('/users', (req, res, next) => {
         message: '用户不存在'
       })
     }
-  })
+  }).catch(next)
 
   // User.create(req.body).then(user => {
   //   res.send(user)
@@ -75,7 +75,7 @@ router.put('/users/:id', (req, res, next) => {
     User.findById({_id: id}).then((user) => {
       res.send(user)
     })
-  })
+  }).catch(next)
 })
 
 // 删除一个用户
@@ -83,7 +83,7 @@ router.delete('/users/:id', (req, res, next) => {
   const id = req.params.id
   User.findByIdAndRemove({ _id: id }).then(user => {
     res.send(user)
-  })
+  }).catch(next)
 })
 
 module.exports = router
