@@ -9,7 +9,7 @@
             <li><a href="#">PICTURE</a></li>
             <li><a href="#">AMIZING</a></li>
             <li><a href="#">ABOUT</a></li>
-            <li v-show="!userInfo.name"><a href="#" @click.prevent="signin">LOGIN</a></li>
+            <li v-show="!user.info.name"><a href="#" @click.prevent="signin">LOGIN</a></li>
           </ul>
         </nav>
         <div class="search" :class="{ flex: isShow }">
@@ -21,17 +21,18 @@
             @blur="showSearch" 
             type="text" placeholder="search">
         </div>
-        <!--<div class="personalMenu" @click="showMenu">
-          <img src="http://img.kaiyanapp.com/8d5378f082902ec0aad6f0574d524e12.jpeg?imageMogr2/quality/60/format/jpg" />
+        <div class="personalMenu" @click="showMenu" v-show="user.info.name">
+          <img :src="user.info.avatar_url" />
           <nav class="menu" v-show="showMenued">
             <ul>
               <li>
                 <router-link :to="'/post/video'">发布视频</router-link>
                 <a href="#">个人主页</a>
+                <a href="#" @click.prevent="signout">退出登录</a>
               </li>
             </ul>
           </nav>
-        </div>-->
+        </div>
       </div>
     </header>
     <router-view></router-view>
@@ -82,11 +83,13 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('FETCH_SIGNIN_USER')
+    if (this.$store.state.user.token !== 'null') {
+      this.$store.dispatch('FETCH_SIGNIN_USER')
+    }
   },
   computed: {
     ...mapState({
-      userInfo: 'userInfo',
+      user: 'user',
       isHome: 'isHome',
       message: 'message',
       showSignin: 'showSignin'
@@ -112,6 +115,9 @@ export default {
     // 显示个人菜单
     showMenu () {
       this.showMenued = !this.showMenued
+    },
+    signout () {
+      localStorage.setItem('vn-token', null)
     }
   },
   mounted () {
