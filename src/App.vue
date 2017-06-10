@@ -117,6 +117,7 @@ export default {
       this.showMenued = !this.showMenued
     },
     signout () {
+      this.$store.commit('SET_USER_OUT')
       localStorage.setItem('vn-token', null)
     }
   },
