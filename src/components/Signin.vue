@@ -40,6 +40,7 @@ export default {
         if (data.success) {
           this.$store.state.user.token = data.token
           localStorage.setItem('vn-token', data.token)
+          this.$store.dispatch('FETCH_SIGNIN_USER')
           setTimeout(() => {
             signinForm.reset()
             this.$store.state.message = {}
