@@ -20,6 +20,11 @@ const mutations = {
   // 将用户信息添加至状态
   [types.SET_SIGNIN_USER] (state, data) {
     state.user.info = data
+  },
+  // 登出，将用户信息至为null
+  [types.SET_USER_OUT] (state) {
+    // 显示菜单的时候是将这个字段作为判断，
+    state.user.info.name = ''
   }
 }
 
