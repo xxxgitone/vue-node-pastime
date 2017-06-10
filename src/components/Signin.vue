@@ -38,7 +38,7 @@ export default {
         this.$store.state.message = res.data
         const data = res.data
         if (data.success) {
-          this.$store.state.userInfo.token = data.token
+          this.$store.state.user.token = data.token
           localStorage.setItem('vn-token', data.token)
           setTimeout(() => {
             signinForm.reset()

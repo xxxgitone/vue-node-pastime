@@ -16,6 +16,10 @@ const mutations = {
     ]
 
     return state
+  },
+  // 将用户信息添加至状态
+  [types.SET_SIGNIN_USER] (state, data) {
+    state.user.info = data
   }
 }
 
