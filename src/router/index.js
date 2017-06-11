@@ -29,15 +29,8 @@ export default new Router({
       path: '/post/video',
       name: 'videopost',
       component: VideoPost,
-      beforeEnter: (to, from, next) => {
-        const token = localStorage.getItem('vn-token')
-        if (to.path === '/post/video') {
-          if (token !== 'null' && token !== null) {
-            next() // 登录了的话直接跳转
-          } else {
-            next('/') // 否则回到主页面
-          }
-        }
+      meta: {
+        requireAuth: true
       }
     }
   ]
