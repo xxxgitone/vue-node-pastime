@@ -9,7 +9,7 @@
             <li><a href="#">PICTURE</a></li>
             <li><a href="#">AMIZING</a></li>
             <li><a href="#">ABOUT</a></li>
-            <li v-show="!user.info.name"><a href="#" @click.prevent="signin">LOGIN</a></li>
+            <li v-show="!token"><a href="#" @click.prevent="signin">LOGIN</a></li>
           </ul>
         </nav>
         <div class="search" :class="{ flex: isShow }">
@@ -21,8 +21,8 @@
             @blur="showSearch" 
             type="text" placeholder="search">
         </div>
-        <div class="personalMenu" @click="showMenu" v-show="user.info.name">
-          <img :src="user.info.avatar_url" />
+        <div class="personalMenu" @click="showMenu" v-show="token">
+          <img :src="user.avatar_url" />
           <nav class="menu" v-show="showMenued">
             <ul>
               <li>
@@ -83,12 +83,13 @@ export default {
     }
   },
   created () {
-    if (this.$store.state.user.token !== 'null') {
+    if (this.$store.state.token) {
       this.$store.dispatch('FETCH_SIGNIN_USER')
     }
   },
   computed: {
     ...mapState({
+      token: 'token',
       user: 'user',
       isHome: 'isHome',
       message: 'message',
@@ -110,7 +111,7 @@ export default {
     },
     // 显示登录注册框
     signin () {
-      this.$store.state.showSignin = !this.$store.state.showSignin
+      this.$store.commit('SHOW_SIGNIN_DIALOG')
     },
     // 显示个人菜单
     showMenu () {
@@ -118,7 +119,7 @@ export default {
     },
     signout () {
       this.$store.commit('SET_USER_OUT')
-      localStorage.setItem('vn-token', null)
+      localStorage.setItem('vn-token', '')
     }
   },
   mounted () {

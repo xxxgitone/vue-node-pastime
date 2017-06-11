@@ -23,8 +23,8 @@ export default {
   name: 'signin',
   data () {
     return {
-      username: '',
-      password: ''
+      username: 'IGN',
+      password: '123456'
     }
   },
   methods: {
@@ -38,7 +38,7 @@ export default {
         this.$store.state.message = res.data
         const data = res.data
         if (data.success) {
-          this.$store.state.user.token = data.token
+          this.$store.state.token = data.token
           localStorage.setItem('vn-token', data.token)
           this.$store.dispatch('FETCH_SIGNIN_USER')
           setTimeout(() => {
@@ -47,7 +47,7 @@ export default {
             this.$store.state.showSignin = false
           }, 500)
         } else {
-          localStorage.setItem('vn-token', null)
+          localStorage.setItem('vn-token', '')
         }
       }).catch((err) => {
         this.$store.state.message = {
