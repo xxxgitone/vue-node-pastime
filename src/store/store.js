@@ -9,13 +9,11 @@ const store = new Vuex.Store({
   state: {
     isHome: true,
     videos: [],
+    token: localStorage.getItem('vn-token'),
     user: {
-      token: localStorage.getItem('vn-token'),
-      info: {
-        name: '',
-        id: '',
-        avatar_url: ''
-      }
+      name: '',
+      id: '',
+      avatar_url: ''
     },
     message: {},
     showSignin: false
