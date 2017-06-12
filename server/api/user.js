@@ -21,7 +21,7 @@ router.get('/users/:id', (req, res, next) => {
 
 // 获取单个用户，通过token
 router.get('/user', (req, res, next) => {
-  const token = req.query.token
+  const token = req.headers.accesstoken
   const decode = jwt.verify(token, 'vnpastime')
   const name = decode.name
   User.findOne({ name: name }).then(user => {
