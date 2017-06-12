@@ -9,10 +9,9 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(config => {
-  console.log(store.state.user)
-  if (store.state.user.token) {
+  if (store.state.token) {
     // 让每个请求头部都携带token信息
-    config.headers.token = store.state.user.token
+    config.headers['AccessToken'] = store.state.token
   }
   return config
 }, error => {
@@ -20,18 +19,18 @@ service.interceptors.request.use(config => {
 })
 
 // respone拦截器
-// service.interceptors.response.use(response => {
-//   return response
-// }, error => {
-//   console.log('err' + error)
-//   const status = error.response.status
-//   if (status === 401) { // 后台返回状态吗401 未授权
-//     store.commit('SET_USER_OUT')
-//     localStorage.setItem('vn-token', '')
-//     store.commit('SHOW_SIGNIN_DIALOG') // 重新登录
-//   }
+service.interceptors.response.use(response => {
+  return response
+}, error => {
+  console.log('err' + error)
+  const status = error.response.status
+  if (status === 401) { // 后台返回状态吗401 未授权
+    store.commit('SET_USER_OUT')
+    localStorage.setItem('vn-token', '')
+    store.commit('SHOW_SIGNIN_DIALOG') // 重新登录
+  }
 
-//   return Promise.reject(error)
-// })
+  return Promise.reject(error)
+})
 
 export default service
