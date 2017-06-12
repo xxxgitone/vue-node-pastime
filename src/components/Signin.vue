@@ -4,15 +4,18 @@
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-yonghuming"></use>
         </svg>
-        <input type="text" placeholder="用户名" v-model="username"/>
+        <input type="text" placeholder="用户名" v-model="formInfo.username"/>
       </div>
       <div class="form-control">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-mima"></use>
         </svg>
-        <input type="password" placeholder="密码" v-model="password"/>
+        <input type="password" placeholder="密码" v-model="formInfo.password"/>
       </div>
-      <button type="submit" class="signin" @click.prevent="signin">登录</button>
+      <button ref="submitButton" type="submit" class="signin" @click.prevent="signin">
+        <span v-show="!isLoading">登录</span>
+        <span v-show="isLoading">登录中...</span>
+      </button>
 
       <a class="signup" href="#">没有帐号？点击注册</a>
     </form>
@@ -23,33 +26,33 @@ export default {
   name: 'signin',
   data () {
     return {
-      username: 'IGN',
-      password: '123456'
+      formInfo: {
+        username: 'IGN',
+        password: '123456'
+      },
+      isLoading: false
     }
   },
   methods: {
     signin () {
-      let formInfo = {
-        username: this.username,
-        password: this.password
-      }
-      let { signinForm } = this.$refs
-      this.$http.post('/auth/users', formInfo).then((res) => {
-        this.$store.state.message = res.data
-        const data = res.data
-        if (data.success) {
-          this.$store.state.token = data.token
-          localStorage.setItem('vn-token', data.token)
-          this.$store.dispatch('FETCH_SIGNIN_USER')
-          setTimeout(() => {
-            signinForm.reset()
-            this.$store.state.message = {}
-            this.$store.state.showSignin = false
-          }, 500)
-        } else {
-          localStorage.setItem('vn-token', '')
+      let { signinForm, submitButton } = this.$refs
+      submitButton.disabled = 'disabled'
+      this.isLoading = true
+      this.$store.dispatch('SIGNIN_BY_USERNAME', this.formInfo).then((data) => {
+        // 为true时
+        if (data) {
+          signinForm.reset()
+          this.$store.state.message = {}
+          this.$store.state.showSignin = false
+          submitButton.disabled = ''
+          this.isLoading = false
+        } else { // 为false的时候，既验证失败，将按钮重新至为可用
+          this.isLoading = false
+          submitButton.disabled = ''
         }
-      }).catch((err) => {
+      }).catch(err => {
+        this.isLoading = false
+        submitButton.disabled = ''
         this.$store.state.message = {
           success: false,
           message: err

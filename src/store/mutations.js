@@ -29,6 +29,13 @@ const mutations = {
   // 弹出登录框
   [types.SHOW_SIGNIN_DIALOG] (state) {
     state.showSignin ? state.showSignin = false : state.showSignin = true
+  },
+  // 保存token
+  [types.SET_TOKEN] (state, token) {
+    state.token = token
+  },
+  [types.SET_MESSAGE] (state, message) {
+    state.message = message
   }
 }
 
