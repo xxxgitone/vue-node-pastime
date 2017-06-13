@@ -21,8 +21,8 @@
             @blur="showSearch" 
             type="text" placeholder="search">
         </div>
-        <div class="personalMenu" @click="showMenu" v-show="token">
-          <img :src="user.avatar_url" />
+        <div class="personalMenu" v-show="token">
+          <img class="personalAvatar" :src="user.avatar_url" @click.stop="showMenu" />
           <nav class="menu" v-show="showMenued">
             <ul>
               <li>
@@ -114,16 +114,23 @@ export default {
       this.$store.commit('SHOW_SIGNIN_DIALOG')
     },
     // 显示个人菜单
-    showMenu () {
-      this.showMenued = !this.showMenued
+    showMenu (e) {
+      console.log(this)
+      if (e.target.className !== 'personalAvatar') {
+        this.showMenued = false
+      } else if (e.target.className === 'personalAvatar') {
+        this.showMenued = !this.showMenued
+      }
     },
     signout () {
       this.$store.commit('SET_USER_OUT')
       localStorage.setItem('vn-token', '')
+      this.$router.push('/')
     }
   },
   mounted () {
     window.addEventListener('scroll', this.updateScrollTop)
+    document.addEventListener('click', this.showMenu)
   }
 }
 </script>
