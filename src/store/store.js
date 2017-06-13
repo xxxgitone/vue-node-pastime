@@ -16,7 +16,7 @@ const store = new Vuex.Store({
       avatar_url: ''
     },
     message: {},
-    showSignin: false
+    showSignDialog: false
   },
   mutations,
   actions

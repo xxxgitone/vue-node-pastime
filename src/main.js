@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({ path: '/' })
-      store.commit('SHOW_SIGNIN_DIALOG')
+      store.commit('SHOW_SIGN_DIALOG')
     }
   } else {
     next()

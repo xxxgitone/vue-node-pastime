@@ -1,9 +1,9 @@
 import * as types from './mutations-type'
-import axios from 'axios'
+import { fetchVideos } from '../api/video'
 
 const mutations = {
   [types.FETCH_VIDEOS] (state) {
-    axios.get(`/api/videos`).then(res => {
+    fetchVideos().then(res => {
       state.videos = res.data
     })
   },
@@ -27,8 +27,13 @@ const mutations = {
     state.token = ''
   },
   // 弹出登录框
-  [types.SHOW_SIGNIN_DIALOG] (state) {
-    state.showSignin ? state.showSignin = false : state.showSignin = true
+  [types.SHOW_SIGN_DIALOG] (state) {
+    state.showSignDialog = true
+    // state.showSignin ? state.showSignin = false : state.showSignin = true
+  },
+  // 关闭登录框
+  [types.CLOSE_SIGN_DIALOG] (state) {
+    state.showSignDialog = false
   },
   // 保存token
   [types.SET_TOKEN] (state, token) {
