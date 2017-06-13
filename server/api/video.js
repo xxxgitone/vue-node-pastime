@@ -10,7 +10,9 @@ router.get('/videos', (req, res, next) => {
 
 router.get('/videos/:id', (req, res, next) => {
   const id = req.params.id
-  Video.findById({_id: id}).then(video => {
+  console.log(id)
+  Video.findOne({id: id}).then(video => {
+    console.log(video)
     res.send(video)
   }).catch(next)
 })
