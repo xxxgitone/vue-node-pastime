@@ -94,10 +94,12 @@
 </template>
 
 <script>
+import { fetchVideoById } from '../api/video.js'
 export default {
   name: 'video',
   data () {
     return {
+      videoInfo: {},
       playIcon: 'Ⅱ',
       currentTime: 0,
       currentSpeed: '1.0x',
@@ -111,6 +113,13 @@ export default {
       volume: 0.5,
       volumeoff: false
     }
+  },
+  created () {
+    const id = this.$route.params.id
+    fetchVideoById(id).then(res => {
+      this.videoInfo = res.data
+      this.playUrl = this.videoInfo.playUrl
+    })
   },
   methods: {
     // 当视频可以播放时执行
@@ -204,15 +213,15 @@ export default {
       this.playend = false
     }
   },
-  computed: {
-    videoInfo () {
-      const { id } = this.$route.params
-      const { videos } = this.$store.state
-      const video = videos.find(video => video.id === Number(id))
-      this.playUrl = video.playUrl
-      return video
-    }
-  },
+  // computed: {
+  //   videoInfo () {
+  //     const { id } = this.$route.params
+  //     const { videos } = this.$store.state
+  //     const video = videos.find(video => video.id === Number(id))
+  //     this.playUrl = video.playUrl
+  //     return video
+  //   }
+  // },
   mounted () {
     this.$store.state.isHome = false
   }
