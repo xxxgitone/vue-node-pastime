@@ -43,7 +43,7 @@ export default {
         if (data) {
           signinForm.reset()
           this.$store.state.message = {}
-          this.$store.state.showSignin = false
+          this.$store.commit('CLOSE_SIGN_DIALOG')
           submitButton.disabled = ''
           this.isLoading = false
         } else { // 为false的时候，既验证失败，将按钮重新至为可用

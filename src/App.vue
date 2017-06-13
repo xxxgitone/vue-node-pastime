@@ -9,7 +9,7 @@
             <li><a href="#">PICTURE</a></li>
             <li><a href="#">AMIZING</a></li>
             <li><a href="#">ABOUT</a></li>
-            <li v-show="!token"><a href="#" @click.prevent="signin">LOGIN</a></li>
+            <li v-show="!token"><a href="#" @click.prevent="showSignDia">LOGIN</a></li>
           </ul>
         </nav>
         <div class="search" :class="{ flex: isShow }">
@@ -45,26 +45,19 @@
       </p>
       <span class="copy">Copyright © 2017 | <a href="https://github.com/xxxgitone" target="_bank">XUTHUS</a></span>
     </footer>
-    <div class="singinMask" v-show="showSignin">
-      <div class="title">
-        <h2>SIGN &nbsp;IN</h2>
-        <span class="message" :class="{ messageSuccess: message.success}">{{ message.message }}</span>
-        <span class="close" @click="signin">&times;</span>
-      </div>
-      <Signin></Signin>
-    </div>
+    <SignDialog v-show="showSignDialog" :message="message"></SignDialog>
   </div>
 </template>
 
 <script>
-import Signin from './components/Signin'
 import PersonalMenu from './components/personalMenu'
+import SignDialog from './components/SignDialog'
 import { mapState } from 'vuex'
 export default {
   name: 'app',
   components: {
-    Signin,
-    PersonalMenu
+    PersonalMenu,
+    SignDialog
   },
   data () {
     return {
@@ -74,6 +67,7 @@ export default {
     }
   },
   created () {
+    // 如果token存在，直接获取用户信息
     if (this.$store.state.token) {
       this.$store.dispatch('FETCH_SIGNIN_USER')
     }
@@ -84,7 +78,7 @@ export default {
       user: 'user',
       isHome: 'isHome',
       message: 'message',
-      showSignin: 'showSignin'
+      showSignDialog: 'showSignDialog'
     })
   },
   methods: {
@@ -101,8 +95,8 @@ export default {
       scrollTop > 0 ? this.scrolled = true : this.scrolled = false
     },
     // 显示登录注册框
-    signin () {
-      this.$store.commit('SHOW_SIGNIN_DIALOG')
+    showSignDia () {
+      this.$store.commit('SHOW_SIGN_DIALOG')
     }
   },
   mounted () {
@@ -291,48 +285,4 @@ a {
     }
   }
 }
-
-.singinMask {
-  position: fixed;
-  top: 50%;left: 50%;
-  z-index: 1;
-  width: 26rem;
-  height: 26rem;
-  background: #AAB2AF;
-  border: 1px solid rgba(0, 0, 0, .5);
-  transform: translate(-45%, -50%);
-  box-shadow: 0 .2em .5em rgba(0, 0, 0, .5),
-    0 0 0 100vmax rgba(0,0,0,.5);
-
-  .title {
-    width: 100%;
-    height: 5.5rem;
-    text-align: center;
-    border: 1px solid transparent; 
-    position: relative;
-
-    .message {
-      font-size: .875rem;
-      color: red;
-    }
-
-    .messageSuccess {
-      color: green;
-    }
-
-    .close {
-      position: absolute;
-      top: 5%;
-      right: 4%;
-      cursor: pointer;
-      font-size: 2rem;
-      color: white;
-
-      &:hover {
-        color: red;
-      }
-    }
-  }
-}
-
 </style>
