@@ -24,7 +24,7 @@ service.interceptors.response.use(response => {
 }, error => {
   console.log('err' + error)
   const status = error.response.status
-  if (status === 401) { // 后台返回状态吗401 未授权
+  if (status === 403) { // 后台返回状态吗403 token验证失败
     store.commit('SET_USER_OUT')
     localStorage.setItem('vn-token', '')
     store.commit('SHOW_SIGNIN_DIALOG') // 重新登录
