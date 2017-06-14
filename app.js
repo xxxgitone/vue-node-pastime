@@ -11,6 +11,7 @@ const app = express()
 mongoose.connect('mongodb://localhost:27017/vnpastime')
 mongoose.Promise = global.Promise
 
+app.set('tokenSecret', 'vnpastime')
 app.use(bodyParser.json())
 
 app.use('/auth', userRoutes)
