@@ -1,5 +1,5 @@
 import * as types from './mutations-type'
-import { fetchVideos } from '../api/video'
+import { fetchVideos, postVideo } from '../api/video'
 
 const mutations = {
   [types.FETCH_VIDEOS] (state) {
@@ -7,7 +7,7 @@ const mutations = {
       state.videos = res.data
     })
   },
-  // 隐藏不感兴趣
+  // 隐藏不感兴趣视频
   [types.HIDDEN_VIDEO] (state, video) {
     const index = state.videos.indexOf(video)
     state.videos = [
@@ -16,6 +16,12 @@ const mutations = {
     ]
 
     return state
+  },
+  // 发布视频
+  [types.POST_VIDEO] (state, postData) {
+    postVideo(postData).then(res => {
+      console.log(res)
+    })
   },
   // 将用户信息添加至状态
   [types.SET_SIGNIN_USER] (state, data) {

@@ -10,17 +10,20 @@ router.get('/videos', (req, res, next) => {
 
 router.get('/videos/:id', (req, res, next) => {
   const id = req.params.id
-  console.log(id)
   Video.findOne({id: id}).then(video => {
-    console.log(video)
     res.send(video)
   }).catch(next)
 })
 
+// 新增一个视频
 router.post('/videos', (req, res, next) => {
-  Video.create(req.body).then(video => {
-    res.send(video)
+  console.log(req.body)
+  res.json({
+    message: 'success'
   })
+  // Video.create(req.body).then(video => {
+  //   res.send(video)
+  // })
 })
 
 router.delete('/videos/:id', (req, res, next) => {
@@ -29,6 +32,5 @@ router.delete('/videos/:id', (req, res, next) => {
     res.send(video)
   })
 })
-
 
 module.exports = router
