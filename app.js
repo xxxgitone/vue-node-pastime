@@ -15,6 +15,7 @@ app.set('tokenSecret', 'vnpastime')
 app.use(bodyParser.json())
 
 app.use('/auth', userRoutes)
+app.use(require('./server/middlewares/jwtMid')) // 添加验证token的中间件，注意引入顺序
 app.use('/api', videoRoutes)
 app.use('/api', commentRoutes)
 
