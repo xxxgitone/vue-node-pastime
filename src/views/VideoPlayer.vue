@@ -116,6 +116,7 @@ export default {
   },
   created () {
     const id = this.$route.params.id
+    console.log(id)
     fetchVideoById(id).then(res => {
       this.videoInfo = res.data
       this.playUrl = this.videoInfo.playUrl

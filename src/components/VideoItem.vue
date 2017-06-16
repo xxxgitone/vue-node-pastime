@@ -5,7 +5,7 @@
             <img :src="video.coverSrc">
         </div>
         <div class="video-mask">
-            <router-link :to="`/video/${video.id}`">
+            <router-link :to="`/video/${video._id}`">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-video1"></use>
             </svg>
@@ -13,7 +13,7 @@
         </div> 
         </div>
         <div class="video-info">
-        <router-link :to="`/video/${video.id}`">
+        <router-link :to="`/video/${video._id}`">
             <h2 class="video-title">{{ video.title }}</h2>
         </router-link>
         <div class="auth">

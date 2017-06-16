@@ -20,7 +20,7 @@ const mutations = {
   // 发布视频
   [types.POST_VIDEO] (state, postData) {
     postVideo(postData).then(res => {
-      console.log(res)
+      console.log(res.data)
     })
   },
   // 将用户信息添加至状态
