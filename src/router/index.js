@@ -4,6 +4,7 @@ import Home from '@/views/Home'
 import VideoList from '@/views/VideoList'
 import VideoPlayer from '@/views/VideoPlayer'
 import VideoPost from '@/views/VideoPost'
+import PostSuccess from '@/views/PostSuccess'
 
 Vue.use(Router)
 
@@ -29,6 +30,14 @@ export default new Router({
       path: '/post/video',
       name: 'videopost',
       component: VideoPost,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/post/success',
+      name: 'success',
+      component: PostSuccess,
       meta: {
         requireAuth: true
       }
