@@ -214,15 +214,6 @@ export default {
       this.playend = false
     }
   },
-  // computed: {
-  //   videoInfo () {
-  //     const { id } = this.$route.params
-  //     const { videos } = this.$store.state
-  //     const video = videos.find(video => video.id === Number(id))
-  //     this.playUrl = video.playUrl
-  //     return video
-  //   }
-  // },
   mounted () {
     this.$store.state.isHome = false
   }
@@ -267,7 +258,6 @@ export default {
   }
 
   .slide {
-    // border: 1px solid red;
     background: rgba(0, 0, 0, .2);
     position: absolute;
     top: 10%;
@@ -276,7 +266,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    transform: translateX(250%);
+    transform: translateX(375%);
     transition: all .3s;
 
     &:hover {
