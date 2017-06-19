@@ -10,11 +10,13 @@ const store = new Vuex.Store({
     isHome: true,
     videos: [],
     token: localStorage.getItem('vn-token'),
-    user: {
+    user: { // 登录者信息
       name: '',
       id: '',
       avatar_url: ''
     },
+    // 其他用户
+    userInfo: {},
     message: {},
     showSignDialog: false
   },

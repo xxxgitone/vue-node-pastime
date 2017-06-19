@@ -5,6 +5,7 @@ import VideoList from '@/views/VideoList'
 import VideoPlayer from '@/views/VideoPlayer'
 import VideoPost from '@/views/VideoPost'
 import PostSuccess from '@/views/PostSuccess'
+import PersonalPage from '@/views/PersonalPage'
 
 Vue.use(Router)
 
@@ -38,6 +39,14 @@ export default new Router({
       path: '/post/success',
       name: 'success',
       component: PostSuccess,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/personalpage/:id',
+      name: 'personalpage',
+      component: PersonalPage,
       meta: {
         requireAuth: true
       }
