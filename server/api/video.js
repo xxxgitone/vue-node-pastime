@@ -17,7 +17,6 @@ router.get('/videos/:id', (req, res, next) => {
 
 // 新增一个视频
 router.post('/videos', (req, res, next) => {
-  console.log(req.decoded)
   const videoInfo = {
     user: {
       name: req.decoded.name,

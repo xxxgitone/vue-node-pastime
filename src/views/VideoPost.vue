@@ -1,7 +1,7 @@
 <template>
   <div class="videopost">
     <div class="videopost-wrapper">
-      <h2>分享视频</h2>
+      <h2>分享视频</h2><span class="input-message">不能为空</span>
       <form class="postForm">
         <div class="form-controls">
           <label class="label" for="videoUrl">链接</label>
@@ -15,7 +15,10 @@
           <label class="label" for="videoCover">封面</label>
           <input id="videoCover" placeholder="请输入正确的封面链接" v-model="postData.coverSrc"/>
         </div>
-        <button ref="postButton" class="postButton" @click.prevent="postVideo">发布视频</button>
+        <button ref="postButton" class="postButton" @click.prevent="postVideo">
+          <span v-show="!isSubmited">发布视频</span>
+          <span v-show="isSubmited">发布中...</span>
+        </button>
       </form>
     </div>
   </div>
@@ -36,7 +39,21 @@ export default {
   },
   methods: {
     postVideo () {
-      this.$store.commit('POST_VIDEO', this.postData)
+      if (this.postData.playUrl.trim() && this.postData.title.trim() && this.postData.title.trim()) {
+        const { postButton } = this.$refs
+        this.isSubmited = true
+        postButton.disabled = 'disabled'
+        this.$store.dispatch('POST_VIDEO', this.postData).then(data => {
+          if (data) { // 成功
+            this.$router.push('/post/success')
+            this.isSubmited = false
+            postButton.disabled = ''
+          } else {
+            this.isLoading = false
+            postButton.disabled = ''
+          }
+        })
+      }
     }
   },
   mounted () {
