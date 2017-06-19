@@ -1,5 +1,6 @@
 import * as types from './mutations-type'
 import { signinByUsername, fetchSignUser } from '../api/user'
+import { postVideo } from '../api/video'
 
 const actions = {
   // 用户登录
@@ -29,6 +30,20 @@ const actions = {
     fetchSignUser().then(res => {
       const data = res.data
       commit('SET_SIGNIN_USER', data)
+    })
+  },
+   // 发布视频
+  [types.POST_VIDEO] (state, postData) {
+    return new Promise((resolve, reject) => {
+      postVideo(postData).then((res) => {
+        const data = res.data
+        if (data.success) {
+          resolve(data.success)
+        } else {
+          // false
+          resolve(data.success)
+        }
+      })
     })
   }
 }
