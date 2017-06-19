@@ -3,3 +3,10 @@
     justify-content: center;
     align-items: center;
 }
+
+@mixin stickFooter {
+    font-size: 1rem;
+    min-height: calc(100vh - 7rem);
+    padding-top: 3.75rem;
+    width: 100%;
+}
