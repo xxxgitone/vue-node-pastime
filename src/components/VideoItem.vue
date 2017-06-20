@@ -17,9 +17,9 @@
             <h2 class="video-title">{{ video.title }}</h2>
         </router-link>
         <div class="auth">
-            <a href="#" class="auth-avatar">
+            <router-link :to="`/personalpage/`" class="auth-avatar">
               <img :src="video.user.avator" alt="">
-            </a>
+            </router-link>
             <a href="#" class="auth-name">
             <span>{{ video.user.name }}</span>
             </a>

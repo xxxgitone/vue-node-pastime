@@ -1,10 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const Video = require('../models/video')
+const User = require('../models/user')
 
 router.get('/videos', (req, res, next) => {
   Video.find({}).sort({created_at: -1}).then(videos => {
-    res.send(videos)
+    videos.forEach(video => {
+      const name = video.user.name
+      User.findOne({name: name}).then(user => {
+      })
+    })
+    // console.log(videos)
   }).catch(next)
 })
 

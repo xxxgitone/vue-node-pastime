@@ -19,7 +19,7 @@ router.get('/users/:id', (req, res, next) => {
   }).catch(next)
 })
 
-// 获取单个用户，通过token
+// 获取单个用户，通过token, 和query，通过query查询其他用户
 router.get('/user', (req, res, next) => {
   const token = req.headers.accesstoken
   const decode = jwt.verify(token, 'vnpastime')
