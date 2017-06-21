@@ -5,13 +5,27 @@ const User = require('../models/user')
 
 router.get('/videos', (req, res, next) => {
   Video.find({}).sort({created_at: -1}).then(videos => {
+    let tasks = []
     videos.forEach(video => {
       const name = video.user.name
-      User.findOne({name: name}).then(user => {
-      })
+      let task = User.findOne({name: name})
+      tasks.push(task)
     })
-    // console.log(videos)
-  }).catch(next)
+    Promise.all(tasks).then(users => {
+      videos.forEach(video => {
+        users.forEach(user => {
+          if (video.user.name === user.name) {
+            video.user = {
+              name: user.name,
+              avator: user.avatar_url,
+              _id: user._id
+            }
+          }
+        })
+      })
+      res.send(videos)
+    })
+  })
 })
 
 router.get('/videos/:id', (req, res, next) => {

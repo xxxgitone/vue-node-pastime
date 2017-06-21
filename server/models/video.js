@@ -4,7 +4,8 @@ const Schema = mongoose.Schema
 const VideoSchema = new Schema({
   user: {
     name: String,
-    avator: String
+    avator: String,
+    _id: String
   },
   id: Number,
   playUrl: String,
