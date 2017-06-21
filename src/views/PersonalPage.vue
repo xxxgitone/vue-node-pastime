@@ -15,13 +15,21 @@ import { mapState } from 'vuex'
 export default {
   name: 'personalpage',
   created () {
-    const id = this.$route.params.id
-    this.$store.commit('FETCH_USER_INFO', id)
+    this.fetcheUser()
+  },
+  watch: {
+    '$route': 'fetcheUser'
   },
   computed: {
     ...mapState({
       userInfo: state => state.userInfo
     })
+  },
+  methods: {
+    fetcheUser () {
+      const id = this.$route.query.user
+      this.$store.commit('FETCH_USER_INFO', id)
+    }
   },
   mounted () {
     this.$store.state.isHome = false

@@ -17,12 +17,12 @@
             <h2 class="video-title">{{ video.title }}</h2>
         </router-link>
         <div class="auth">
-            <router-link :to="`/personalpage/`" class="auth-avatar">
+            <router-link :to="{name: 'page', query: { user: video.user._id } }" class="auth-avatar">
               <img :src="video.user.avator" alt="">
             </router-link>
-            <a href="#" class="auth-name">
+            <router-link :to="{name: 'page', query: { user: video.user._id } }" class="auth-name">
             <span>{{ video.user.name }}</span>
-            </a>
+            </router-link>
             <span class="timeago">{{ video.created_at | timeAgo }}</span>
             <a href="javascript:void(0)" class="hidden" @click="hiddenVideo(video)">
               X

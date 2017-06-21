@@ -44,8 +44,8 @@ export default new Router({
       }
     },
     {
-      path: '/personalpage/:id',
-      name: 'personalpage',
+      path: '/page',
+      name: 'page',
       component: PersonalPage,
       meta: {
         requireAuth: true

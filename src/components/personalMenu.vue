@@ -6,7 +6,7 @@
           <li>
             <a href="#">我喜欢的</a>
             <router-link :to="'/post/video'">发布视频</router-link>
-            <router-link :to="`/personalpage/${user._id}`">个人主页</router-link>
+            <router-link :to="{name: 'page', query: {user: user._id}}">个人主页</router-link>
             <a href="#" @click.prevent="signout">退出登录</a>
           </li>
         </ul>
