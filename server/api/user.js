@@ -32,6 +32,10 @@ router.get('/user', (req, res, next) => {
 // 添加一个用户,用户登录
 router.post('/users', (req, res, next) => {
   let formInfo = req.body
+  // 密码加盐处理，用于替换数据库密码
+  // const salt = bcrypt.genSaltSync(10)
+  // const hash = bcrypt.hashSync(req.body.password, salt)
+  // console.log(hash)
   User.findOne({ name: formInfo.username }).then(user => {
     if (user != null) {
       if (!bcrypt.compareSync(formInfo.password, user.password)) { // 如果密码错误，返回状态给前端
