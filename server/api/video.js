@@ -4,7 +4,9 @@ const Video = require('../models/video')
 const User = require('../models/user')
 
 router.get('/videos', (req, res, next) => {
-  Video.find({}).sort({created_at: -1}).then(videos => {
+  const p = req.query.p
+  const limitNum = 15
+  p && Video.find({}).sort({created_at: -1}).skip(p - 1).limit(limitNum).then(videos => {
     let tasks = []
     videos.forEach(video => {
       const name = video.user.name

@@ -26,16 +26,19 @@
           :key="index">
         </VideoItem>
       </div>
+      <Pagination></Pagination>
   </div>
 </template>
 
 <script>
 import VideoItem from '../components/VideoItem'
+import Pagination from '../components/Pagination'
 import { mapState } from 'vuex'
 export default {
   name: 'videolist',
   components: {
-    VideoItem
+    VideoItem,
+    Pagination
   },
   watch: {
     '$route': 'fetchVideos'
