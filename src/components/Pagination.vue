@@ -2,37 +2,36 @@
     <div class="pagination">
         <ul class="page-list">
             <li v-show="current!==1" @click="pre"><a><<</a></li>
-            <li v-for="index in all" @click="indexPage(index)"><router-link :to="`/videolist?p=${index}`" :class="{ checked: current===index }">{{ index }}</router-link></li>
+            <li v-for="index in all" @click="indexPage(index)" :key="index"><router-link :to="`/videolist?p=${index}`" :class="{ checked: current===index }">{{ index }}</router-link></li>
             <li v-show="current!==all"><a @click="next">>></a></li>
         </ul>
     </div>
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'pagination',
   data () {
     return {
-      current: 1,
       all: 5
     }
   },
   computed: {
-    // ...mapState({
-    //   current: state => state.current
-    // })
+    ...mapState({
+      current: state => state.current
+    })
   },
   methods: {
     pre () {
-      this.current--
+      this.$store.state.current--
     },
     indexPage (index) {
-      this.current = index
+      this.$store.state.current = index
       this.fetchPage(index)
     },
     next () {
-      this.current++
+      this.$store.state.current++
     },
     fetchPage (index) {
       this.$http.get(`/api/videos?p=${index}`).then(res => {

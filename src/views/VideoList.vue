@@ -53,7 +53,9 @@ export default {
   },
   methods: {
     fetchVideos () {
-      this.$store.commit('FETCH_VIDEOS')
+      // 如果当前页面有查询参数，获取，传入后台，防止刷新回到第一页
+      const p = this.$route.query.p
+      this.$store.commit('FETCH_VIDEOS', p)
     }
   },
   mounted () {

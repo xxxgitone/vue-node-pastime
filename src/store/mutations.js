@@ -3,8 +3,10 @@ import { fetchVideos } from '../api/video'
 import { fetchUserById } from '../api/user'
 
 const mutations = {
-  [types.FETCH_VIDEOS] (state) {
-    fetchVideos().then(res => {
+  [types.FETCH_VIDEOS] (state, p) {
+    console.log(p)
+    state.current = p
+    fetchVideos(p).then(res => {
       state.videos = res.data
     })
   },

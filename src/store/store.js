@@ -18,7 +18,8 @@ const store = new Vuex.Store({
     // 其他用户
     userInfo: {},
     message: {},
-    showSignDialog: false
+    showSignDialog: false,
+    current: 1
   },
   mutations,
   actions

@@ -1,7 +1,11 @@
 import axios from '../utils/axiosService'
 
-export const fetchVideos = () => {
-  return axios.get('/api/videos')
+export const fetchVideos = (p) => {
+  if (!p) {
+    return axios.get(`/api/videos`)
+  } else {
+    return axios.get(`/api/videos?p=${p}`)
+  }
 }
 
 export const fetchVideoById = (id) => {
