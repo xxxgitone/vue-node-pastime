@@ -8,16 +8,20 @@
       </div>
     </div>
     <InfoContainer></InfoContainer>
+    <InfoDialog></InfoDialog>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import InfoContainer from '../components/InfoContainer'
+import InfoDialog from '../components/InfoDialog'
+
 export default {
   name: 'personalpage',
   components: {
-    InfoContainer
+    InfoContainer,
+    InfoDialog
   },
   created () {
     this.fetcheUser()
