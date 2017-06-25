@@ -7,13 +7,18 @@
         <div class="name">{{ userInfo.name }}</div>
       </div>
     </div>
+    <InfoContainer></InfoContainer>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import InfoContainer from '../components/InfoContainer'
 export default {
   name: 'personalpage',
+  components: {
+    InfoContainer
+  },
   created () {
     this.fetcheUser()
   },
@@ -42,6 +47,8 @@ export default {
 
 .personalPage {
     @include stickFooter;
+    background: #eee;
+    padding-bottom: 1rem;
 }
 
 .personalInfo {
