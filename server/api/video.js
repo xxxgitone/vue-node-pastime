@@ -10,6 +10,7 @@ router.get('/videos', (req, res, next) => {
     let total = count
     Video.find({}).sort({created_at: -1}).skip((p - 1) * limitNum).limit(limitNum).then(videos => {
       let tasks = []
+      // 创建的数据的时候没有给video下的用户添加id字段，然后通过名字查找出用户的id再返回回去
       videos.forEach(video => {
         const name = video.user.name
         let task = User.findOne({name: name})
@@ -32,6 +33,25 @@ router.get('/videos', (req, res, next) => {
           videos
         })
       })
+    })
+  })
+})
+
+// 通过用户id查找他发布的视频
+// 但是video下的用户并没有直接添加id字段
+// 所以得通过穿过来的id，找到用户表中的用户，然后跟video文档中的用户做匹配
+router.get('/uservideos', (req, res, next) => {
+  const userId = req.query.userId
+  let userVideos = []
+  User.findOne({_id: userId}).then(user => {
+    Video.find({}).then(videos => {
+      videos.forEach(video => {
+        if (video.user.name === user.name) {
+          userVideos.push(video)
+        }
+      })
+    }).then(() => {
+      res.json({userVideos})
     })
   })
 })
