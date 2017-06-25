@@ -1,14 +1,21 @@
 <template>
   <div class="video-card">
-    <img src="http://img.kaiyanapp.com/b9367f51f6378952a22a7f83615d5090.jpeg?imageMogr2/quality/60/format/jpg">
+    <router-link :to="`/video/${video._id}`">
+      <img :src="video.coverSrc">
+    </router-link>
     <div class="video-info">
         <div>
-            <span>xxxuthus</span>
-            <span>三个月前</span>
+            <span>{{ video.user.name }} </span>
+            <span class="timeago"> ● {{ video.created_at | timeAgo}}</span>
         </div>
-        <h3>塞尔达传说：荒野之息-攻略#15</h3>
+        <h3><router-link :to="`/video/${video._id}`">{{ video.title }}</router-link></h3>
         <div>
-            <span>200喜欢</span>
+            <span>
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-zan2"></use>
+              </svg>
+              {{ video.collectionCount }}
+            </span>
         </div>
     </div>
   </div>
@@ -16,11 +23,12 @@
 
 <script>
 export default {
-  name: 'videocard'
+  name: 'videocard',
+  props: ['video']
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .video-card {
   display: flex;
   padding: 1rem;
@@ -30,10 +38,28 @@ export default {
     background: #eee;
   }
 
+  a {
+    color: rgb(25, 25, 25);
+
+    &:hover {
+      color: red;
+    }
+  }
+
   img {
-    max-width: 6rem;
+    max-width: 8rem;
     height: 6rem;
     margin-right: 1rem;
   }
+  
+  .video-info {
+    // padding-left: .5rem;
+    .timeago {
+      font-size: .9rem;
+      color: #999;
+    }
+  }
+
+  
 }
 </style>

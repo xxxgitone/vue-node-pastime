@@ -3,24 +3,34 @@
     <div class="container-header">
         <span class="videoTab">视频</span>
     </div>
-    <VideoInfoCard></VideoInfoCard>
+    <VideoInfoCard v-for="video in userVideos" :key="video._id" :video="video"></VideoInfoCard>
   </div>
 </template>
 
 <script>
 import VideoInfoCard from '../components/VideoInfoCard'
+import { mapState } from 'vuex'
 export default {
   name: 'infocontainer',
-  data () {
-    return {
-      videoInfo: []
-    }
-  },
   components: {
     VideoInfoCard
   },
   created () {
-    
+    this.fetchVideoByUserid()
+  },
+  watch: {
+    '$route': 'fetchVideoByUserid'
+  },
+  computed: {
+    ...mapState({
+      userVideos: state => state.userVideos
+    })
+  },
+  methods: {
+    fetchVideoByUserid () {
+      const id = this.$route.query.user
+      this.$store.commit('FETCH_VIDEOS_BY_USERID', id)
+    }
   }
 }
 </script>
