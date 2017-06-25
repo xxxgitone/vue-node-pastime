@@ -21,7 +21,8 @@ const store = new Vuex.Store({
     showSignDialog: false,
     current: 1,
     all: 0,
-    limitNum: 15
+    limitNum: 15,
+    userVideos: []
   },
   mutations,
   actions

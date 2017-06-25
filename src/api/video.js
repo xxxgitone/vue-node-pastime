@@ -15,3 +15,7 @@ export const fetchVideoById = (id) => {
 export const postVideo = (postData) => {
   return axios.post('/api/videos', postData)
 }
+
+export const fetchVideoByUserid = (id) => {
+  return axios.get(`/api/uservideos?userId=${id}`)
+}

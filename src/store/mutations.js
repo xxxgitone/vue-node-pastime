@@ -1,5 +1,5 @@
 import * as types from './mutations-type'
-import { fetchVideos } from '../api/video'
+import { fetchVideos, fetchVideoByUserid } from '../api/video'
 import { fetchUserById } from '../api/user'
 
 const mutations = {
@@ -49,6 +49,12 @@ const mutations = {
   [types.FETCH_USER_INFO] (state, id) {
     fetchUserById(id).then(res => {
       state.userInfo = res.data
+    })
+  },
+  // 通过user的id，获取他的视频
+  [types.FETCH_VIDEOS_BY_USERID] (state, id) {
+    fetchVideoByUserid(id).then(res => {
+      state.userVideos = res.data.userVideos
     })
   }
 }
