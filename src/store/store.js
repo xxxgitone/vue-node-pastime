@@ -19,7 +19,9 @@ const store = new Vuex.Store({
     userInfo: {},
     message: {},
     showSignDialog: false,
-    current: 1
+    current: 1,
+    all: 0,
+    limitNum: 15
   },
   mutations,
   actions

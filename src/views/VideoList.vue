@@ -54,7 +54,8 @@ export default {
   methods: {
     fetchVideos () {
       // 如果当前页面有查询参数，获取，传入后台，防止刷新回到第一页
-      const p = this.$route.query.p
+      // 这里弄了好久，路由过来的参数是字符串，使用数字的话千万要记得转换！！！！
+      const p = Number(this.$route.query.p) || 1
       this.$store.commit('FETCH_VIDEOS', p)
     }
   },
@@ -65,9 +66,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/mixins.scss";
+
 .videolist {
   font-size: 1rem;
-  min-height: 100vh;
+  @include stickFooter;
   width: 100%;
   position: relative;
   background-image: url('https://1x.com/images/user/6872df05db6242eb3f61f8f1e646deb3-hd2.jpg');
@@ -93,7 +96,7 @@ export default {
   }
 
 .videos {
-  min-height: 100rem;
+  // min-height: 100rem;
   padding-top: 33rem;
   padding-bottom: 3rem;
   width: 80%;

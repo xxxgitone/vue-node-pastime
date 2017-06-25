@@ -4,10 +4,10 @@ import { fetchUserById } from '../api/user'
 
 const mutations = {
   [types.FETCH_VIDEOS] (state, p) {
-    console.log(p)
-    state.current = p
     fetchVideos(p).then(res => {
-      state.videos = res.data
+      state.current = p
+      state.videos = res.data.videos
+      state.all = Math.ceil(res.data.total / state.limitNum)
     })
   },
   // 隐藏不感兴趣视频

@@ -12,31 +12,26 @@
 import { mapState } from 'vuex'
 export default {
   name: 'pagination',
-  data () {
-    return {
-      all: 5
-    }
-  },
   computed: {
     ...mapState({
-      current: state => state.current
+      current: state => state.current,
+      all: state => state.all
     })
   },
   methods: {
     pre () {
       this.$store.state.current--
+      this.$router.push({path: 'videolist', query: {p: this.$store.state.current}})
+      this.$store.commit('FETCH_VIDEOS', this.$store.state.current)
     },
     indexPage (index) {
       this.$store.state.current = index
-      this.fetchPage(index)
+      this.$store.commit('FETCH_VIDEOS', index)
     },
     next () {
       this.$store.state.current++
-    },
-    fetchPage (index) {
-      this.$http.get(`/api/videos?p=${index}`).then(res => {
-        this.$store.state.videos = res.data
-      })
+      this.$router.push({path: 'videolist', query: {p: this.$store.state.current}})
+      this.$store.commit('FETCH_VIDEOS', this.$store.state.current)
     }
   }
 }

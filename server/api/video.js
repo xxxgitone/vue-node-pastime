@@ -6,26 +6,32 @@ const User = require('../models/user')
 router.get('/videos', (req, res, next) => {
   const p = req.query.p || 1
   const limitNum = 15
-  Video.find({}).sort({created_at: -1}).skip((p - 1) * limitNum).limit(limitNum).then(videos => {
-    let tasks = []
-    videos.forEach(video => {
-      const name = video.user.name
-      let task = User.findOne({name: name})
-      tasks.push(task)
-    })
-    Promise.all(tasks).then(users => {
+  Video.find({}).count().then((count) => {
+    let total = count
+    Video.find({}).sort({created_at: -1}).skip((p - 1) * limitNum).limit(limitNum).then(videos => {
+      let tasks = []
       videos.forEach(video => {
-        users.forEach(user => {
-          if (video.user.name === user.name) {
-            video.user = {
-              name: user.name,
-              avator: user.avatar_url,
-              _id: user._id
+        const name = video.user.name
+        let task = User.findOne({name: name})
+        tasks.push(task)
+      })
+      Promise.all(tasks).then(users => {
+        videos.forEach(video => {
+          users.forEach(user => {
+            if (video.user.name === user.name) {
+              video.user = {
+                name: user.name,
+                avator: user.avatar_url,
+                _id: user._id
+              }
             }
-          }
+          })
+        })
+        res.send({
+          total,
+          videos
         })
       })
-      res.send(videos)
     })
   })
 })
