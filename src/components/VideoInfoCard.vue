@@ -18,13 +18,20 @@
             </span>
         </div>
     </div>
+    <button v-show="user.name === video.user.name" class="deleteButton">删除</button>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'videocard',
-  props: ['video']
+  props: ['video'],
+  computed: {
+    ...mapState({
+      user: state => state.user
+    })
+  }
 }
 </script>
 
@@ -36,6 +43,9 @@ export default {
   border-bottom: 1px solid #eee;
   &:hover {
     background: #eee;
+  }
+  &:hover > .deleteButton {
+    display: block;
   }
 
   a {
@@ -53,13 +63,29 @@ export default {
   }
   
   .video-info {
-    // padding-left: .5rem;
+    flex-basis: 70%;
+
     .timeago {
       font-size: .9rem;
       color: #999;
     }
   }
 
+  .deleteButton {
+    align-self: center;
+    border: none;
+    outline: none;
+    padding: .4rem .8rem;
+    color: white;
+    border-radius: 5px;
+    display: none;
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+      background: rgba(255,0,0,.8);
+    }
+  }
   
 }
 </style>
