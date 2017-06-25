@@ -22,6 +22,7 @@ const store = new Vuex.Store({
     current: 1,
     all: 0,
     limitNum: 15,
+    // 用户个人视频
     userVideos: []
   },
   mutations,
