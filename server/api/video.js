@@ -92,7 +92,9 @@ router.post('/videos', (req, res, next) => {
 router.delete('/videos/:id', (req, res, next) => {
   const id = req.params.id
   Video.findByIdAndRemove({ _id: id }).then(video => {
-    res.send(video)
+    res.send({
+      success: true
+    })
   })
 })
 

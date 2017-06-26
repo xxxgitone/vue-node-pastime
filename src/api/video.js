@@ -19,3 +19,7 @@ export const postVideo = (postData) => {
 export const fetchVideoByUserid = (id) => {
   return axios.get(`/api/uservideos?userId=${id}`)
 }
+
+export const deleteVideoById = (id) => {
+  return axios.delete(`/api/videos/${id}`)
+}
