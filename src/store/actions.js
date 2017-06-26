@@ -1,6 +1,6 @@
 import * as types from './mutations-type'
 import { signinByUsername, fetchSignUser } from '../api/user'
-import { postVideo } from '../api/video'
+import { postVideo, deleteVideoById } from '../api/video'
 
 const actions = {
   // 用户登录
@@ -42,6 +42,19 @@ const actions = {
         } else {
           // false
           resolve(data.success)
+        }
+      })
+    })
+  },
+  // 通过videoid删除对应视频
+  [types.DELETE_VIDEO_BY_ID] ({commit, state}, id) {
+    return new Promise((resolve, reject) => {
+      deleteVideoById(id).then(res => {
+        const data = res.data
+        if (data.success) {
+          resolve(data.success)
+        } else {
+          reject(data.success)
         }
       })
     })

@@ -18,7 +18,7 @@
             </span>
         </div>
     </div>
-    <button v-show="user.name === video.user.name" class="deleteButton">删除</button>
+    <button v-show="user.name === video.user.name" class="deleteButton" @click="showInfoDialog(video._id)">删除</button>
   </div>
 </template>
 
@@ -31,6 +31,13 @@ export default {
     ...mapState({
       user: state => state.user
     })
+  },
+  methods: {
+    showInfoDialog (id) {
+      // 将需要删除的视频绑定到状态上去，方便InfoDialog组件调用
+      this.$store.state.deleteVideoid = id
+      this.$store.state.showInfoDialog = true
+    }
   }
 }
 </script>

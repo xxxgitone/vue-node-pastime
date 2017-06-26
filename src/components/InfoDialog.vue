@@ -1,23 +1,49 @@
 <template>
-  <div class="info-dialog">
+  <div class="info-dialog" v-show="showInfoDialog">
     <div class="info-header">
         <span>提示信息</span>
-        <span class="close">&times;</span>
+        <span class="close" @click="closeDialog" >&times;</span>
     </div>
-    <div class="">
+    <div class="info-body">
         您确定要删除吗？
+    </div>
+    <div class="info-button">
+      <a href="#" @click.prevent="deleteVideo">确定</a>
+      <a href="#" @click.prevent="closeDialog">取消</a>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'infodialog'
+  name: 'infodialog',
+  computed: {
+    ...mapState({
+      showInfoDialog: 'showInfoDialog',
+      deleteVideoid: 'deleteVideoid',
+      user: 'user'
+    })
+  },
+  methods: {
+    closeDialog () {
+      this.$store.state.showInfoDialog = false
+    },
+    deleteVideo () {
+      this.$store.dispatch('DELETE_VIDEO_BY_ID', this.deleteVideoid).then(data => {
+        if (data) {
+          this.$store.state.showInfoDialog = false
+        }
+      })
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/mixins.scss";
 .info-dialog {
+  font-size: 1rem;
   position: fixed;
   height: 13rem;
   width: 24rem;
@@ -44,6 +70,35 @@ export default {
       &:hover {
         color: red;
       }
+    }
+  }
+
+  .info-body{
+    @include flexCenter;
+    height: 6rem;
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .info-button {
+    @include flexCenter;
+    justify-content:space-around;
+    height: 4rem;
+
+    a {
+      display: inline-block;
+      padding: .5rem 1rem;
+      color: white;
+      border-radius: 6px;
+    }
+
+    a:nth-child(1) {
+      background: red;
+    }
+
+    a:nth-child(2) {
+      background: #999;
     }
   }
 }

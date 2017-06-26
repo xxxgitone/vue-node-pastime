@@ -23,7 +23,11 @@ const store = new Vuex.Store({
     all: 0,
     limitNum: 15,
     // 用户个人视频
-    userVideos: []
+    userVideos: [],
+    // 显示信息提示框
+    showInfoDialog: false,
+    // 将要删除的视频id
+    deleteVideoid: ''
   },
   mutations,
   actions
