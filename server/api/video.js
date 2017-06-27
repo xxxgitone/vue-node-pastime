@@ -44,7 +44,7 @@ router.get('/uservideos', (req, res, next) => {
   const userId = req.query.userId
   let userVideos = []
   User.findOne({_id: userId}).then(user => {
-    Video.find({}).then(videos => {
+    Video.find({}).sort({created_at: -1}).then(videos => {
       videos.forEach(video => {
         if (video.user.name === user.name) {
           userVideos.push(video)
