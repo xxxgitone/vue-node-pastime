@@ -12,6 +12,7 @@ superagent.get(url)
     if (err) {
       console.log(err)
     } else {
-      console.log(res.body.photos)
+      const photosData = res.body.photos
+      console.log(photosData)
     }
   })
