@@ -1,34 +1,17 @@
-const http = require('http')
-// const cheerio = require('cheerio')
+const superagent = require('superagent')
 
-const url = ''
+const url = 'https://api.500px.com/v1/photos?image_size%5B%5D=1&image_size%5B%5D=2&image_size%5B%5D=32&image_size%5B%5D=31&image_size%5B%5D=33&image_size%5B%5D=34&image_size%5B%5D=35&image_size%5B%5D=36&image_size%5B%5D=2048&image_size%5B%5D=4&image_size%5B%5D=14&include_tags=true&include_licensing=true&include_releases=true&expanded_user_info=true&is_following=true&include_camera_info=false&ids=217790401%2C217708843%2C217726433%2C217799483%2C217708965%2C217777783%2C217797839%2C217718095%2C217691673%2C217716183%2C217715759%2C217711811%2C217803443%2C217808023%2C217761413%2C217820925%2C217739133%2C217690407%2C217765327%2C217761767%2C217748825%2C217705149%2C217793765%2C217715931%2C217579739%2C217720581%2C217719641%2C217569441%2C217684227%2C217552333%2C217817443%2C217792313'
 
-// function filtersVideos (html) {
-//   const $ = cheerio.load(html)
-//   const videoItems = $('.item')
-
-//   let title = $('.item .rbox .title-box').find('.title').text()
-//   console.log(title)
-// }
-
-function fetchPage (url) {
-  return new Promise((resolve, reject) => {
-    http.get(url, res => {
-      let html = ''
-
-      res.on('data', data => {
-        html += data
-      })
-
-      res.on('end', () => {
-        resolve(html)
-      })
-    }).on('error', e => {
-      reject(e)
-    })
+superagent.get(url)
+  .set('Content-Type', 'application/json; charset=utf-8')
+  .set('Connection', 'keep-alive')
+  .set('Cookie', 'optimizelyEndUserId=oeu1498562301143r0.3457553558516826; optimizelySegments=%7B%22569090246%22%3A%22false%22%2C%22569491641%22%3A%22direct%22%2C%22575800731%22%3A%22gc%22%2C%22589900200%22%3A%22true%22%7D; optimizelyBuckets=%7B%7D; _ga=GA1.2.2079647702.1498562301; _gid=GA1.2.1632840147.1498679859; amplitude_id500px.com=eyJkZXZpY2VJZCI6Ijc1OTdlNjZjLWViYTEtNDEyMi05YWNjLWY0YzE3MDkzNzE2NVIiLCJ1c2VySWQiOm51bGwsIm9wdE91dCI6ZmFsc2UsInNlc3Npb25JZCI6MTQ5ODY3OTg2MDM0MiwibGFzdEV2ZW50VGltZSI6MTQ5ODY4MDAyNDQ1OSwiZXZlbnRJZCI6MSwiaWRlbnRpZnlJZCI6MCwic2VxdWVuY2VOdW1iZXIiOjF9; optimizelyPendingLogEvents=%5B%22n%3Doptly_activate%26u%3Doeu1498562301143r0.3457553558516826%26wxhr%3Dtrue%26time%3D1498680024.091%26f%3D8345881987%2C8355370077%2C8414850469%2C8179770025%2C8444782193%2C8433543755%2C8425146203%26g%3D%22%5D; _hpx1=BAh7CkkiD3Nlc3Npb25faWQGOgZFVEkiJWZiZmZhZmE1ZGJlYThhOTNkYzc3NWE2NTljNjFmNGUyBjsAVEkiCWhvc3QGOwBGIhJhcGkuNTAwcHguY29tSSIYc3VwZXJfc2VjcmV0X3BpeDNscwY7AEZGSSIQX2NzcmZfdG9rZW4GOwBGSSIxWWhsbjQ3T2Y1OXg5NGxqWTJYQlUvSWtWZFdob0JpSkZJcDRjRVlxaUp0Yz0GOwBGSSIRcHJldmlvdXNfdXJsBjsARkkiEi9wb3B1bGFyL2ZpbG0GOwBU--ce76c72ade6d1fece5bb915eb382e38f4c27f936; __hstc=133410001.0fdc3616c63652510d2e11d889f738d3.1498562304683.1498562797779.1498679865893.3; __hssrc=1; __hssc=133410001.2.1498679865893; hubspotutk=0fdc3616c63652510d2e11d889f738d3')
+  .set('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.104 Safari/537.36')
+  .set('X-CSRF-Token', '4B2MLYdXktPjATvJqTmeIF+yxRm2bn2BOdDnF8rpIU+CBOvONMh1D57jYxFwScrc1qewcd5oX8QbTvsGQEsHmA==')
+  .end(function (err, res) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(res.body.photos)
+    }
   })
-}
-
-fetchPage(url).then(html => {
-  console.log(html)
-})
