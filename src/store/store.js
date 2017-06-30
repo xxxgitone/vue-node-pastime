@@ -27,7 +27,8 @@ const store = new Vuex.Store({
     // 显示信息提示框
     showInfoDialog: false,
     // 将要删除的视频id
-    deleteVideoid: ''
+    deleteVideoid: '',
+    images: []
   },
   mutations,
   actions
