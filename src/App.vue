@@ -6,7 +6,7 @@
         <nav class="nav">
           <ul class="nav-list">
             <li><router-link :to="'/videolist'">VIDEO</router-link></li>
-            <li><a href="#">PICTURE</a></li>
+            <li><router-link :to="'/images'">IMAGES</router-link></li>
             <li><a href="#">AMIZING</a></li>
             <li><a href="#">ABOUT</a></li>
             <li v-show="!token"><a href="#" @click.prevent="showSignDia">LOGIN</a></li>
