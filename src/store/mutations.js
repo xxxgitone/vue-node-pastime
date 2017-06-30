@@ -1,6 +1,7 @@
 import * as types from './mutations-type'
 import { fetchVideos, fetchVideoByUserid } from '../api/video'
 import { fetchUserById } from '../api/user'
+import { fetchImages } from '../api/image'
 
 const mutations = {
   [types.FETCH_VIDEOS] (state, p) {
@@ -55,6 +56,11 @@ const mutations = {
   [types.FETCH_VIDEOS_BY_USERID] (state, id) {
     fetchVideoByUserid(id).then(res => {
       state.userVideos = res.data.userVideos
+    })
+  },
+  [types.FETCH_IMAGES] (state) {
+    fetchImages().then(res => {
+      state.images = res.data
     })
   }
 }

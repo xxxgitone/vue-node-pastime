@@ -15,3 +15,6 @@ export const SET_MESSAGE = 'SET_MESSAGE'
 export const CLOSE_SIGN_DIALOG = 'CLOSE_SIGN_DIALOG'
 export const SHOW_SIGN_DIALOG = 'SHOW_SIGN_DIALOG'
 export const FETCH_USER_INFO = 'FETCH_USER_INFO'
+
+// image
+export const FETCH_IMAGES = 'FETCH_IMAGES'
