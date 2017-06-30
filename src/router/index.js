@@ -6,6 +6,7 @@ import VideoPlayer from '@/views/VideoPlayer'
 import VideoPost from '@/views/VideoPost'
 import PostSuccess from '@/views/PostSuccess'
 import PersonalPage from '@/views/PersonalPage'
+import ImageList from '@/views/ImageList'
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ export default new Router({
       meta: {
         requireAuth: true
       }
+    },
+    {
+      path: '/images',
+      name: 'imagelist',
+      component: ImageList
     }
   ]
 })
