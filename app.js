@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const userRoutes = require('./server/api/user')
 const videoRoutes = require('./server/api/video')
 const commentRoutes = require('./server/api/comment')
+const imageRoutes = require('./server/api/image')
 
 const app = express()
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json())
 app.use('/auth', userRoutes)
 app.use(require('./server/middlewares/jwtMid')) // 添加验证token的中间件，注意引入顺序
 app.use('/api', videoRoutes)
+app.use('/api', imageRoutes)
 app.use('/api', commentRoutes)
 
 // 错误处理
