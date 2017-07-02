@@ -68,18 +68,21 @@ export default {
 
     .description {
       position: absolute;
+      // 实现两行文字省略号
       width: 100%;
-      height: 2.5rem;
+      height: 2.3rem;
       text-overflow: ellipsis;
       overflow: hidden;
-      white-space: nowrap;
+      display: flex;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       bottom: 1px;
       left: 0;
       background: rgba(0, 0, 0, .5);
       color: white;
-      line-height: 2.56rem;
       display: none;
       transition: all .3s;
+      padding: .1rem 0;
     }
 
     .selected > svg {
