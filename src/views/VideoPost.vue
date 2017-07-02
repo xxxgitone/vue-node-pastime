@@ -5,15 +5,15 @@
       <form class="postForm">
         <div class="form-controls">
           <label class="label" for="videoUrl">链接</label>
-          <input id="videoUrl" placeholder="请输入正确的资源链接" v-model="postData.playUrl"/>
+          <input id="videoUrl" placeholder="请输入正确的资源链接" v-model="postData.playUrl" >
         </div>
         <div class="form-controls">
           <label class="label" for="videoTitle">标题</label>
-          <input id="videoTitle" placeholder="请填写视频标题"  v-model="postData.title"/>
+          <input id="videoTitle" placeholder="请填写视频标题"  v-model="postData.title" >
         </div>
         <div class="form-controls">
           <label class="label" for="videoCover">封面</label>
-          <input id="videoCover" placeholder="请输入正确的封面链接" v-model="postData.coverSrc"/>
+          <input id="videoCover" placeholder="请输入正确的封面链接" v-model="postData.coverSrc" >
         </div>
         <button ref="postButton" class="postButton" @click.prevent="postVideo">
           <span v-show="!isSubmited">发布视频</span>
@@ -43,8 +43,9 @@ export default {
         const { postButton } = this.$refs
         this.isSubmited = true
         postButton.disabled = 'disabled'
-        this.$store.dispatch('POST_VIDEO', this.postData).then(data => {
-          if (data) { // 成功
+        this.$store.dispatch('POST_VIDEO', this.postData).then(res => {
+          // console.log(res)
+          if (res.data.success) { // 成功
             this.$router.push('/post/success')
             this.isSubmited = false
             postButton.disabled = ''

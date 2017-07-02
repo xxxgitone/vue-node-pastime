@@ -30,8 +30,8 @@ export default {
       this.$store.state.showInfoDialog = false
     },
     deleteVideo () {
-      this.$store.dispatch('DELETE_VIDEO_BY_ID', this.deleteVideoid).then(data => {
-        if (data) {
+      this.$store.dispatch('DELETE_VIDEO_BY_ID', this.deleteVideoid).then(res => {
+        if (res.data.success) {
           this.$store.state.showInfoDialog = false
           // 重新获取视频信息，
           this.$store.commit('FETCH_VIDEOS_BY_USERID', this.$route.query.user)
