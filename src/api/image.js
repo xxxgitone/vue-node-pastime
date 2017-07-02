@@ -1,5 +1,5 @@
 import axios from '../utils/axiosService'
 
-export const fetchImages = () => {
-  return axios.get('/api/images')
+export const fetchImages = (count) => {
+  return axios.get(`/api/images?count=${count}`)
 }

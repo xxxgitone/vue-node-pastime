@@ -58,9 +58,11 @@ const mutations = {
       state.userVideos = res.data.userVideos
     })
   },
-  [types.FETCH_IMAGES] (state) {
-    fetchImages().then(res => {
+  [types.FETCH_IMAGES] (state, count) {
+    fetchImages(count).then(res => {
       state.images = res.data
+    }).then(() => {
+      state.isFetch = false
     })
   }
 }

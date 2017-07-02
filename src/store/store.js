@@ -28,7 +28,11 @@ const store = new Vuex.Store({
     showInfoDialog: false,
     // 将要删除的视频id
     deleteVideoid: '',
-    images: []
+    images: [],
+    // 记录获取图片的次数，用于滚动加载
+    fetchCount: 1,
+    // 判断是否在加载，防止滚动加载多次
+    isFetch: false
   },
   mutations,
   actions
