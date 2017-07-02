@@ -1,9 +1,7 @@
 // videos
 export const FETCH_VIDEOS = 'FETCH_VIDEOS'
 export const HIDDEN_VIDEO = 'HIDDEN_VIDEO'
-export const POST_VIDEO = 'POST_VIDEO'
 export const FETCH_VIDEOS_BY_USERID = 'FETCH_VIDEOS_BY_USERID'
-export const DELETE_VIDEO_BY_ID = 'DELETE_VIDEO_BY_ID'
 
 // user
 export const FETCH_SIGNIN_USER = 'FETCH_SIGNIN_USER'

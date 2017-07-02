@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { postVideo } from '../api/video'
 export default {
   name: 'videopost',
   data () {
@@ -43,8 +44,7 @@ export default {
         const { postButton } = this.$refs
         this.isSubmited = true
         postButton.disabled = 'disabled'
-        this.$store.dispatch('POST_VIDEO', this.postData).then(res => {
-          // console.log(res)
+        postVideo(this.postData).then(res => {
           if (res.data.success) { // 成功
             this.$router.push('/post/success')
             this.isSubmited = false

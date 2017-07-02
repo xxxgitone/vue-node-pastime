@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { deleteVideoById } from '../api/video'
 import { mapState } from 'vuex'
 export default {
   name: 'infodialog',
@@ -30,7 +31,7 @@ export default {
       this.$store.state.showInfoDialog = false
     },
     deleteVideo () {
-      this.$store.dispatch('DELETE_VIDEO_BY_ID', this.deleteVideoid).then(res => {
+      deleteVideoById(this.deleteVideoid).then(res => {
         if (res.data.success) {
           this.$store.state.showInfoDialog = false
           // 重新获取视频信息，

@@ -1,6 +1,5 @@
 import * as types from './mutations-type'
 import { signinByUsername, fetchSignUser } from '../api/user'
-import { postVideo, deleteVideoById } from '../api/video'
 
 const actions = {
   // 用户登录
@@ -31,14 +30,6 @@ const actions = {
       const data = res.data
       commit('SET_SIGNIN_USER', data)
     })
-  },
-   // 发布视频
-  [types.POST_VIDEO] (state, postData) {
-    return postVideo(postData)
-  },
-  // 通过videoid删除对应视频
-  [types.DELETE_VIDEO_BY_ID] ({commit, state}, id) {
-    return deleteVideoById(id)
   }
 }
 
