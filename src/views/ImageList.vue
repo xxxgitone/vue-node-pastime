@@ -21,8 +21,7 @@ export default {
   computed: {
     ...mapState({
       images: 'images',
-      fetchCount: 'fetchCount',
-      isFetch: 'isFetch'
+      fetchCount: 'fetchCount'
     })
   },
   methods: {
@@ -36,8 +35,8 @@ export default {
     window.addEventListener('scroll', () => {
       const scrollTop = document.body.scrollTop || document.documentElement.scrollTop
       // 页面滚动的高度 + 浏览器窗口的视口（viewport）高度 >= 整个页面可视区域高度 - 页面底部高度
-      if (scrollTop + window.innerHeight >= document.body.clientHeight - 90 && this.isFetch === false && this.fetchCount >= 2) {
-        this.isFetch = true
+      if (scrollTop + window.innerHeight >= document.body.clientHeight - 90 && this.$store.state.isFetch === false && this.fetchCount >= 2) {
+        this.$store.state.isFetch = true
         this.fetchMore()
       }
     })
