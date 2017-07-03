@@ -9,4 +9,11 @@ router.get('/images', (req, res, next) => {
   }).catch(next)
 })
 
+router.get('/images/:id', (req, res, next) => {
+  const id = req.params.id
+  Image.findById({_id: id}).then(image => {
+    res.send(image)
+  })
+})
+
 module.exports = router
