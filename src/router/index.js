@@ -7,6 +7,7 @@ import VideoPost from '@/views/VideoPost'
 import PostSuccess from '@/views/PostSuccess'
 import PersonalPage from '@/views/PersonalPage'
 import ImageList from '@/views/ImageList'
+import ImageBanner from '@/views/ImageBanner'
 
 Vue.use(Router)
 
@@ -55,7 +56,11 @@ export default new Router({
     {
       path: '/images',
       name: 'imagelist',
-      component: ImageList
+      component: ImageList,
+      children: [{
+        path: ':id',
+        component: ImageBanner
+      }]
     }
   ]
 })

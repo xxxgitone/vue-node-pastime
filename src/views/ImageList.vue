@@ -4,6 +4,7 @@
       <ImageItem v-for="image in images" :key="image._id" :image="image"></ImageItem>
     </div>
     <a href="#" class="loadMore" @click.prevent="fetchMore">加载更多</a>
+    <router-view></router-view>
   </div>
 </template>
 
