@@ -6,13 +6,15 @@
         {{ image.user.name }}
         </span>
     </div>
-    <img class="image" :src="image.image_url">
+    <div class="image-wrapper">
+      <router-link :to="`/images/${image._id}`"><img class="image" :src="image.image_url"></router-link>
+    </div>
     <div class="description" v-show="image.description">
         <span v-html="image.description"></span>
     </div>
     <span class="collect" @click="isSelected = !isSelected" :class="{ selected: isSelected }" >
         <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-zan1"></use>
+         <use xlink:href="#icon-zan1"></use>
         </svg>
     </span>
   </div>
@@ -39,15 +41,17 @@ export default {
     text-align: center;
     background: #eee;
     position: relative;
+    overflow: hidden;
 
+    .image-wrapper {
+      &:hover + .description{
+        transform: translateY(0);
+      }
+    }
     .image {
       height: 16.5rem;
       max-width: 100%;
       cursor: pointer;
-
-      &:hover + .description{
-        display: block;
-      }
     }
 
     .imgUserInfo {
@@ -70,7 +74,7 @@ export default {
       position: absolute;
       // 实现两行文字省略号
       width: 100%;
-      height: 2.3rem;
+      // height: 2.3rem;
       text-overflow: ellipsis;
       overflow: hidden;
       display: flex;
@@ -80,9 +84,14 @@ export default {
       left: 0;
       background: rgba(0, 0, 0, .5);
       color: white;
-      display: none;
+      transform: translateY(110%);
       transition: all .3s;
       padding: .1rem 0;
+      max-height: 4rem;
+
+      &:hover {
+        transform: translateY(0);
+      }
     }
 
     .selected > svg {
