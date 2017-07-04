@@ -8,6 +8,7 @@ import PostSuccess from '@/views/PostSuccess'
 import PersonalPage from '@/views/PersonalPage'
 import ImageList from '@/views/ImageList'
 import ImageBanner from '@/views/ImageBanner'
+import Chat from '@/views/Chat'
 
 Vue.use(Router)
 
@@ -61,6 +62,11 @@ export default new Router({
         path: ':id',
         component: ImageBanner
       }]
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: Chat
     }
   ]
 })
