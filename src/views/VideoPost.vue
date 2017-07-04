@@ -1,33 +1,40 @@
 <template>
-  <div class="videopost">
-    <div class="videopost-wrapper">
-      <h2>分享视频</h2><span class="input-message">不能为空</span>
-      <form class="postForm">
-        <div class="form-controls">
-          <label class="label" for="videoUrl">链接</label>
-          <input id="videoUrl" placeholder="请输入正确的资源链接" v-model="postData.playUrl" >
-        </div>
-        <div class="form-controls">
-          <label class="label" for="videoTitle">标题</label>
-          <input id="videoTitle" placeholder="请填写视频标题"  v-model="postData.title" >
-        </div>
-        <div class="form-controls">
-          <label class="label" for="videoCover">封面</label>
-          <input id="videoCover" placeholder="请输入正确的封面链接" v-model="postData.coverSrc" >
-        </div>
-        <button ref="postButton" class="postButton" @click.prevent="postVideo">
-          <span v-show="!isSubmited">发布视频</span>
-          <span v-show="isSubmited">发布中...</span>
-        </button>
-      </form>
+  <div>
+    <div class="videopost">
+      <div class="videopost-wrapper">
+        <h2>分享视频</h2><span class="input-message">不能为空</span>
+        <form class="postForm">
+          <div class="form-controls">
+            <label class="label" for="videoUrl">链接</label>
+            <input id="videoUrl" placeholder="请输入正确的资源链接" v-model="postData.playUrl" >
+          </div>
+          <div class="form-controls">
+            <label class="label" for="videoTitle">标题</label>
+            <input id="videoTitle" placeholder="请填写视频标题"  v-model="postData.title" >
+          </div>
+          <div class="form-controls">
+            <label class="label" for="videoCover">封面</label>
+            <input id="videoCover" placeholder="请输入正确的封面链接" v-model="postData.coverSrc" >
+          </div>
+          <button ref="postButton" class="postButton" @click.prevent="postVideo">
+            <span v-show="!isSubmited">发布视频</span>
+            <span v-show="isSubmited">发布中...</span>
+          </button>
+        </form>
+      </div>
     </div>
+    <AppFooter></AppFooter>
   </div>
 </template>
 
 <script>
 import { postVideo } from '../api/video'
+import AppFooter from '../components/App-Footer'
 export default {
   name: 'videopost',
+  components: {
+    AppFooter
+  },
   data () {
     return {
       postData: {

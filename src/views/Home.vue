@@ -110,12 +110,17 @@
     <section>
       fdg
     </section>
+    <AppFooter></AppFooter>
   </div>
 </template>
 
 <script>
+import AppFooter from '../components/App-Footer'
 export default {
   name: 'home',
+  components: {
+    AppFooter
+  },
   mounted () {
     let { isHome } = this.$store.state
     if (isHome === false) {

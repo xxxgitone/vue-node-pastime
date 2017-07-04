@@ -5,16 +5,19 @@
     </div>
     <a href="#" class="loadMore" @click.prevent="fetchMore">加载更多</a>
     <router-view></router-view>
+    <AppFooter></AppFooter>
   </div>
 </template>
 
 <script>
 import ImageItem from '../components/ImageItem'
+import AppFooter from '../components/App-Footer'
 import { mapState } from 'vuex'
 export default {
   name: 'imagelist',
   components: {
-    ImageItem
+    ImageItem,
+    AppFooter
   },
   created () {
     this.$store.commit('FETCH_IMAGES', this.fetchCount)

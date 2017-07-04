@@ -1,14 +1,17 @@
 <template>
-  <div class="personalPage">
-    <div class="personalInfo">
-      <img src="https://1x.com/images/user/7059ae85778abd28a685d4fab79fb997-hd2.jpg">
-      <div class="page-mask">
-        <img :src="userInfo.avatar_url" class="avatar">
-        <div class="name">{{ userInfo.name }}</div>
+  <div>
+    <div class="personalPage">
+      <div class="personalInfo">
+        <img src="https://1x.com/images/user/7059ae85778abd28a685d4fab79fb997-hd2.jpg">
+        <div class="page-mask">
+          <img :src="userInfo.avatar_url" class="avatar">
+          <div class="name">{{ userInfo.name }}</div>
+        </div>
       </div>
+      <InfoContainer></InfoContainer>
+      <InfoDialog></InfoDialog>
     </div>
-    <InfoContainer></InfoContainer>
-    <InfoDialog></InfoDialog>
+    <AppFooter></AppFooter>
   </div>
 </template>
 
@@ -16,12 +19,14 @@
 import { mapState } from 'vuex'
 import InfoContainer from '../components/InfoContainer'
 import InfoDialog from '../components/InfoDialog'
+import AppFooter from '../components/App-Footer'
 
 export default {
   name: 'personalpage',
   components: {
     InfoContainer,
-    InfoDialog
+    InfoDialog,
+    AppFooter
   },
   created () {
     this.fetcheUser()

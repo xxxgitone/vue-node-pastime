@@ -7,7 +7,7 @@
           <ul class="nav-list">
             <li><router-link :to="'/videolist'">VIDEO</router-link></li>
             <li><router-link :to="'/images'">IMAGES</router-link></li>
-            <li><a href="#">AMIZING</a></li>
+            <li><router-link :to="'/chat'" >DISCUSSING</router-link></li>
             <li><a href="#">ABOUT</a></li>
             <li v-show="!token"><a href="#" @click.prevent="showSignDia">LOGIN</a></li>
           </ul>
@@ -25,26 +25,6 @@
       </div>
     </header>
     <router-view></router-view>
-    <footer class="footer">
-      <p class="contact">
-        <a href="https://github.com/xxxgitone" target="_bank">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-github"></use>
-          </svg>
-        </a>
-        <a href="https://xxxgitone.github.io/" target="_bank">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-letter-b"></use>
-          </svg>
-        </a>
-        <a href="https://www.zhihu.com/people/xxxjiang/activities" target="_bank">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-zhihu"></use>
-          </svg>
-        </a>
-      </p>
-      <span class="copy">Copyright © 2017 | <a href="https://github.com/xxxgitone" target="_bank">XUTHUS</a></span>
-    </footer>
     <SignDialog v-show="showSignDialog" :message="message"></SignDialog>
   </div>
 </template>
@@ -232,56 +212,6 @@ a {
       padding: 0.625rem 1.3rem;
       width: 80%;
       border-bottom: 2px solid #fff;
-    }
-
-  }
-}
-
-.footer {
-  background: $mainBlack;
-  padding: 1rem calc(50% - 31.25em);
-  @include flexCenter;
-  flex-direction: column;
-
-  .contact {
-    width: 100%;
-    text-align: center;
-
-    a {
-      color: #9b9b9b;
-      display: inline-block;
-      width: 1.875rem;
-      height: 1.875rem;
-      margin: 0 0.3rem;
-
-      svg {
-        display: block;
-        width: 100%;
-        height: 100%;
-        transition: color .3s;
-      }
-
-      &:hover {
-
-        svg {
-          color: red;
-        }
-      }
-
-    }
-  }
-
-  .copy {
-    font-size: 0.8em;
-    color: #fff;
-
-    a {
-      color: #fff;
-
-      &:hover {
-        color: #9b9b9b;
-        text-decoration: underline;
-      }
     }
   }
 }
