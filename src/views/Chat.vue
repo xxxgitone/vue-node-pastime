@@ -4,26 +4,28 @@
       <div class="user-list">
         <span class="title">在线用户</span>
         <ul class="online-user">
-          <li>
-            <img src="https://pacdn.500px.org/777395/fcc4a2ab5f58bb2da689ed70763e23cd70eaa6a6/2.jpg?59">
-            <span>Sean Archer</span>
+          <li v-for="user in onlineUser" v-show="user.name">
+            <img :src="user.avatar_url">
+            <span>{{ user.name }}</span>
           </li>
         </ul>
       </div>
       <div class="chat-window">
         <span class="descript-title">聊天消息</span>
-        <div class="chat-message">
-          <div class="message-info">
-            <img class="message-user-avatar" src="https://pacdn.500px.org/777395/fcc4a2ab5f58bb2da689ed70763e23cd70eaa6a6/2.jpg?59">
+        <div class="chat-message" ref="chatMessage">
+
+          <div class="message-info" v-for="message in messages">
+            <img class="message-user-avatar" :src="message.avatar_url">
             <div class="message-wrapper">
-              <span class="message-user">Sean Archer</span>
-              <p class="message-content">第一条信息</p>
+              <span class="message-user">{{ message.name }}</span>
+              <p class="message-content">{{ message.message }}</p>
             </div>
           </div>
+
         </div>
         <div class="send-message">
-          <textarea class="message-text" placeholder="输入您的消息..."></textarea>
-          <svg class="icon" aria-hidden="true">
+          <textarea v-model="message" class="message-text" placeholder="输入您的消息..." ref="textarea" autofocus></textarea>
+          <svg class="icon" aria-hidden="true" @click="sendMessage">
             <use xlink:href="#icon-sendemail"></use>
           </svg>
         </div>
@@ -33,10 +35,50 @@
 </template>
 
 <script>
+import io from 'socket.io-client'
+import { mapState } from 'vuex'
 export default {
   name: 'chat',
+  data () {
+    return {
+      message: '',
+      scoket: {},
+      // 在线用户
+      onlineUsers: [],
+      // 消息记录
+      messages: []
+    }
+  },
+  created () {
+    this.socket = io.connect('http://localhost:4000')
+  },
+  computed: {
+    ...mapState({
+      user: 'user'
+    }),
+    onlineUser () {
+      this.onlineUsers.push(this.user)
+      return this.onlineUsers
+    }
+  },
+  methods: {
+    sendMessage () {
+      this.socket.emit('chat', {
+        name: this.user.name,
+        avatar_url: this.user.avatar_url,
+        message: this.message
+      })
+      this.message = ''
+      const { textarea } = this.$refs
+      textarea.focus()
+    }
+  },
   mounted () {
     this.$store.state.isHome = false
+
+    this.socket.on('chat', (data) => {
+      this.messages.push(data)
+    })
   }
 }
 </script>
@@ -74,7 +116,7 @@ export default {
     }
 
     .online-user {
-      overflow-y: scroll;
+      overflow: auto;
       height: calc(100% - 6.5rem);
       border-bottom: 1px solid #eee;
 
@@ -115,7 +157,7 @@ export default {
     }
 
     .chat-message {
-      overflow-y: scroll;
+      overflow: auto;
       height: calc(100% - 6.5rem);
       border-bottom: 1px solid #eee;
       width: 100%;
