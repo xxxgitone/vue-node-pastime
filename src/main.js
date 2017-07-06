@@ -10,6 +10,8 @@ import moment from 'moment'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
+moment.locale('zh-cn')
+
 // 处理时间的全局过滤器
 Vue.filter('timeAgo', timestamp => {
   return moment(timestamp).startOf('hour').fromNow()
