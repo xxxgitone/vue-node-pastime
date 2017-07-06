@@ -33,11 +33,45 @@ const server = app.listen(4000, () => {
 
 // socket setup
 const io = socket(server)
+let onlineUsers = []
 
 io.on('connect', (socket) => {
-  console.log('made socket connection', socket.id)
+  console.log('进入')
+  socket.on('online', (user) => {
+    if (onlineUsers.length > 0) {
+      const onlineUser = onlineUsers.find(onlineUser => onlineUser.name === user.name)
+      if (!onlineUser && user.name) {
+        onlineUsers.push(user)
+      }
+    } else {
+      if (user.name) {
+        onlineUsers.push(user)
+      }
+    }
+    socket.name = user.name
+    // 向所有客户端发送
+    io.sockets.emit('online', onlineUsers)
+
+    socket.broadcast.emit('join', {
+      name: user.name,
+      type: 'join'
+    })
+  })
 
   socket.on('chat', (data) => {
     io.sockets.emit('chat', data)
+  })
+
+  socket.on('disconnect', () => {
+    const onlinUser = onlineUsers.find(onlinUser => onlinUser.name === socket.name)
+    const index = onlineUsers.indexOf(onlinUser)
+    onlineUsers.splice(index, 1)
+    // 重新向所有客户端发送在线用户
+    io.sockets.emit('online', onlineUsers)
+    // 向除自己以外的客户端发送信息
+    socket.broadcast.emit('user left', {
+      name: socket.name,
+      type: 'left'
+    })
   })
 })

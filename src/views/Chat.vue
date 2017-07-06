@@ -4,7 +4,7 @@
       <div class="user-list">
         <span class="title">在线用户</span>
         <ul class="online-user">
-          <li v-for="user in onlineUser" v-show="user.name">
+          <li v-for="user in onlineUsers">
             <img :src="user.avatar_url">
             <span>{{ user.name }}</span>
           </li>
@@ -14,17 +14,31 @@
         <span class="descript-title">聊天消息</span>
         <div class="chat-message" ref="chatMessage">
 
-          <div class="message-info" v-for="message in messages">
-            <img class="message-user-avatar" :src="message.avatar_url">
-            <div class="message-wrapper">
-              <span class="message-user">{{ message.name }}</span>
-              <p class="message-content">{{ message.message }}</p>
-            </div>
-          </div>
+          <ul>
+            <li class="message-info" v-for="message in messages" :class="{self: message.name === user.name }">
+            
+              <template v-if="message.type === 'userMessage'">
+                <img class="message-user-avatar" :src="message.avatar_url">
+                <div class="message-wrapper">
+                  <span class="message-user">{{ message.name }}</span>
+                  <p class="message-content">{{ message.message }}</p>
+                </div>
+              </template>
+
+              <template v-else-if="message.type === 'left'">
+                <p class="server-message">{{ message.name }}  离开</p>
+              </template>
+              
+              <template v-else-if="message.type === 'join'">
+                <p class="server-message">{{ message.name }}  进入</p>
+              </template>
+
+            </li>
+          </ul>
 
         </div>
         <div class="send-message">
-          <textarea v-model="message" class="message-text" placeholder="输入您的消息..." ref="textarea" autofocus></textarea>
+          <textarea v-model="message" class="message-text" placeholder="输入您的消息..." ref="textarea" autofocus @keyup.enter="sendMessage"></textarea>
           <svg class="icon" aria-hidden="true" @click="sendMessage">
             <use xlink:href="#icon-sendemail"></use>
           </svg>
@@ -55,10 +69,14 @@ export default {
   computed: {
     ...mapState({
       user: 'user'
-    }),
-    onlineUser () {
-      this.onlineUsers.push(this.user)
-      return this.onlineUsers
+    })
+  },
+  watch: {
+    messages () {
+      this.$nextTick(() => {
+        const { chatMessage } = this.$refs
+        chatMessage.scrollTop = chatMessage.scrollHeight
+      })
     }
   },
   methods: {
@@ -66,7 +84,8 @@ export default {
       this.socket.emit('chat', {
         name: this.user.name,
         avatar_url: this.user.avatar_url,
-        message: this.message
+        message: this.message,
+        type: 'userMessage'
       })
       this.message = ''
       const { textarea } = this.$refs
@@ -76,8 +95,33 @@ export default {
   mounted () {
     this.$store.state.isHome = false
 
+    // 给客户端发送进入聊天室用户信息
+    this.socket.emit('online', {
+      name: this.user.name,
+      avatar_url: this.user.avatar_url,
+      type: 'join'
+    })
+
+    // 监听进入用户
+    this.socket.on('join', (data) => {
+      this.messages.push(data)
+    })
+    // 监听在线用户
+    this.socket.on('online', (onlineUsers) => {
+      this.onlineUsers = onlineUsers
+    })
+
     this.socket.on('chat', (data) => {
       this.messages.push(data)
+    })
+
+    // 监听用户离开
+    this.socket.on('user left', (data) => {
+      this.messages.push(data)
+    })
+
+    this.socket.on('disconnect', function () {
+      console.log('you have been disconnected')
     })
   }
 }
@@ -157,7 +201,7 @@ export default {
     }
 
     .chat-message {
-      overflow: auto;
+      overflow-y: scroll;
       height: calc(100% - 6.5rem);
       border-bottom: 1px solid #eee;
       width: 100%;
@@ -196,6 +240,26 @@ export default {
           margin-top: .5rem;
           box-shadow: 1px 1px 2px rgba(0,0,0,.1),
             -1px -1px 2px rgba(0,0,0,.1);
+        }
+      }
+
+      .server-message {
+        font-size: .7rem;
+        color: #999;
+        width: 100%;
+        text-align: center;
+      }
+      .self {
+        text-align: right;
+        justify-content: flex-end;
+        padding: .5rem 1rem .5rem 0;
+
+        .message-user-avatar {
+            order: 2;
+        }
+
+        .message-content {
+          text-align: left;
         }
       }
     }
