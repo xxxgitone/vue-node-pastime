@@ -2,14 +2,15 @@
  * @Author: xuthus
  * @Date: 2017-06-17 20:35:04
  * @Last Modified by: xuthus
- * @Last Modified time: 2017-06-21 16:12:19
+ * @Last Modified time: 2017-07-07 14:49:06
  */
 import axios from '../utils/axiosService' // 引入加了拦截器的axios
 
-export const signinByUsername = (username, password) => {
+export const signinByUsername = (username, password, type) => {
   const data = {
     username,
-    password
+    password,
+    type
   }
   return axios.post('/auth/users', data)
 }

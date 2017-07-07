@@ -12,36 +12,58 @@
         </svg>
         <input type="password" placeholder="密码" v-model="formInfo.password"/>
       </div>
-      <button ref="submitButton" type="submit" class="signin" @click.prevent="signin">
+
+      <button v-if="signType === 'signin'" ref="submitButton" type="submit" class="sign" @click.prevent="sign('signin')">
         <span v-show="!isLoading">登录</span>
         <span v-show="isLoading">登录中...</span>
       </button>
 
-      <a class="signup" href="#">没有帐号？点击注册</a>
+      <button v-else-if="signType === 'signup'" ref="submitButton" type="submit" class="sign" @click.prevent="sign('signup')">
+        <span v-show="!isLoading">注册</span>
+        <span v-show="isLoading">注册中...</span>
+      </button>
+
+      <a v-show="signType === 'signin'" class="signup" href="#" @click.prevent="switchSignup">没有帐号？点击注册</a>
+
+      <a v-show="signType === 'signup'" class="signup" href="#" @click.prevent="switchSignup">已有帐号返回登录</a>
     </form>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'signin',
   data () {
     return {
       formInfo: {
-        username: 'IGN',
-        password: '123456'
+        username: '',
+        password: ''
       },
       isLoading: false
     }
   },
+  computed: {
+    ...mapState({
+      signType: 'signType'
+    })
+  },
   methods: {
-    signin () {
+    // 登录方法,注册
+    sign (type) {
       let { signinForm, submitButton } = this.$refs
       submitButton.disabled = 'disabled'
       this.isLoading = true
-      this.$store.dispatch('SIGNIN_BY_USERNAME', this.formInfo).then((data) => {
+      const formInfo = {
+        username: this.formInfo.username,
+        password: this.formInfo.password,
+        type: type
+      }
+      this.$store.dispatch('SIGN_BY_USERNAME', formInfo).then((data) => {
         // 为true时
         if (data) {
           signinForm.reset()
+          this.formInfo = {}
+          this.$store.state.signType = 'signin'
           this.$store.state.message = {}
           this.$store.commit('CLOSE_SIGN_DIALOG')
           submitButton.disabled = ''
@@ -58,6 +80,11 @@ export default {
           message: err
         }
       })
+    },
+    switchSignup () {
+      this.$store.state.message = {}
+      const { signType } = this.$store.state
+      this.$store.state.signType = signType === 'signup' ? 'signin' : 'signup'
     }
   }
 }
@@ -94,7 +121,7 @@ export default {
     }
   }
 
-  .signin {
+  .sign {
     margin-top: 2.5rem;
     color: white;
     width: 100%;

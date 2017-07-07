@@ -25,7 +25,10 @@
       </div>
     </header>
     <router-view></router-view>
-    <SignDialog v-show="showSignDialog" :message="message"></SignDialog>
+    <SignDialog v-show="showSignDialog" :message="message">
+      <h2 v-if="signType === 'signin'">SIGN &nbsp;IN</h2>
+      <h2 v-else-if="signType === 'signup'">SIGN &nbsp;UP</h2>
+    </SignDialog>
   </div>
 </template>
 
@@ -58,7 +61,8 @@ export default {
       user: 'user',
       isHome: 'isHome',
       message: 'message',
-      showSignDialog: 'showSignDialog'
+      showSignDialog: 'showSignDialog',
+      signType: 'signType'
     })
   },
   methods: {

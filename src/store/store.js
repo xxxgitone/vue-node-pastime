@@ -15,6 +15,8 @@ const store = new Vuex.Store({
       id: '',
       avatar_url: ''
     },
+    // 判断是登入还是注册
+    signType: 'signin',
     // 其他用户
     userInfo: {},
     message: {},

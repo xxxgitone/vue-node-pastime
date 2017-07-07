@@ -1,7 +1,7 @@
 <template>
-  <div class="singDialog">
+  <div class="signDialog">
     <div class="title">
-      <h2>SIGN &nbsp;IN</h2>
+      <slot></slot>
       <span class="message" :class="{ messageSuccess: message.success}">{{ message.message }}</span>
         <span class="close" @click="closeSignDia">&times;</span>
     </div>
@@ -18,7 +18,7 @@ export default {
     Signin
   },
   methods: {
-    // 显示登录注册框
+    // 关闭登录注册框
     closeSignDia () {
       this.$store.commit('CLOSE_SIGN_DIALOG')
     }
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss">
-.singDialog {
+.signDialog {
   position: fixed;
   top: 50%;left: 50%;
   z-index: 1;
