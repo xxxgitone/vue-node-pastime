@@ -90,10 +90,16 @@
       <span class="text">重播</span>
     </div>
 
+    <div class="comments-frame">
+      <RichEdit></RichEdit>
+    </div>
+    <AppFooter></AppFooter>
   </div>
 </template>
 
 <script>
+import AppFooter from '../components/App-Footer'
+import RichEdit from '../components/RichEdit'
 import { fetchVideoById } from '../api/video.js'
 export default {
   name: 'video',
@@ -113,6 +119,10 @@ export default {
       volume: 0.5,
       volumeoff: false
     }
+  },
+  components: {
+    AppFooter,
+    RichEdit
   },
   created () {
     const id = this.$route.params.id
@@ -487,40 +497,45 @@ export default {
   }
 }
 
- .loading {
-     height: 32rem;
-     width: 63rem;
-     background: #1A1A1A;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     position: absolute;
-     top:9%;
-     left: 10.8rem;
+.loading {
+    height: 32rem;
+    width: 63rem;
+    background: #1A1A1A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top:9%;
+    left: 10.8rem;
 
-     img {
-       width: 10%;
-     }
-   }
+    img {
+      width: 10%;
+    }
+  }
 
-   .replay {
-     width: 3rem;
-     cursor: pointer;
-     position: absolute;
-     top: 45%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     text-align: center;
+  .replay {
+    width: 3rem;
+    cursor: pointer;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 
-     svg {
-       width:3rem;
-       height: 3rem;
-     }
+    svg {
+      width:3rem;
+      height: 3rem;
+    }
 
-     .text {
-       color: white;
-       font-size: .625rem;
-     }
-   }
+    .text {
+      color: white;
+      font-size: .625rem;
+    }
+  }
+
+  .comments-frame {
+    width: 60%;
+    margin: 2rem auto;
+  }
 
 </style>
