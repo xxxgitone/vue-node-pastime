@@ -1,12 +1,12 @@
 import * as types from './mutations-type'
-import { signinByUsername, fetchSignUser } from '../api/user'
+import { signByUsername, fetchSignUser } from '../api/user'
 
 const actions = {
   // 用户登录
   [types.SIGN_BY_USERNAME] ({ commit, dispatch }, formInfo) {
     const username = formInfo.username.trim()
     return new Promise((resolve, reject) => {
-      signinByUsername(username, formInfo.password, formInfo.type).then((res) => {
+      signByUsername(username, formInfo.password, formInfo.type).then((res) => {
         const data = res.data
         commit('SET_MESSAGE', data)
         // 后台有返回这个字段,success为ture
