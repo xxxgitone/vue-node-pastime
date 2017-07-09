@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const Comment = require('../models/comment')
-const Video = require('../models/video')
 
 router.get('/comments', (req, res, next) => {
-  Comment.find({}).then(comments => {
+  const typeId = req.query.typeId
+  const type = req.query.type
+  Comment.find({type: type, typeId: typeId}).then(comments => {
     res.send(comments)
   }).catch(next)
 })
@@ -17,13 +18,11 @@ router.get('/comments/:id', (req, res, next) => {
 })
 
 router.post('/comments', (req, res, next) => {
-  const vId = req.params.by
-  Comment.create(req.body).then(comment => {
-    const id = comment._id
-    Video.findById({_id: vId}).then(video => {
-      video.comments.push(id)
+  const comment = req.body
+  Comment.create(comment).then(comment => {
+    Comment.findById({_id: comment._id}).then(comment => {
+      res.send(comment)
     })
-    res.send(comment)
   })
 })
 
@@ -33,6 +32,5 @@ router.delete('/comments/:id', (req, res, next) => {
     res.send(comment)
   })
 })
-
 
 module.exports = router

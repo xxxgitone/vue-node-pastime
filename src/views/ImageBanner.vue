@@ -9,22 +9,22 @@
         <span>{{ imageInfo.user.name }}</span>
       </div>
       <div class="comment">
-        <span class="placeholder">还没有评论..</span>
-        <p class="comment-info">
-          <span class="comment-auth"></span>
-          <span></span>
+        <span class="placeholder" v-show="comments.length === 0">还没有评论..</span>
+        <p class="comment-info" v-for="comment in comments" :key="comment._id">
+          <span class="comment-auth">{{ comment.user && comment.user.name }}</span>
+          <span class="comment-text">{{ comment.text }}</span>
         </p>
       </div>
       <div class="zan" :class="{selected: isSelected}">
         <svg v-if="!isSelected" class="icon" aria-hidden="true" @click="collect">
           <use xlink:href="#icon-zan1"></use>
         </svg>
-        <svg v-else="isSelected" class="icon" aria-hidden="true" @click="collect">
+        <svg v-else-if="isSelected" class="icon" aria-hidden="true" @click="collect">
           <use xlink:href="#icon-jinlingyingcaiwangtubiao24"></use>
         </svg>
         <span>{{ imageInfo.collections_count }}</span>赞
       </div>
-      <textarea class="postComment" placeholder="添加评论..." autofocus></textarea>
+      <textarea class="postComment" v-model="comment" placeholder="添加评论..." autofocus @keyup.enter="postComment"></textarea>
     </div>
     <span class="closeBanner" @click="closeBanner">&times;</span>
     <span v-show="this.index > 0" class="pre" @click="preImg">&lt;</span>
@@ -33,7 +33,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { fetchImageById } from '../api/image.js'
+import { postCommentApi, fetchCommentsByType } from '../api/comment.js'
 export default {
   name: 'imagebanner',
   data () {
@@ -43,20 +45,26 @@ export default {
           avatar_url: '',
           name: ''
         }
+        // 其他属性
       },
       isSelected: false,
-      index: ''
+      index: '',
+      comment: '',
+      comments: []
     }
   },
   created () {
     const { id } = this.$route.params
     const { images } = this.$store.state
-    fetchImageById(id).then(res => {
-      this.imageInfo = res.data
-    })
+    this.fetchImg(id)
     // 获取当前图片的index
     const img = images.find((img) => img._id === id)
     this.index = images.indexOf(img)
+  },
+  computed: {
+    ...mapState({
+      user: 'user'
+    })
   },
   methods: {
     collect () {
@@ -66,19 +74,42 @@ export default {
     closeBanner () {
       this.$router.push('/images')
     },
-    fetchImg () {
-      const img = this.$store.state.images[this.index]
-      fetchImageById(img._id).then(res => {
+    fetchImg (id) {
+      this.comments = []
+      fetchImageById(id).then(res => {
         this.imageInfo = res.data
+      }).then(() => {
+        fetchCommentsByType('image', this.imageInfo._id).then(res => {
+          this.comments.push(...res.data)
+        })
       })
     },
     preImg () {
       this.index--
-      this.fetchImg()
+      const img = this.$store.state.images[this.index]
+      this.fetchImg(img._id)
     },
     nextImg () {
       this.index++
-      this.fetchImg()
+      const img = this.$store.state.images[this.index]
+      this.fetchImg(img._id)
+    },
+    // 发表评论
+    postComment () {
+      const commentInfo = {
+        user: {
+          name: this.user.name,
+          avatar_url: this.user.avatar_url,
+          _id: this.user._id
+        },
+        text: this.comment,
+        type: 'image',
+        typeId: this.imageInfo._id
+      }
+      this.comment = ''
+      postCommentApi(commentInfo).then(res => {
+        this.comments.push(res.data)
+      })
     }
   }
 }
@@ -149,6 +180,10 @@ export default {
       }
       .comment-auth {
         font-weight: bold;
+      }
+
+      .comment-text {
+        color: #999;
       }
     }
 
