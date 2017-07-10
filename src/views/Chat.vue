@@ -128,6 +128,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 .chat {
   font-size: 1rem;
   padding-top: 3.75rem;

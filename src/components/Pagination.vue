@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../assets/scss/mixins.scss';
 
 .pagination {
@@ -53,6 +53,7 @@ export default {
         background: #eee;
         color: #666;
         border-radius: 5px;
+        list-style-type: none;
     }
 
     a {

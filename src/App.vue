@@ -105,7 +105,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   font-size: 1rem;
 }
-ul {
+.nav-list {
   list-style-type: none;
   padding: 0;
   margin: 0;

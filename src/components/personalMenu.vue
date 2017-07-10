@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
  .personalMenu {
     width: 2rem;
     height: 100%;
@@ -70,6 +70,12 @@ export default {
       right: -140%;
       background: rgba(0, 0, 0, .5);
       border-radius: 5px;
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
 
       a {
         color: white;
