@@ -7,6 +7,8 @@ import store from './store/store'
 import axios from './utils/axiosService'
 import moment from 'moment'
 
+import './assets/scss/index.scss'
+
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 

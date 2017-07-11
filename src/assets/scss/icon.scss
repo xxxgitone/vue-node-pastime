@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Federant';
+    src: url('../font/Federant-Regular.ttf');
+}
+
+/*引入图标样式， 修饰SVG图标*/
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}

@@ -89,30 +89,17 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import "./assets/scss/normalize.scss";
-@import "./assets/scss/variables.scss";
-@import "./assets/scss/mixins.scss";
-
-@font-face {
-    font-family: 'Federant';
-    src: url('../static/font/Federant-Regular.ttf');
-}
+<style lang="scss" scoped>
+@import './assets/scss/variables.scss';
+@import './assets/scss/mixins.scss';
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   font-size: 1rem;
 }
 .nav-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
-a {
-  text-decoration: none;
-  outline: none;
 }
 
 .headerBg {
