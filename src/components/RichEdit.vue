@@ -1,24 +1,22 @@
 <<template>
-  <div class="richedit">
-    <div class="edit-controller">
-      <button v-for="command in execCommands" @click="execCommand(command)" class="command-button">
-        <svg class="icon" aria-hidden="true" >
-          <use :xlink:href="command.icon"></use>
-        </svg>
-      </button>
-    </div>
-    <div ref="editable" class="editable" contenteditable="true"></div>
-
-    <div class="link-box" v-show="isShow">
-      <span>添加一个链接</span>
-      <div class="link-text">
-        链接： <input type="text" v-model="linktext" @keyup.enter="addLink">
+  <div class="richeditBox">
+    <div class="richedit">
+      <div class="edit-controller">
+        <button v-for="command in execCommands" @click="execCommand(command)" class="command-button">
+          <svg class="icon" aria-hidden="true" >
+            <use :xlink:href="command.icon"></use>
+          </svg>
+        </button>
       </div>
+      <div ref="editable" class="editable" contenteditable="true"></div>
     </div>
+    <button ref="submitButton" class="submitButton" type="submit" @click="postComment">(ctrl + c)提交</button>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { postCommentApi } from '../api/comment.js'
 export default {
   name: 'richedit',
   data () {
@@ -35,10 +33,10 @@ export default {
         icon: '#icon-xiahuaxian',
         command: 'underline'
       },
-      {
-        icon: '#icon-img',
-        command: 'insertimage'
-      },
+      // {
+      //   icon: '#icon-img',
+      //   command: 'insertimage'
+      // },
       {
         icon: '#icon-lianjie',
         command: 'createlink'
@@ -64,19 +62,28 @@ export default {
         command: 'redo'
       }],
       isShow: false,
-      linktext: ''
+      innerHtml: ''
     }
   },
+  props: ['videoId'],
   created () {
     const editable = this.$refs
     editable.contenteditable = true
+  },
+  computed: {
+    ...mapState({
+      user: 'user'
+    })
   },
   methods: {
     execCommand (command) {
       const cmd = command.command
       switch (cmd) {
         case 'createlink':
-          this.isShow = !this.isShow
+          const linkURL = prompt('输入链接:', 'https://')
+          const sText = document.getSelection()
+          '<a href="' + linkURL + '" target="_blank">' + sText + '</a>'
+          document.execCommand('insertHTML', false, `<a href="${linkURL}" target="_blank">${sText}</a>`)
           break
         case 'formatblock':
           document.execCommand(cmd, false, '<blockquote>')
@@ -85,16 +92,38 @@ export default {
           document.execCommand(cmd, false, null)
       }
     },
-    addLink () {
-      document.execCommand('createlink', false, this.linktext)
+    // 提交评论
+    postComment () {
+      const { editable, submitButton } = this.$refs
+      submitButton.disabled = 'disabled'
+      this.innerHtml = editable.innerHTML
+      const commentInfo = {
+        user: {
+          name: this.user.name,
+          avatar_url: this.user.avatar_url,
+          _id: this.user._id
+        },
+        text: this.innerHtml,
+        type: 'video',
+        typeId: this.videoId
+      }
+      postCommentApi(commentInfo).then(res => {
+        this.$emit('comment', res.data)
+        submitButton.disabled = ''
+        editable.innerHTML = ''
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.richeditBox {
+  display: flex;
+}
+
 .richedit {
-  width: 35rem;
+  width: 37rem;
   border: 1px solid #DDE1E5;
   position: relative;
 }
@@ -122,9 +151,11 @@ export default {
 
 .editable {
   width: 100%;
-  height: 12.5rem;
+  height: 10rem;
+  overflow: auto;
   outline: none;
   padding: 1rem .5rem;
+  background: white;
 }
 
 .link-box {
@@ -147,5 +178,16 @@ export default {
       border-bottom: 1px solid #999;
     }
   }
+}
+
+.submitButton {
+  border: none;
+  outline: none;
+  align-self: flex-end;
+  padding: .8rem 1rem;
+  background: red;
+  border-radius: 7px;
+  color: white;
+  margin: 0 1rem 1rem 1rem;
 }
 </style>
