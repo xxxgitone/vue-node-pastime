@@ -91,8 +91,19 @@
     </div>
 
     <div class="comments-frame">
-      <RichEdit></RichEdit>
+      <img src="http://img.kaiyanapp.com/8d5378f082902ec0aad6f0574d524e12.jpeg?imageMogr2/quality/60/format/jpg" class="avatar">
+      <RichEdit :videoId="videoInfo._id" @comment="getComment"></RichEdit>
     </div>
+
+    <div class="comments-list">
+      <ul>
+        <li>
+          <img>
+          <div></div>
+        </li>
+      </ul>
+    </div>
+
     <AppFooter></AppFooter>
   </div>
 </template>
@@ -101,6 +112,7 @@
 import AppFooter from '../components/App-Footer'
 import RichEdit from '../components/RichEdit'
 import { fetchVideoById } from '../api/video.js'
+import { fetchCommentsByType } from '../api/comment.js'
 export default {
   name: 'video',
   data () {
@@ -117,7 +129,8 @@ export default {
       loading: true,
       playend: false,
       volume: 0.5,
-      volumeoff: false
+      volumeoff: false,
+      comments: []
     }
   },
   components: {
@@ -126,10 +139,13 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    console.log(id)
     fetchVideoById(id).then(res => {
       this.videoInfo = res.data
       this.playUrl = this.videoInfo.playUrl
+    }).then(() => {
+      fetchCommentsByType('video', this.videoInfo._id).then(res => {
+        this.comments.push(...res.data)
+      })
     })
   },
   methods: {
@@ -222,6 +238,9 @@ export default {
       let { video } = this.$refs
       video.play()
       this.playend = false
+    },
+    getComment (comment) {
+      this.comments.push(comment)
     }
   },
   mounted () {
@@ -534,8 +553,18 @@ export default {
   }
 
   .comments-frame {
-    width: 60%;
-    margin: 2rem auto;
+    width: 63%;
+    margin: 0 auto;
+    display: flex;
+    background: #F3F5F7;
+    padding: 1rem;
+
+    .avatar {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
   }
 
 </style>
