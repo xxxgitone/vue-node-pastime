@@ -8,7 +8,7 @@
           </svg>
         </button>
       </div>
-      <div ref="editable" class="editable" contenteditable="true"></div>
+      <div ref="editable" class="editable" contenteditable="true" @keyup.ctrl.67="postComment"></div>
     </div>
     <button ref="submitButton" class="submitButton" type="submit" @click="postComment">(ctrl + c)提交</button>
   </div>
@@ -107,7 +107,7 @@ export default {
         type: 'video',
         typeId: this.videoId
       }
-      postCommentApi(commentInfo).then(res => {
+      this.innerHtml && postCommentApi(commentInfo).then(res => {
         this.$emit('comment', res.data)
         submitButton.disabled = ''
         editable.innerHTML = ''

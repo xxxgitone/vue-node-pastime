@@ -11,10 +11,7 @@ const CommentSchema = new Schema({
   supporter: Number,
   childrens: [String],
   parent: String,
-  created_at: {
-    type: Date,
-    default: Date.now()
-  },
+  created_at: { type: Date, default: Date.now() },
   // 是什么类型下的评论，图片或者视频
   type: String,
   // 该类型下的Id，比如图片Id或者视频ID

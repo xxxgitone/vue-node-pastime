@@ -95,12 +95,10 @@
       <RichEdit :videoId="videoInfo._id" @comment="getComment"></RichEdit>
     </div>
 
-    <div class="comments-list">
+    <div class="comments-list-box">
+      <h4 v-show="comments.length">{{ comments.length }}条评论</h4>
       <ul>
-        <li>
-          <img>
-          <div></div>
-        </li>
+        <Comment v-for="comment in comments" :comment="comment" :key="comment._id"></Comment>
       </ul>
     </div>
 
@@ -111,6 +109,7 @@
 <script>
 import AppFooter from '../components/App-Footer'
 import RichEdit from '../components/RichEdit'
+import Comment from '../components/Comment'
 import { fetchVideoById } from '../api/video.js'
 import { fetchCommentsByType } from '../api/comment.js'
 export default {
@@ -135,7 +134,8 @@ export default {
   },
   components: {
     AppFooter,
-    RichEdit
+    RichEdit,
+    Comment
   },
   created () {
     const id = this.$route.params.id
@@ -144,7 +144,10 @@ export default {
       this.playUrl = this.videoInfo.playUrl
     }).then(() => {
       fetchCommentsByType('video', this.videoInfo._id).then(res => {
-        this.comments.push(...res.data)
+        const data = res.data
+        // 按时间降序排序
+        data.sort((n1, n2) => n1.created_at > n2.created_at ? '-1' : 1)
+        this.comments.push(...data)
       })
     })
   },
@@ -240,7 +243,7 @@ export default {
       this.playend = false
     },
     getComment (comment) {
-      this.comments.push(comment)
+      this.comments.unshift(comment)
     }
   },
   mounted () {
@@ -567,4 +570,14 @@ export default {
     }
   }
 
+  .comments-list-box {
+    width: 63%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+
+    h4 {
+      border-bottom: 1px solid #777;
+      padding: 1rem;
+    }
+  }
 </style>
