@@ -7,3 +7,7 @@ export const postCommentApi = (commentInfo) => {
 export const fetchCommentsByType = (type, typeId) => {
   return axios.get(`/api/comments?type=${type}&typeId=${typeId}`)
 }
+
+export const fetchCommentById = (id) => {
+  return axios.get(`/api/comments/${id}`)
+}

@@ -29,29 +29,31 @@
                     <button class="submitButton" @click="postComment(comment)">确定</button>
                 </div>
             </div>
-            <!--<ul class=>
-                <li class="comment-item">
-                    <span class="auth-avatar">
-                        <router-link :to="{name: 'page', query: {user: comment.user._id}}">
-                            <img :src="comment.user.avatar_url">
-                        </router-link>
-                    </span>
-                    <div class="comment-info">
-                        <div class="comment-user">
-                            <span class="auth-name">{{ comment.user.name }}</span>
-                            <time class="timeago">{{ comment.create_at | timeAgo }}</time>
+            <ul v-if="childComments.length > 0">
+                <template v-for="child in childComments">
+                    <li class="comment-item">
+                        <span class="auth-avatar">
+                            <router-link :to="{name: 'page', query: {user: comment.user._id}}">
+                                <img :src="child.user.avatar_url">
+                            </router-link>
+                        </span>
+                        <div class="comment-info">
+                            <div class="comment-user">
+                                <span class="auth-name">{{ child.user.name }}</span>
+                                <time class="timeago">{{ child.create_at | timeAgo }}</time>
+                            </div>
+                            <p class="comment-text" v-html="child.text"></p>
+                            <div>
+                                <span class="zan">
+                                    <svg class="icon" aria-hidden="true" >
+                                        <use xlink:href="#icon-zan2"></use>
+                                    </svg>
+                                {{ child.supporter && child.supporter }}
+                                </span>
+                            </div>
                         </div>
-                        <p class="comment-text" v-html="comment.text"></p>
-                        <div>
-                            <span class="zan">
-                                <svg class="icon" aria-hidden="true" >
-                                    <use xlink:href="#icon-zan2"></use>
-                                </svg>
-                            {{ comment.supporter && comment.supporter }}
-                            </span>
-                        </div>
-                    </div>
-                </li>-->
+                    </li>
+                </template>
             </ul>
         </div>
     </li>
@@ -59,8 +61,9 @@
 
 <script>
 import { mapState } from 'vuex'
+import { postCommentApi } from '../api/comment.js'
 export default {
-  props: ['comment'],
+  props: ['comment', 'childComments'],
   data () {
     return {
       showFlag: false,
@@ -85,8 +88,11 @@ export default {
         type: 'video',
         typeId: comment.typeId
       }
-      console.log(commentInfo)
-      this.commentText = ''
+      this.commentText && postCommentApi(commentInfo).then(res => {
+        this.commentText = ''
+        this.showFlag = false
+        this.$emit('childComment', res.data)
+      })
     }
   }
 }
@@ -140,8 +146,8 @@ export default {
         color: #666;
         cursor: pointer;
         svg {
-        width: 1rem;
-        height: 1rem;
+            width: 1rem;
+            height: 1rem;
         }
     }
 

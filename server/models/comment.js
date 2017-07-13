@@ -9,7 +9,7 @@ const CommentSchema = new Schema({
   },
   text: String,
   supporter: Number,
-  childrens: [String],
+  children: [String],
   parent: String,
   created_at: { type: Date, default: Date.now() },
   // 是什么类型下的评论，图片或者视频

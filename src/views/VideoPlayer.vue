@@ -91,14 +91,18 @@
     </div>
 
     <div class="comments-frame">
-      <img src="http://img.kaiyanapp.com/8d5378f082902ec0aad6f0574d524e12.jpeg?imageMogr2/quality/60/format/jpg" class="avatar">
+      <img :src="user.avatar_url" class="avatar">
       <RichEdit :videoId="videoInfo._id" @comment="getComment"></RichEdit>
     </div>
 
     <div class="comments-list-box">
       <h4 v-show="comments.length">{{ comments.length }}条评论</h4>
       <ul>
-        <Comment v-for="comment in comments" :comment="comment" :key="comment._id"></Comment>
+        <Comment v-for="comment in comments" 
+          :comment="comment" 
+          :key="comment._id" 
+          @childComment="getChildComment"
+          :childComments="comment.children"></Comment>
       </ul>
     </div>
 
@@ -111,7 +115,8 @@ import AppFooter from '../components/App-Footer'
 import RichEdit from '../components/RichEdit'
 import Comment from '../components/Comment'
 import { fetchVideoById } from '../api/video.js'
-import { fetchCommentsByType } from '../api/comment.js'
+import { fetchCommentsByType, fetchCommentById } from '../api/comment.js'
+import { mapState } from 'vuex'
 export default {
   name: 'video',
   data () {
@@ -145,10 +150,33 @@ export default {
     }).then(() => {
       fetchCommentsByType('video', this.videoInfo._id).then(res => {
         const data = res.data
-        // 按时间降序排序
-        data.sort((n1, n2) => n1.created_at > n2.created_at ? '-1' : 1)
-        this.comments.push(...data)
+        let tasks = []
+        data.forEach(comment => {
+          if (comment.children.length > 0) {
+            comment.children.forEach(child => {
+              let task = fetchCommentById(child)
+              tasks.push(task)
+            })
+
+            Promise.all(tasks).then(childComments => {
+              // 数据中包含这个字段，但是存储的是二级评论的id，先把id给截断，存储二级评论具体信息
+              comment.children.splice(0)
+              childComments.forEach(childComment => {
+                comment.children.push(childComment.data)
+              })
+            }).then(() => {
+              // console.log(data)
+              data.sort((n1, n2) => n1.created_at > n2.created_at ? '-1' : 1)
+              this.comments.push(...data)
+            })
+          }
+        })
       })
+    })
+  },
+  computed: {
+    ...mapState({
+      user: 'user'
     })
   },
   methods: {
@@ -244,6 +272,10 @@ export default {
     },
     getComment (comment) {
       this.comments.unshift(comment)
+    },
+    getChildComment (childComment) {
+      const comment = this.comments.find(comment => comment._id === childComment.parent)
+      comment.children.push(childComment)
     }
   },
   mounted () {
