@@ -6,10 +6,16 @@
         <div class="page-mask">
           <img :src="userInfo.avatar_url" class="avatar">
           <div class="name">{{ userInfo.name }}</div>
+          <span 
+            v-show="userInfo.name === user.name" 
+            class="upload-button" 
+            title="修改头像" 
+            @click="switchShowFlag">+</span>
         </div>
       </div>
       <InfoContainer></InfoContainer>
       <InfoDialog></InfoDialog>
+      <Upload v-show="showFlag" @close="closeUpload"></Upload>
     </div>
     <AppFooter></AppFooter>
   </div>
@@ -20,13 +26,20 @@ import { mapState } from 'vuex'
 import InfoContainer from '../components/InfoContainer'
 import InfoDialog from '../components/InfoDialog'
 import AppFooter from '../components/App-Footer'
+import Upload from '../components/upload/upload'
 
 export default {
   name: 'personalpage',
+  data () {
+    return {
+      showFlag: false
+    }
+  },
   components: {
     InfoContainer,
     InfoDialog,
-    AppFooter
+    AppFooter,
+    Upload
   },
   created () {
     this.fetcheUser()
@@ -36,13 +49,20 @@ export default {
   },
   computed: {
     ...mapState({
-      userInfo: state => state.userInfo
+      userInfo: state => state.userInfo,
+      user: state => state.user
     })
   },
   methods: {
     fetcheUser () {
       const id = this.$route.query.user
       this.$store.commit('FETCH_USER_INFO', id)
+    },
+    switchShowFlag () {
+      this.showFlag = !this.showFlag
+    },
+    closeUpload () {
+      this.showFlag = false
     }
   },
   mounted () {
@@ -90,6 +110,19 @@ export default {
       color: white;
       padding: 1.5rem 0;
       font-size: 1.5rem;
+    }
+
+    .upload-button {
+      display: inline-block;
+      background: blue;
+      color: white;
+      width: 2rem;
+      height: 2rem;
+      text-align: center;
+      line-height: 2rem;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      cursor: pointer;
     }
   }
 }
