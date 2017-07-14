@@ -33,7 +33,7 @@
                 <template v-for="child in childComments">
                     <li class="comment-item">
                         <span class="auth-avatar">
-                            <router-link :to="{name: 'page', query: {user: comment.user._id}}">
+                            <router-link :to="{name: 'page', query: {user: child.user._id}}">
                                 <img :src="child.user.avatar_url">
                             </router-link>
                         </span>
