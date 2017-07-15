@@ -5,6 +5,7 @@ const userRoutes = require('./server/api/user')
 const videoRoutes = require('./server/api/video')
 const commentRoutes = require('./server/api/comment')
 const imageRoutes = require('./server/api/image')
+const uploadRoutes = require('./server/api/upload')
 const socket = require('socket.io')
 
 const app = express()
@@ -21,6 +22,7 @@ app.use(require('./server/middlewares/jwtMid')) // 添加验证token的中间件
 app.use('/api', videoRoutes)
 app.use('/api', imageRoutes)
 app.use('/api', commentRoutes)
+app.use('/api', uploadRoutes)
 
 // 错误处理
 app.use((err, req, res, next) => {

@@ -9,7 +9,7 @@
        <input type="file" @change="handleChange($event)" ref="filesList">点击选择上传的图片 
     </a>
 
-    <a href="#" class="upload" @click="upload" ref="uploadButton" v-show="showFlag">
+    <a href="#" class="upload" @click.prevent="upload" ref="uploadButton" v-show="showFlag">
        确认上传
     </a>
 
@@ -23,21 +23,30 @@ export default {
     return {
       url: '',
       text: '',
-      showFlag: false
+      showFlag: false,
+      file: ''
     }
   },
   methods: {
     handleChange (event) {
       this.switchShowFlag()
       const { filesList } = this.$refs
-      const file = filesList.files[0]
-      const url = window.URL.createObjectURL(file)
+      this.file = filesList.files[0]
+      const url = window.URL.createObjectURL(this.file)
 
-      if (/image/.test(file.type)) {
+      if (/image/.test(this.file.type)) {
         this.url = url
       } else {
         this.text = '您选择的不是图片'
       }
+    },
+    upload () {
+      const formData = new FormData()
+      formData.append('file', this.file)
+      console.log(formData)
+      // this.$http.post('/api/upload', formData).then(res => {
+      //   console.log(res.data)
+      // })
     },
     switchShowFlag () {
       this.showFlag = !this.showFlag
@@ -45,6 +54,7 @@ export default {
     closeUpload () {
       this.url = ''
       this.text = ''
+      this.file = ''
       this.showFlag = false
       this.$emit('close')
     }
