@@ -14,7 +14,6 @@
         </div>
       </div>
       <InfoContainer></InfoContainer>
-      <InfoDialog></InfoDialog>
       <Upload v-show="showFlag" @close="closeUpload"></Upload>
     </div>
     <AppFooter></AppFooter>
@@ -24,7 +23,6 @@
 <script>
 import { mapState } from 'vuex'
 import InfoContainer from '../components/InfoContainer'
-import InfoDialog from '../components/InfoDialog'
 import AppFooter from '../components/App-Footer'
 import Upload from '../components/upload/upload'
 
@@ -37,7 +35,6 @@ export default {
   },
   components: {
     InfoContainer,
-    InfoDialog,
     AppFooter,
     Upload
   },
