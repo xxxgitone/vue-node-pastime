@@ -111,14 +111,13 @@
 </template>
 
 <script>
-import AppFooter from '../components/App-Footer'
-import RichEdit from '../components/RichEdit'
-import Comment from '../components/Comment'
-import { fetchVideoById } from '../api/video.js'
-import { fetchCommentsByType, fetchCommentById } from '../api/comment.js'
+import AppFooter from 'components/footer/App-Footer'
+import RichEdit from 'components/RichEdit'
+import Comment from 'components/Comment'
+import { fetchVideoById } from 'api/video.js'
+import { fetchCommentsByType, fetchCommentById } from 'api/comment.js'
 import { mapState } from 'vuex'
 export default {
-  name: 'video',
   data () {
     return {
       videoInfo: {},

@@ -34,10 +34,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import { fetchImageById } from '../api/image.js'
-import { postCommentApi, fetchCommentsByType } from '../api/comment.js'
+import { fetchImageById } from 'api/image.js'
+import { postCommentApi, fetchCommentsByType } from 'api/comment.js'
 export default {
-  name: 'imagebanner',
   data () {
     return {
       imageInfo: {

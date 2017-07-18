@@ -16,9 +16,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import { postCommentApi } from '../api/comment.js'
+import { postCommentApi } from 'api/comment.js'
 export default {
-  name: 'richedit',
   data () {
     return {
       execCommands: [{

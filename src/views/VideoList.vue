@@ -32,12 +32,11 @@
 </template>
 
 <script>
-import VideoItem from '../components/VideoItem'
-import Pagination from '../components/Pagination'
-import AppFooter from '../components/App-Footer'
+import VideoItem from 'components/VideoItem'
+import Pagination from 'components/Pagination'
+import AppFooter from 'components/footer/App-Footer'
 import { mapState } from 'vuex'
 export default {
-  name: 'videolist',
   components: {
     VideoItem,
     Pagination,

@@ -28,10 +28,9 @@
 </template>
 
 <script>
-import { postVideo } from '../api/video'
-import AppFooter from '../components/App-Footer'
+import { postVideo } from 'api/video'
+import AppFooter from 'components/footer/App-Footer'
 export default {
-  name: 'videopost',
   components: {
     AppFooter
   },

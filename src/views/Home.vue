@@ -115,9 +115,8 @@
 </template>
 
 <script>
-import AppFooter from '../components/App-Footer'
+import AppFooter from 'components/footer/App-Footer'
 export default {
-  name: 'home',
   components: {
     AppFooter
   },

@@ -24,11 +24,10 @@
 </template>
 
 <script>
-import Confirm from '../components/confirm/Confirm'
-import { deleteVideoById } from '../api/video.js'
+import Confirm from 'components/confirm/Confirm'
+import { deleteVideoById } from 'api/video.js'
 import { mapState } from 'vuex'
 export default {
-  name: 'videocard',
   props: ['video'],
   data () {
     return {

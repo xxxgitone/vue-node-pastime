@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Home = resolve => require(['@/views/Home'], resolve)
-const VideoList = resolve => require(['@/views/VideoList'], resolve)
-const VideoPlayer = resolve => require(['@/views/VideoPlayer'], resolve)
-const VideoPost = resolve => require(['@/views/VideoPost'], resolve)
-const PostSuccess = resolve => require(['@/views/PostSuccess'], resolve)
-const PersonalPage = resolve => require(['@/views/PersonalPage'], resolve)
-const ImageList = resolve => require(['@/views/ImageList'], resolve)
-const ImageBanner = resolve => require(['@/views/ImageBanner'], resolve)
-const Chat = resolve => require(['@/views/Chat'], resolve)
+const Home = resolve => require(['views/Home'], resolve)
+const VideoList = resolve => require(['views/VideoList'], resolve)
+const VideoPlayer = resolve => require(['views/VideoPlayer'], resolve)
+const VideoPost = resolve => require(['views/VideoPost'], resolve)
+const PostSuccess = resolve => require(['views/PostSuccess'], resolve)
+const PersonalPage = resolve => require(['views/PersonalPage'], resolve)
+const ImageList = resolve => require(['views/ImageList'], resolve)
+const ImageBanner = resolve => require(['views/ImageBanner'], resolve)
+const Chat = resolve => require(['views/Chat'], resolve)
 
 Vue.use(Router)
 

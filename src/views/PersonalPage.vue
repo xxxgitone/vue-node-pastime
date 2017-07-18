@@ -22,12 +22,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import InfoContainer from '../components/InfoContainer'
-import AppFooter from '../components/App-Footer'
-import Upload from '../components/upload/upload'
+import InfoContainer from 'components/InfoContainer'
+import AppFooter from 'components/footer/App-Footer'
+import Upload from 'components/upload/upload'
 
 export default {
-  name: 'personalpage',
   data () {
     return {
       showFlag: false

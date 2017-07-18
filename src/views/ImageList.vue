@@ -10,11 +10,10 @@
 </template>
 
 <script>
-import ImageItem from '../components/ImageItem'
-import AppFooter from '../components/App-Footer'
+import ImageItem from 'components/ImageItem'
+import AppFooter from 'components/footer/App-Footer'
 import { mapState } from 'vuex'
 export default {
-  name: 'imagelist',
   components: {
     ImageItem,
     AppFooter

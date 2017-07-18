@@ -23,13 +23,12 @@
 
 <script>
 export default {
-  name: 'footer'
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/variables.scss';
-@import '../assets/scss/mixins.scss';
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
 
 .footer {
   background: $mainBlack;

@@ -35,7 +35,6 @@
 
 <script>
 export default {
-  name: 'videoitem',
   props: ['video'],
   methods: {
     hiddenVideo (video) {
