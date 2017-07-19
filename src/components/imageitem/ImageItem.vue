@@ -22,7 +22,6 @@
 
 <script>
 export default {
-  name: 'imageitem',
   props: ['image'],
   data () {
     return {

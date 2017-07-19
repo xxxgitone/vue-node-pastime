@@ -10,9 +10,8 @@
 </template>
 
 <script>
-import Signin from './Signin'
+import Signin from 'components/signin/Signin'
 export default {
-  name: 'signDialog',
   props: ['message'],
   components: {
     Signin

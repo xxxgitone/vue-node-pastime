@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: 'success',
   mounted () {
     this.$store.state.isHome = false
   }

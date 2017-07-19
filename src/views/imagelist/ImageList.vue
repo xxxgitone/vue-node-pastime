@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ImageItem from 'components/ImageItem'
+import ImageItem from 'components/imageitem/ImageItem'
 import AppFooter from 'components/footer/App-Footer'
 import { mapState } from 'vuex'
 export default {
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/mixins.scss';
+@import 'src/assets/scss/mixins.scss';
 
 .imagelist {
   @include stickFooter;

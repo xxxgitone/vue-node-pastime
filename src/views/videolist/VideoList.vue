@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import VideoItem from 'components/VideoItem'
-import Pagination from 'components/Pagination'
+import VideoItem from 'components/video/VideoItem'
+import Pagination from 'components/pagination/Pagination'
 import AppFooter from 'components/footer/App-Footer'
 import { mapState } from 'vuex'
 export default {
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/mixins.scss";
+@import "src/assets/scss/mixins.scss";
 
 .videolist {
   font-size: 1rem;

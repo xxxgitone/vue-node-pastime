@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import VideoInfoCard from 'components/VideoInfoCard'
+import VideoInfoCard from 'components/video/VideoInfoCard'
 import { mapState } from 'vuex'
 export default {
   components: {

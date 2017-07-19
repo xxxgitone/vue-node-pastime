@@ -60,7 +60,7 @@
       <div class="row1">
         <figure>
           <a href="https://github.com/vuejs/vue">
-            <img src="../assets/img/logo.png" alt="vue.js">
+            <img src="../../assets/img/logo.png" alt="vue.js">
             <span class="mask"></span>
           </a>
           <figcaption>
@@ -69,7 +69,7 @@
         </figure>
         <figure>
           <a href="https://github.com/webpack/webpack">
-            <img src="../assets/img/webpack.png" alt="vue.js">
+            <img src="../../assets/img/webpack.png" alt="vue.js">
             <span class="mask"></span>
           </a>
           <figcaption>
@@ -78,7 +78,7 @@
         </figure>
         <figure>
           <a href="https://github.com/sass/sass">
-            <img src="../assets/img/scss.png" alt="vue.js">
+            <img src="../../assets/img/scss.png" alt="vue.js">
             <span class="mask"></span>
           </a>
           <figcaption>
@@ -89,7 +89,7 @@
       <div class="row2">
         <figure>
           <a href="https://github.com/nodejs/node">
-            <img src="../assets/img/nodepng.png" alt="vue.js">
+            <img src="../../assets/img/nodepng.png" alt="vue.js">
             <span class="mask"></span>
           </a>
           <figcaption>
@@ -98,7 +98,7 @@
         </figure>
         <figure>
           <a href="https://github.com/mongodb/mongo">
-            <img src="../assets/img/mongodb.png" alt="vue.js">
+            <img src="../../assets/img/mongodb.png" alt="vue.js">
             <span class="mask"></span>
           </a>
           <figcaption>

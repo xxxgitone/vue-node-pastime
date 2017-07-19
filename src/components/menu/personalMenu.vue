@@ -16,7 +16,6 @@
 
 <script>
 export default {
-  name: 'menu',
   props: ['user'],
   data () {
     return {

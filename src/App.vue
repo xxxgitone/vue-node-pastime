@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import PersonalMenu from 'components/personalMenu'
-import SignDialog from 'components/SignDialog'
+import PersonalMenu from 'components/menu/personalMenu'
+import SignDialog from 'components/signin/SignDialog'
 import { mapState } from 'vuex'
 export default {
   components: {

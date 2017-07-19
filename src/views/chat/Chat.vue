@@ -52,7 +52,6 @@
 import io from 'socket.io-client'
 import { mapState } from 'vuex'
 export default {
-  name: 'chat',
   data () {
     return {
       message: '',

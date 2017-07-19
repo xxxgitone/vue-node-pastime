@@ -22,7 +22,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import InfoContainer from 'components/InfoContainer'
+import InfoContainer from 'components/tab/InfoContainer'
 import AppFooter from 'components/footer/App-Footer'
 import Upload from 'components/upload/upload'
 
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/mixins.scss';
+@import 'src/assets/scss/mixins.scss';
 
 .personalPage {
     @include stickFooter;

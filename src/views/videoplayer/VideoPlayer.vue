@@ -80,7 +80,7 @@
     </div>
 
     <div class="loading" v-show="loading">
-        <img src="../assets/img/loading.jpg"/>
+        <img src="../../assets/img/loading.jpg"/>
     </div>
 
     <div class="replay" v-show="playend" @click="replay">
@@ -112,8 +112,8 @@
 
 <script>
 import AppFooter from 'components/footer/App-Footer'
-import RichEdit from 'components/RichEdit'
-import Comment from 'components/Comment'
+import RichEdit from 'components/richedit/RichEdit'
+import Comment from 'components/comment/Comment'
 import { fetchVideoById } from 'api/video.js'
 import { fetchCommentsByType, fetchCommentById } from 'api/comment.js'
 import { mapState } from 'vuex'

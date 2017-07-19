@@ -11,7 +11,6 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'pagination',
   computed: {
     ...mapState({
       current: state => state.current,
@@ -38,7 +37,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/mixins.scss';
+@import 'src/assets/scss/mixins.scss';
 
 .pagination {
     font-size: 1rem;
