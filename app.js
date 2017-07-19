@@ -7,6 +7,7 @@ const commentRoutes = require('./server/api/comment')
 const imageRoutes = require('./server/api/image')
 const uploadRoutes = require('./server/api/upload')
 const socket = require('socket.io')
+const history = require('connect-history-api-fallback')
 
 const app = express()
 
@@ -23,6 +24,9 @@ app.use('/api', videoRoutes)
 app.use('/api', imageRoutes)
 app.use('/api', commentRoutes)
 app.use('/api', uploadRoutes)
+
+app.use(history())
+app.use(express.static('./dist'))
 
 // 错误处理
 app.use((err, req, res, next) => {
