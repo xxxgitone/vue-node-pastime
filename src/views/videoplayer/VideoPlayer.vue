@@ -91,7 +91,9 @@
     </div>
 
     <div class="comments-frame">
-      <img :src="user.avatar_url" class="avatar">
+      <div class="avatar-wrapper">
+        <img v-show="user.avatar_url" :src="user.avatar_url" class="avatar">
+      </div>
       <RichEdit :videoId="videoInfo._id" @comment="getComment"></RichEdit>
     </div>
 
@@ -593,11 +595,16 @@ export default {
     background: #F3F5F7;
     padding: 1rem;
 
-    .avatar {
+    .avatar-wrapper {
       width: 3rem;
       height: 3rem;
-      border-radius: 50%;
       margin-right: 1rem;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
     }
   }
 
