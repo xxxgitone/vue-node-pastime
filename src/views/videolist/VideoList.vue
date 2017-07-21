@@ -20,13 +20,15 @@
           <use xlink:href="#icon--astonished-"></use>
         </svg>    
       </div>
+
       <div class="videos">
+        <Loading v-show="!videos.length > 0"></Loading>
         <VideoItem v-for="(video, index) in videos" 
           :video="video" 
           :key="index">
         </VideoItem>
       </div>
-      <Pagination></Pagination>
+      <Pagination v-show="videos.length"></Pagination>
       <AppFooter></AppFooter>
   </div>
 </template>
@@ -35,10 +37,12 @@
 import VideoItem from 'components/video/VideoItem'
 import Pagination from 'components/pagination/Pagination'
 import AppFooter from 'components/footer/App-Footer'
+import Loading from 'components/loading/loading.vue'
 import { mapState } from 'vuex'
 export default {
   components: {
     VideoItem,
+    Loading,
     Pagination,
     AppFooter
   },

@@ -1,9 +1,10 @@
 <template>
   <div class="imagelist">
     <div class="imagesWrapper">
-      <ImageItem v-for="image in images" :key="image._id" :image="image"></ImageItem>
+       <Loading v-show="!images.length"></Loading>
+       <ImageItem v-for="image in images" :key="image._id" :image="image"></ImageItem> 
     </div>
-    <a href="#" class="loadMore" @click.prevent="fetchMore">加载更多</a>
+     <a href="#" class="loadMore" @click.prevent="fetchMore" v-show="images.length">加载更多</a> 
     <router-view></router-view>
     <AppFooter></AppFooter>
   </div>
@@ -12,10 +13,12 @@
 <script>
 import ImageItem from 'components/imageitem/ImageItem'
 import AppFooter from 'components/footer/App-Footer'
+import Loading from 'components/loading/loading'
 import { mapState } from 'vuex'
 export default {
   components: {
     ImageItem,
+    Loading,
     AppFooter
   },
   created () {
@@ -51,11 +54,11 @@ export default {
 @import 'src/assets/scss/mixins.scss';
 
 .imagelist {
-  @include stickFooter;
   text-align: center;
-  // background: #eee;
+  padding-top: 1rem;
 
   .imagesWrapper {
+    @include stickFooter;
     width: 90%;
     margin: 0 auto;
     display: flex;
