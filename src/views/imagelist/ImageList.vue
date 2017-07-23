@@ -1,8 +1,8 @@
 <template>
   <div class="imagelist">
     <div class="imagesWrapper">
-       <Loading v-show="!images.length"></Loading>
-       <ImageItem v-for="image in images" :key="image._id" :image="image"></ImageItem> 
+      <Loading center="true" v-show="!images.length"></Loading>
+      <ImageItem v-for="image in images" :key="image._id" :image="image"></ImageItem>  
     </div>
      <a href="#" class="loadMore" @click.prevent="fetchMore" v-show="images.length">加载更多</a> 
     <router-view></router-view>
