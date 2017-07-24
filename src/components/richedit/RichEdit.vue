@@ -8,9 +8,9 @@
           </svg>
         </button>
       </div>
-      <div ref="editable" class="editable" contenteditable="true" @keyup.ctrl.67="postComment"></div>
+      <div ref="editable" class="editable" contenteditable="true" @keyup.ctrl.enter="postComment"></div>
     </div>
-    <button ref="submitButton" class="submitButton" type="submit" @click="postComment">(ctrl + c)提交</button>
+    <button ref="submitButton" class="submitButton" type="submit" @click="postComment">(ctrl + enter)提交</button>
   </div>
 </template>
 
@@ -183,10 +183,11 @@ export default {
   border: none;
   outline: none;
   align-self: flex-end;
-  padding: .8rem 1rem;
+  padding: .8rem .5rem;
   background: red;
   border-radius: 7px;
   color: white;
-  margin: 0 1rem 1rem 1rem;
+  margin: 0 0 1rem 1rem;
+  cursor: pointer;
 }
 </style>
