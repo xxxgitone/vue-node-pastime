@@ -5,7 +5,7 @@
         <div class="wrapper">
           <h1 class="title">Entertain Your Life Pastime</h1>
           <p class="subTitle">If you doubt yourself,then indeed you stand on shaky ground. </p>
-          <a href="#" class="button">Let's Go</a>
+          <router-link class="button" :to="'/videolist'">Let's Go</router-link>
         </div>
       </div>
     </header>
@@ -48,12 +48,12 @@
           <img src="https://drscdn.500px.org/photo/211406037/q%3D80_h%3D300/5f7fe5930b4d1780897d8eb894415d0c" alt="">
         </div>
         <div class="pic-warpper">
-          <img src="https://drscdn.500px.org/photo/211474267/q%3D80_h%3D450/6cae18d0359ccb2b6333e694e8ea93ce" alt="">
+          <img src="https://drscdn.500px.org/photo/220903987/q%3D80_m%3D1000/v2?webp=true&sig=622ad017eda0a2ea2f0b329a0a0bc58da34e6061d6f95a7cd5232faf9d70e6d6" alt="">
         </div>
       </div>
       <div class="pic-right">
         <h2>美女高清大图</h2>
-        <a href="#">READMORE</a>
+        <router-link :to="'/images'">READMORE</router-link>
       </div>
     </section>
     <section class="tecStack">
@@ -265,14 +265,15 @@ section.intro {
     .pic-warpper {
       width: 100%;
       margin: 1em 1em;
+      overflow: hidden;
 
       img {
         max-width: 100%;
         cursor: pointer;
-        transition: all .3s;
+        transition: all .4s;
 
         &:hover {
-          transform: scale(1.02);
+          transform: scale(1.1);
         }
       }
     }
