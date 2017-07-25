@@ -1,6 +1,6 @@
 # vn-pastime
 
-基于vue全家桶、mongodb和nodejs的全栈项目,通过这个项目，了解前后端的整合，以及产品上线的基本流程
+基于vue全家桶、mongodb和nodejs的全栈项目,其实是个大杂烩。通过这个项目，了解前后端的整合，以及产品上线的基本流程
 
 前端使用axios与后台api交互获取数据，vue全家桶进行数据的渲染，mongodb存储网上爬取的原始数据以及用户后期产生的数据，nodejs主要提供api接口以及token的签发与验证
 
@@ -37,10 +37,16 @@
         │   │   └── axiosService.js
         │   └── views // 页面级组件
 
-**主要功能**
+**主要功能**(期待更多)
 
-- [x] 视频播放
-
+- [x] 视频播放列表的展示
+- [x] 视频播放器自定义样式
+- [x] 视频评论功能，包括二级评论，自定义简单的富文本组件，用于评论的编辑
+- [x] 基于token进行登录验证
+- [x] 图片的展示列表
+- [x] 图片滚动加载
+- [x] 图片详情页展示，支持上下张切换以及评论
+- [x] 使用socket.io进行简单聊天室
 
 ## Build Setup
 
@@ -48,7 +54,12 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# 搭建mongodb服务
+
+# 先启动后台服务
+node app.js
+
+# 再启动前台
 npm run dev
 
 # build for production with minification
