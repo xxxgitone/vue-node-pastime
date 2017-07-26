@@ -56,57 +56,26 @@
         <router-link :to="'/images'">READMORE</router-link>
       </div>
     </section>
+
     <section class="tecStack">
-      <div class="row1">
-        <figure>
-          <a href="https://github.com/vuejs/vue">
-            <img src="../../assets/img/logo.png" alt="vue.js">
-            <span class="mask"></span>
+      <h3 class="ts-title">Technology Stack</h3>
+      <div class="logo-list" ref="logoList">
+        <figure v-for="ts in tecStacks" class="figure" ref="figure">
+          <a :href="ts.href">
+            <img width="250" :src="ts.url" :alt="ts.name">
           </a>
-          <figcaption>
-            <iframe src="https://ghbtns.com/github-btn.html?user=vuejs&repo=vue&type=star&count=true" frameborder="0" scrolling="0" width="160px" height="20px"></iframe>
+          <figcaption class="figcaption">
+            <span class="repo-name">{{ts.user}}</span>
+            <span class="star">{{ts.star_count}}</span>
           </figcaption>
-        </figure>
-        <figure>
-          <a href="https://github.com/webpack/webpack">
-            <img src="../../assets/img/webpack.png" alt="vue.js">
-            <span class="mask"></span>
-          </a>
-          <figcaption>
-            <iframe src="https://ghbtns.com/github-btn.html?user=webpack&repo=webpack&type=star&count=true" frameborder="0" scrolling="0" width="160px" height="20px"></iframe>
-          </figcaption>
-        </figure>
-        <figure>
-          <a href="https://github.com/sass/sass">
-            <img src="../../assets/img/scss.png" alt="vue.js">
-            <span class="mask"></span>
-          </a>
-          <figcaption>
-            <iframe src="https://ghbtns.com/github-btn.html?user=sass&repo=sass&type=star&count=true" frameborder="0" scrolling="0" width="160px" height="20px"></iframe>
-          </figcaption>
-        </figure>
+        </figure>  
       </div>
-      <div class="row2">
-        <figure>
-          <a href="https://github.com/nodejs/node">
-            <img src="../../assets/img/nodepng.png" alt="vue.js">
-            <span class="mask"></span>
-          </a>
-          <figcaption>
-            <iframe src="https://ghbtns.com/github-btn.html?user=nodejs&repo=node&type=star&count=true" frameborder="0" scrolling="0" width="160px" height="20px"></iframe>
-          </figcaption>
-        </figure>
-        <figure>
-          <a href="https://github.com/mongodb/mongo">
-            <img src="../../assets/img/mongodb.png" alt="vue.js">
-            <span class="mask"></span>
-          </a>
-          <figcaption>
-            <iframe src="https://ghbtns.com/github-btn.html?user=mongodb&repo=mongo&type=star&count=true" frameborder="0" scrolling="0" width="160px" height="20px"></iframe>
-          </figcaption>
-        </figure>
-      </div>      
+      <button class="more" @click="more">
+        <span v-show="!showMore">MORE</span>
+        <span v-show="showMore">CLOSE</span>
+      </button>
     </section>
+
     <section>
       fdg
     </section>
@@ -116,15 +85,82 @@
 
 <script>
 import AppFooter from 'components/footer/App-Footer'
+import {getReposStar} from 'api/star.js'
 export default {
   components: {
     AppFooter
+  },
+  data () {
+    return {
+      tecStacks: [
+        {
+          user: 'vuejs',
+          repo: 'vue',
+          href: 'https://github.com/vuejs/vue',
+          url: require('../../assets/img/logo.png'),
+          star_count: ''
+        },
+        {
+          user: 'sass',
+          repo: 'sass',
+          href: 'https://github.com/sass/sass',
+          url: require('../../assets/img/scss.png'),
+          star_count: ''
+        },
+        {
+          user: 'nodejs',
+          repo: 'node',
+          href: 'https://github.com/nodejs/node',
+          url: require('../../assets/img/nodepng.png'),
+          star_count: ''
+        },
+        {
+          user: 'mongodb',
+          repo: 'mongo',
+          href: 'https://github.com/mongodb/mongo',
+          url: require('../../assets/img/mongodb.png'),
+          star_count: ''
+        },
+        {
+          user: 'webpack',
+          repo: 'webpack',
+          href: 'https://github.com/webpack/webpack',
+          url: require('../../assets/img/webpack.png'),
+          star_count: ''
+        },
+        {
+          user: 'nginx',
+          repo: 'nginx',
+          href: 'https://github.com/nginx/nginx',
+          url: require('../../assets/img/nginx.png'),
+          star_count: ''
+        }
+      ],
+      showMore: false
+    }
+  },
+  methods: {
+    more () {
+      this.showMore = !this.showMore
+      const {logoList, figure} = this.$refs
+      const singleHeight = figure[0].offsetHeight
+      logoList.style.height = this.showMore ? `${singleHeight * 2}px` : `${singleHeight}px`
+    }
   },
   mounted () {
     let { isHome } = this.$store.state
     if (isHome === false) {
       this.$store.state.isHome = true
     }
+
+    setTimeout(() => {
+      this.tecStacks.forEach(ts => {
+        getReposStar(ts.user, ts.repo).then(res => {
+          const data = res.data
+          ts.star_count = data.stargazers_count
+        })
+      })
+    }, 20)
   }
 }
 </script>
@@ -318,66 +354,67 @@ section.intro {
 
 
 .tecStack {
-  height: 36rem;
-  background-image: url('https://1x.com/images/user/ca10e1133d91048ee3e3c4c66a2b4536-hd2.jpg');
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  background: #292A2F;
+  text-align: center;
+  padding: 2rem calc(50% - 31.25rem);
+  color: white;
 
-  .row1, .row2 {
+  .ts-title {
+    font-size: 3rem;
+  }
+
+  .logo-list {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 19.625rem;
+    overflow: hidden;
+    transition: all .4s;
 
-    figure {
-      width: 11.5em;
-      height: 11.5em;
-
-      a {
-        display: block;
-        position: relative;
-
-        .mask {
-          position: absolute;
-          top: 0;right: 0;left: 0;bottom: 0;
-          border-radius: 50%;
-          background: radial-gradient(rgba(0, 0, 0, .4), rgba(244, 22, 22, .5));
-          transform: scale(0);
-          transition: all .3s;
-        }
-
-        &:hover {
-          .mask {
-            transform: scale(1);
-            transform-origin: 50% 50%;
-          }
-        }
-      }
+    .figure {
+      width: 25%;
+      padding: 3.5rem;
+      margin: 0;
 
       img {
-        background: white;
-        padding: 0.5em;
-        max-width: 100%;
-        border: 0.625em solid rgba(250, 0, 0, .3);
+        width: 100%;
         border-radius: 50%;
-        background-clip: padding-box;
+        background: #18191B;
       }
 
-      iframe {
-        margin:.6em 0 0 22%;
+      .figcaption {
+        padding-top: 1rem;
+        display: flex;
+        flex-direction: column;
 
+        .repo-name {
+          color: #FF8256;
+          font-size: 1.3rem;
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+
+        .star::after {
+          content: '*';
+          color: #FF8256;
+        }
       }
     }
   }
 
-  .row1 {
-    width: 60%;
-  }
+  .more {
+    outline: none;
+    border: none;
+    background: red;
+    padding: .5rem 1.5rem;
+    margin-top: 1rem;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all .3;
 
-  .row2 {
-    width: 40%;
+    &:hover {
+      background: #111;
+    }
   }
 }
 
