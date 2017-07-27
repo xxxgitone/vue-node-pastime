@@ -5,6 +5,7 @@
         <span class="logo"><router-link :to="'/'">vn-pastime</router-link></span>
         <nav class="nav">
           <ul class="nav-list">
+            <li><router-link :to="'/home'">HOME</router-link></li>            
             <li><router-link :to="'/videolist'">VIDEO</router-link></li>
             <li><router-link :to="'/images'">IMAGES</router-link></li>
             <li><router-link :to="'/chat'" >DISCUSSING</router-link></li>
@@ -130,7 +131,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     flex: 1;
     flex-basis: 15%;
-    
+
     a {
       color: red;
     }
@@ -147,11 +148,15 @@ export default {
       justify-content:  space-around;
       align-items: center;
       height: 100%;
-
       li {
         flex: 6;
         height: 100%;
         
+      }
+
+      .router-link-active {
+         border-bottom: 3px solid red;
+         background-color: rgba(0, 0, 0, .5);
       }
 
       a {
@@ -182,7 +187,7 @@ export default {
     @include flexCenter;
     position: relative;
     transition: all .2s;
-
+    
     svg {
       cursor: pointer;
       position: absolute;

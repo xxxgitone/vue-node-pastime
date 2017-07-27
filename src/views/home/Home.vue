@@ -167,9 +167,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+@import "../../assets/scss/mixins.scss";
+
 .home {
   font-size: 1rem;
 }
+
 .land {
   font-size: 1em;
   height: 100vh;
