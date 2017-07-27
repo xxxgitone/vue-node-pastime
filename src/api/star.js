@@ -1,4 +1,4 @@
-import axios from '../utils/axiosService'
+import axios from 'axios'
 
 /**
  * @param {仓库作者} name
