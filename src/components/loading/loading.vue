@@ -13,7 +13,7 @@ export default {
       default: '数据加载中...'
     },
     center: {
-      type: String,
+      type: Boolean,
       default: false
     }
   }
