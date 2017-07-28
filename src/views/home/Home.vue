@@ -145,6 +145,11 @@ export default {
       const {logoList, figure} = this.$refs
       const singleHeight = figure[0].offsetHeight
       logoList.style.height = this.showMore ? `${singleHeight * 2}px` : `${singleHeight}px`
+    },
+    setHeight () {
+      const {logoList, figure} = this.$refs
+      const singleHeight = figure[0].offsetHeight
+      logoList.style.height = singleHeight + 'px'
     }
   },
   mounted () {
@@ -160,7 +165,12 @@ export default {
           ts.star_count = data.stargazers_count
         })
       })
+      this.setHeight()
     }, 20)
+
+    window.addEventListener('resize', () => {
+      this.setHeight()
+    })
   }
 }
 </script>
@@ -181,6 +191,9 @@ export default {
   background-size: cover;
   position: relative;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  @include mediaQ(480px) {
+    height: 50vh;
+  }
 
   .content {
     height: calc(100% - 3.75rem);
@@ -189,16 +202,22 @@ export default {
     left: 0;
     top: 3.75rem;
     background: rgba(0, 0, 0, .4);
+    @include mediaQ(480px) {
+      top: 3rem;
+      height: calc(100% - 3rem);
+    }  
 
     .wrapper {
        width: 60%;
        height: 100%;
        display: flex;
-      //  justify-content: center;
-      //  align-items: center;
        flex-direction: column;
        padding: 10em 0 0 10em;;
-
+       @include mediaQ(480px) {
+         padding: 5rem 0 0 0;
+         width: 100%;
+         align-items: center;
+       }
 
       .title {
         margin: 0;
@@ -208,6 +227,12 @@ export default {
         letter-spacing: 1px;
         width: 60%;
         height: 20%;
+        @include mediaQ(480px) {
+          font-size: 1.5rem;
+          width: 100%;
+          height: 40%;
+          text-align: center;
+        }
       }
 
       @keyframes typing {
@@ -228,6 +253,9 @@ export default {
         overflow: hidden;
         border-right: .05em solid;
         margin: 1.8em 0 1.8em 0;
+        @include mediaQ(480px) {
+          display: none;
+        }
       }
 
       .button {
@@ -241,6 +269,11 @@ export default {
         transition: all .3s;
         text-align: center;
         width: 8.5em;
+        @include mediaQ(480px) {
+          padding: .5rem 0;
+          margin: 0 0 2rem 0;
+          width: 6.5em;
+        }
 
         &:hover {
           background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .5));
@@ -254,7 +287,14 @@ export default {
   }
 }
 
-section.intro {
+section {
+  @include mediaQ(480px) {
+    padding: 1rem 0;
+    width: 100%;
+  }
+}
+
+.intro {
   font-size: 1rem;
   height: 36rem;
   padding: 1rem calc(50% - 28.125rem);
@@ -263,24 +303,41 @@ section.intro {
   align-items: center;
   flex-direction: column;
   border-bottom: 1px solid #eee;
+  @include mediaQ(480px) {
+    height: 30rem;
+  }
 
   .title {
     color: red;
     letter-spacing: 2px;
     font-size: 4em;
+    @include mediaQ(480px) {
+      font-size: 2.5rem;
+    }
   }
 
   .contentWrapper {
     display: flex;
+    @include mediaQ(480px) {
+      flex-wrap: wrap;
+    }
 
     div {
       width: 100%;
       padding: 3em 2em;
       text-align: center;
+      @include mediaQ(480px) {
+        width: 50%;
+        padding: 1.5em 0;
+      }
 
       svg {
         width: 6em;
         height: 6em;
+        @include mediaQ(480px) {
+          width: 4em;
+          height: 4em;
+        }
       }
 
       p {
@@ -296,6 +353,10 @@ section.intro {
   font-size: 1rem;
   padding: 6.8rem calc(50% - 34.375rem);
   display: flex;
+  @include mediaQ(480px) {
+    padding: 4rem 0;
+    flex-direction: column;
+  }
 
   .pic-left {
     flex-basis: 70%;
@@ -305,7 +366,9 @@ section.intro {
       width: 100%;
       margin: 1em 1em;
       overflow: hidden;
-
+      @include mediaQ(480px) {
+        margin: 1em .5em;
+      }
       img {
         max-width: 100%;
         cursor: pointer;
@@ -337,6 +400,9 @@ section.intro {
       letter-spacing: 2px;
       padding: 2rem;
       font-size: 2rem;
+      @include mediaQ(480px) {
+        padding: .5rem;
+      }
     }
 
     a {
@@ -347,6 +413,10 @@ section.intro {
       background: red;
       border-radius: .5rem;
       transition: color .3s;
+      @include mediaQ(480px) {
+        padding: .65rem .9rem;
+        font-size: 1.2rem;
+      }
 
       &:hover {
         background: rgba(0, 0, 0, 1);
@@ -361,15 +431,21 @@ section.intro {
   text-align: center;
   padding: 2rem calc(50% - 31.25rem);
   color: white;
+  @include mediaQ(480px) {
+    padding: 1rem 0;
+    width: 100%;
+  }
 
   .ts-title {
     font-size: 3rem;
+    @include mediaQ(480px) {
+      font-size: 2rem;
+    }
   }
 
   .logo-list {
     display: flex;
     flex-wrap: wrap;
-    height: 19.625rem;
     overflow: hidden;
     transition: all .4s;
 
@@ -377,6 +453,9 @@ section.intro {
       width: 25%;
       padding: 3.5rem;
       margin: 0;
+      @include mediaQ(480px) {
+        padding: 1.5rem;
+      }
 
       img {
         width: 100%;
@@ -394,8 +473,16 @@ section.intro {
           font-size: 1.3rem;
           font-weight: bold;
           letter-spacing: 1px;
+          @include mediaQ(480px) {
+            font-size: 1rem;
+          }
         }
 
+        .star {
+          @include mediaQ(480px) {
+            font-size: .8rem;
+          }
+        }
         .star::after {
           content: '*';
           color: #FF8256;
