@@ -148,8 +148,10 @@ export default {
     },
     setHeight () {
       const {logoList, figure} = this.$refs
-      const singleHeight = figure[0].offsetHeight
-      logoList.style.height = singleHeight + 'px'
+      if (figure[0]) {
+        const singleHeight = figure[0].offsetHeight
+        logoList.style.height = singleHeight + 'px'
+      }
     }
   },
   mounted () {
