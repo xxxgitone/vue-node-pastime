@@ -11,6 +11,12 @@
     width: 100%;
 }
 
+@mixin no-wrap {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 @mixin mediaQ($arg...) {
     @if length($arg) == 1 {
         @media screen and (max-width: nth($arg, 1)) {
