@@ -1,3 +1,5 @@
+@import './mixins.scss';
+
 html, body {
     box-sizing: border-box;
     font-size: 100%;
@@ -6,6 +8,15 @@ html, body {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    @include mediaQ(480px) {
+      font-size: 12px;
+    }
+    @include mediaQ(768px, 481px) {
+      font-size: 14px;
+    }
+    @include mediaQ(960px, 769px) {
+      font-size: 16px;
+    }
 }
 *, *:before, *:after {
     box-sizing: inherit;
