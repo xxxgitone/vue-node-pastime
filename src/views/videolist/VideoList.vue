@@ -29,7 +29,7 @@
         </VideoItem>
       </div>
       <Pagination v-show="videos.length"></Pagination>
-      <AppFooter></AppFooter>
+      <AppFooter v-show="videos.length"></AppFooter>
   </div>
 </template>
 
@@ -82,33 +82,78 @@ export default {
   background-image: url('https://1x.com/images/user/6872df05db6242eb3f61f8f1e646deb3-hd2.jpg');
   background-repeat: no-repeat;
   background-size: 100% 28.125rem;
+  @include mediaQ(480px) {
+    background-size: 100% 15rem;
+  }
+  @include mediaQ(768px, 481px) {
+    background-size: 100% 25rem;
+  }
+  @include mediaQ(960px, 769px) {
+    background-size: 100% 25rem;
+  }
 }
 
 .banner {
     width: 85%;
     background: white;
     position: absolute;
-    top: 25rem;left: 9%;
+    top: 25rem;
+    left: 9%;
     display: flex;
     justify-content: space-between;
     border-radius: 1.5rem;
     padding: 1rem 4rem;
     box-shadow: 0 4px 3px rgba(0,0,0,.3);
 
+    @include mediaQ(480px) {
+      top: 12rem;
+      padding: 1rem 2rem;
+    }
+    @include mediaQ(960px, 481px) {
+      top: 22rem;
+      padding: 1rem 2rem;
+    }
+
     svg {
       width: 5rem;
       height: 5rem;
+      @include mediaQ(480px) {
+        width: 3rem;
+        height: 3rem;
+      }
+      @include mediaQ(768px, 481px) {
+        width: 4rem;
+        height: 4rem;
+      }
+      @include mediaQ(960px, 769px) {
+        width: 4.5rem;
+        height: 4.5rem;
+      }
     }
   }
 
 .videos {
-  // min-height: 100rem;
   padding-top: 33rem;
   padding-bottom: 3rem;
   width: 80%;
   margin: 0 auto;
   display: flex;
   flex-flow: wrap;
-  // justify-content: space-between;
+  @include mediaQ(480px) {
+    padding-top: 15rem;
+  }
+  @include mediaQ(768px, 481px) {
+    padding-top: 27rem;
+  }
+  @include mediaQ(960px, 769px) {
+    padding-top: 27rem;
+  }
+  @include mediaQ(1365px, 961px) {
+    padding-top: 30rem;
+  }
+  @include mediaQ(1365px) {
+    justify-content: space-around;
+    width: 90%;
+  }
 }
 </style>

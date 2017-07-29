@@ -1,34 +1,34 @@
 <template>
     <div class="video">
         <div class="video-top">
-        <div class="video-img">
-            <img :src="video.coverSrc">
-        </div>
-        <div class="video-mask">
-            <router-link :to="`/video/${video._id}`">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-video1"></use>
-            </svg>
-            </router-link>
-        </div> 
+          <div class="video-img">
+              <img :src="video.coverSrc">
+          </div>
+          <div class="video-mask">
+              <router-link :to="`/video/${video._id}`">
+              <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-video1"></use>
+              </svg>
+              </router-link>
+          </div> 
         </div>
         <div class="video-info">
-        <router-link :to="`/video/${video._id}`">
-            <h2 class="video-title">{{ video.title }}</h2>
-        </router-link>
-        <div class="auth">
-            <router-link :to="{name: 'page', query: { user: video.user._id } }" class="auth-avatar">
-              <img :src="video.user.avator" alt="">
-            </router-link>
-            <router-link :to="{name: 'page', query: { user: video.user._id } }" class="auth-name">
-            <span>{{ video.user.name }}</span>
-            </router-link>
-            <span class="timeago">{{ video.created_at | timeAgo }}</span>
-            <a href="javascript:void(0)" class="hidden" @click="hiddenVideo(video)">
-              X
-              <span class="alter">不感兴趣</span>
-            </a>
-        </div>
+          <router-link :to="`/video/${video._id}`">
+              <h2 class="video-title">{{ video.title }}</h2>
+          </router-link>
+          <div class="auth">
+              <router-link :to="{name: 'page', query: { user: video.user._id } }" class="auth-avatar">
+                <img :src="video.user.avator" alt="">
+              </router-link>
+              <router-link :to="{name: 'page', query: { user: video.user._id } }" class="auth-name">
+              <span>{{ video.user.name }}</span>
+              </router-link>
+              <span class="timeago">{{ video.created_at | timeAgo }}</span>
+              <a href="javascript:void(0)" class="hidden" @click="hiddenVideo(video)">
+                X
+                <span class="alter">不感兴趣</span>
+              </a>
+          </div>
         </div>
     </div>
 </template>
@@ -45,6 +45,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/mixins.scss';
+
 .video {
   font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
@@ -53,6 +55,24 @@ export default {
   overflow: hidden;
   box-shadow: 1px 2px 2px rgba(0,0,0,.5);
   margin: 1.5rem 0 0 2rem;
+  @include mediaQ(480px) {
+    height: 13rem;
+  }
+  @include mediaQ(768px, 481px) {
+    height: 17rem;
+  }
+  @include mediaQ(768px) {
+    width: 45%;
+    margin: 1rem 0;
+  }
+  @include mediaQ(960px, 769px) {
+    width: 31%;
+    margin: 1rem 0;
+  }
+  @include mediaQ(1355px, 961px) {
+    width: 31.5%;
+    margin: 1rem 0;
+  }
   position: relative;
   height: 17rem;
   transition: all .2s;
@@ -65,10 +85,16 @@ export default {
     width: 100%;
     height: 10.625rem;
     position: relative;
+    @include mediaQ(480px) {
+      height: 60%;
+    }
 
     .video-img {
       height: 10.625rem;
       width: 100%;
+      @include mediaQ(480px) {
+        height: 100%;
+      }
 
       img {
         width: 100%;
@@ -122,6 +148,13 @@ export default {
       letter-spacing: 1px;
       color: #34332b;
       min-height: 3.3rem;
+      @include mediaQ(480px) {
+        min-height: 0;
+        padding-top: 0;
+        height: 2rem;
+        line-height: 2rem;
+        @include no-wrap;
+      }
     }
 
     .auth {
@@ -151,7 +184,9 @@ export default {
         overflow: hidden;
         align-self: center;
         color: #333;
-
+        @include mediaQ(768px, 481px) {
+          flex-basis: 60%;
+        }
         &:hover {
           color: red;
         }
@@ -163,6 +198,9 @@ export default {
         align-self: center;
         padding: .4rem 0;
         text-align: right;
+        @include mediaQ(960px) {
+          padding-right: .2rem;
+        }
       }
     }
   }
@@ -173,6 +211,9 @@ export default {
     padding: 1rem 0 0 1rem;
     position: relative;
     color: #666;
+    @include mediaQ(960px) {
+      display: none;
+    }
 
     &:hover {
       color: red;
