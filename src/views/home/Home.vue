@@ -194,6 +194,9 @@ export default {
   @include mediaQ(480px) {
     height: 50vh;
   }
+  @include mediaQ(768px, 481px) {
+    height: 70vh;
+  }
 
   .content {
     height: calc(100% - 3.75rem);
@@ -205,7 +208,7 @@ export default {
     @include mediaQ(480px) {
       top: 3rem;
       height: calc(100% - 3rem);
-    }  
+    }
 
     .wrapper {
        width: 60%;
@@ -213,10 +216,16 @@ export default {
        display: flex;
        flex-direction: column;
        padding: 10em 0 0 10em;;
-       @include mediaQ(480px) {
+       @include mediaQ(768px) {
          padding: 5rem 0 0 0;
          width: 100%;
          align-items: center;
+       }
+       @include mediaQ(960px, 768px) {
+         width: 80%;
+       }
+       @include mediaQ(1365px, 961px) {
+         width: 100%;
        }
 
       .title {
@@ -229,9 +238,17 @@ export default {
         height: 20%;
         @include mediaQ(480px) {
           font-size: 1.5rem;
+        }
+        @include mediaQ(768px) {
           width: 100%;
           height: 40%;
           text-align: center;
+        }
+        @include mediaQ(768px, 481px) {
+          font-size: 2rem;
+        }
+        @include mediaQ(960px, 769px) {
+          width: 100%;
         }
       }
 
@@ -253,7 +270,7 @@ export default {
         overflow: hidden;
         border-right: .05em solid;
         margin: 1.8em 0 1.8em 0;
-        @include mediaQ(480px) {
+        @include mediaQ(768px) {
           display: none;
         }
       }
@@ -288,7 +305,7 @@ export default {
 }
 
 section {
-  @include mediaQ(480px) {
+  @include mediaQ(768px) {
     padding: 1rem 0;
     width: 100%;
   }
@@ -318,7 +335,7 @@ section {
 
   .contentWrapper {
     display: flex;
-    @include mediaQ(480px) {
+    @include mediaQ(768px) {
       flex-wrap: wrap;
     }
 
@@ -326,7 +343,7 @@ section {
       width: 100%;
       padding: 3em 2em;
       text-align: center;
-      @include mediaQ(480px) {
+      @include mediaQ(768px) {
         width: 50%;
         padding: 1.5em 0;
       }
@@ -337,6 +354,10 @@ section {
         @include mediaQ(480px) {
           width: 4em;
           height: 4em;
+        }
+        @include mediaQ(768px, 481px) {
+          width: 5em;
+          height: 5em;
         }
       }
 
@@ -353,7 +374,7 @@ section {
   font-size: 1rem;
   padding: 6.8rem calc(50% - 34.375rem);
   display: flex;
-  @include mediaQ(480px) {
+  @include mediaQ(768px) {
     padding: 4rem 0;
     flex-direction: column;
   }
@@ -441,6 +462,9 @@ section {
     @include mediaQ(480px) {
       font-size: 2rem;
     }
+    @include mediaQ(768px, 481px) {
+      font-size: 2.5rem;
+    }
   }
 
   .logo-list {
@@ -455,6 +479,9 @@ section {
       margin: 0;
       @include mediaQ(480px) {
         padding: 1.5rem;
+      }
+      @include mediaQ(768px, 481px) {
+        padding: 2.5rem;
       }
 
       img {

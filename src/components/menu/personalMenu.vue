@@ -51,7 +51,6 @@ export default {
     width: 2rem;
     height: 100%;
     border-radius: 50%;
-    margin-top: 1.25rem;
     position: relative;
     cursor: pointer;
 

@@ -27,8 +27,8 @@
             @blur="showSearch" 
             type="text" placeholder="search">
         </div>
-        <div class="meun">
-          <PersonalMenu v-show="token" :user="user" ></PersonalMenu>
+        <div class="meun" v-if="token">
+          <PersonalMenu :user="user" ></PersonalMenu>
         </div>
       </div>
     </header>
@@ -94,7 +94,6 @@ export default {
       this.isOpen = !this.isOpen
     },
     routerClick (e) {
-      console.log(e.target.tagName)
       if (e.target.tagName === 'LI' || e.target.tagName === 'A') {
         this.isOpen = false
       }
@@ -128,10 +127,13 @@ export default {
   z-index: 1;
   transition: background .3s;
   @include mediaQ(480px) {
-    padding: 0;
     height: auto;
-    height: 3rem;
   }
+
+  @include mediaQ(768px) {
+    padding: 0;
+  }
+
 }
 
 .navWrap {
@@ -139,9 +141,10 @@ export default {
   height: 100%;
   margin: 0 auto;
   @include flexCenter;
-  @include mediaQ(480px) {
+  @include mediaQ(960px) {
     width: 100%;
   }
+
   &.open {
     height: auto;
 
@@ -167,6 +170,9 @@ export default {
     flex: 1;
     flex-basis: 15%;
     transition: all .3s;
+    @include mediaQ(768px, 481px) {
+      display: none;
+    }
 
     a {
       color: red;
@@ -264,7 +270,7 @@ export default {
     @include flexCenter;
     position: relative;
     transition: all .2s;
-    @include mediaQ(480px) {
+    @include mediaQ(960px) {
       display: none;
     }
     
@@ -293,6 +299,16 @@ export default {
   .meun {
     @include mediaQ(480px) {
       display: none;
+    }
+    @include mediaQ(768px, 481px) {
+      flex-basis: 15%;
+      display: flex;
+      justify-content: center;
+    }
+    @include mediaQ(960px, 769px) {
+      flex-basis: 10%;
+      display: flex;
+      justify-content: center;
     }
   }
 }
