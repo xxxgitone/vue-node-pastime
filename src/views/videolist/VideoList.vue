@@ -135,7 +135,7 @@ export default {
 .videos {
   padding-top: 33rem;
   padding-bottom: 3rem;
-  width: 80%;
+  width: 1100px;
   margin: 0 auto;
   display: flex;
   flex-flow: wrap;
