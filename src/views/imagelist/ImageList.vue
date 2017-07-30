@@ -6,7 +6,7 @@
     </div>
      <a href="#" class="loadMore" @click.prevent="fetchMore" v-show="images.length">加载更多</a> 
     <router-view></router-view>
-    <AppFooter></AppFooter>
+    <AppFooter v-show="images.length"></AppFooter>
   </div>
 </template>
 
@@ -59,11 +59,14 @@ export default {
 
   .imagesWrapper {
     @include stickFooter;
-    width: 90%;
+    width: 79rem;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    @include mediaQ(1365px) {
+      width: 100%;
+    }
   }
 
   .loadMore {

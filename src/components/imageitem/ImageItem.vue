@@ -32,15 +32,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import '../../assets/scss/mixins.scss';
+
   .imgBox {
     width: 16.5rem;
-    // height: 16.5rem;
     margin: 1.2rem 0 0 .6rem;
     border: 1px solid #eee;
     text-align: center;
     background: #eee;
     position: relative;
     overflow: hidden;
+    @include mediaQ(480px) {
+      width: 45%;
+    }
+    @include mediaQ(768px) {
+      margin-top: 1.2rem;
+    }
 
     .image-wrapper {
       &:hover + .description{
