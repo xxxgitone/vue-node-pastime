@@ -127,6 +127,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/mixins.scss';
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -136,7 +138,7 @@ ul {
   font-size: 1rem;
   padding-top: 3.75rem;
   background: #E8E6FD;
-  min-height: 100vh;
+  height: 100vh;
 
   .chat-box {
     width: 50rem;
@@ -148,6 +150,11 @@ ul {
     box-shadow: 1px 1px 2px rgba(0,0,0,.1),
         -1px -1px 2px rgba(0,0,0,.1);
     display: flex;
+    @include mediaQ(768px) {
+      margin-top: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .user-list {
@@ -155,6 +162,9 @@ ul {
     height: 100%;
     display: flex;
     flex-direction: column;
+    @include mediaQ(768px) {
+      display: none;
+    }
 
     .title {
       text-align: center;
@@ -198,6 +208,10 @@ ul {
     border-bottom-right-radius: 7px;
     display: flex;
     flex-direction: column;
+    @include mediaQ(768px) {
+      width: 100%;
+      border-radius: 7px;
+    }
 
     .descript-title {
       padding: 1rem 0 1rem 1rem;
@@ -214,6 +228,9 @@ ul {
         padding: .5rem 0 .5rem .5rem;
         display: flex;
         width: 100%;
+        @include mediaQ(768px) {
+          line-height: 1.5;
+        }
 
         .message-user-avatar {
           width: 2rem;
