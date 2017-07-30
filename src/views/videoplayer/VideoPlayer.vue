@@ -286,6 +286,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/mixins.scss';
+
 .video-player {
   width: 100%;
   min-height: 100vh;
@@ -296,6 +298,11 @@ export default {
   height: 39rem;
   background: linear-gradient(to right, #696453, #101014);
   padding: 4rem 0 2rem 0;
+  @include mediaQ(480px) {
+    height: 22rem;
+    padding: 3.2rem 0 0 0; 
+    overflow: hidden;
+  }
 }
 
 .player-wrapper {
@@ -304,6 +311,10 @@ export default {
   margin: 0 auto;
   position: relative;
   overflow: hidden;
+  @include mediaQ(480px) {
+    width: 100%;
+    height: 22rem;
+  }
 
   &:hover > .slide {
     transform: translateX(0);
@@ -320,6 +331,11 @@ export default {
     width: 62.5rem;
     height: 100%;
     cursor: pointer;
+    @include mediaQ(480px) {
+      position: absolute;
+      top: -10%;
+      width: 100%;
+    }
   }
 
   .slide {
@@ -333,6 +349,9 @@ export default {
     justify-content: space-around;
     transform: translateX(375%);
     transition: all .3s;
+    @include mediaQ(480px) {
+      display: none;
+    }
 
     &:hover {
       transform: translateY(0);
@@ -392,6 +411,12 @@ export default {
     display: flex;
     transform: translateY(100%);
     transition: all .3s;
+    @include mediaQ(480px) {
+      width: 100%;
+      left: 0;
+      bottom: 16%;
+      height: 2.5rem;
+    }
 
     .player-button {
       display: block;
@@ -409,6 +434,9 @@ export default {
       height: 100%;
       display: flex;
       align-items: center;
+      @include mediaQ(480px) {
+        width: 65%;
+      }
 
       .progress-bar {
         width: 39rem;
@@ -498,6 +526,9 @@ export default {
       cursor: pointer;
       height: 100%;
       transition: all .2s;
+      @include mediaQ(480px) {
+        display: none;
+      }
 
       &:hover {
         background-color: rgba(0, 0, 0, .3);
@@ -562,6 +593,12 @@ export default {
     position: absolute;
     top:9%;
     left: 10.8rem;
+    @include mediaQ(480px) {
+      height: 22rem;
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
 
     img {
       width: 10%;
@@ -576,6 +613,11 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    @include mediaQ(480px) {
+      left: 50%;
+      top: 15%;
+      transform: translateX(-50%);
+    }
 
     svg {
       width:3rem;
@@ -594,11 +636,18 @@ export default {
     display: flex;
     background: #F3F5F7;
     padding: 1rem;
+    @include mediaQ(480px) {
+      width: 100%;
+    }
+    
 
     .avatar-wrapper {
       width: 3rem;
       height: 3rem;
       margin-right: 1rem;
+      @include mediaQ(480px) {
+        display: none;
+      }
     }
 
     .avatar {
@@ -612,10 +661,16 @@ export default {
     width: 63%;
     margin: 0 auto;
     margin-bottom: 1rem;
-
+    @include mediaQ(480px) {
+      width: 100%;
+    }
+    
     h4 {
       border-bottom: 1px solid #777;
       padding: 1rem;
+    }
+    @include mediaQ(480px) {
+      min-height: 25.5vh;
     }
   }
 </style>

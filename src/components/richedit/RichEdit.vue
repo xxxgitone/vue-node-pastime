@@ -10,7 +10,10 @@
       </div>
       <div ref="editable" class="editable" contenteditable="true" @keyup.ctrl.enter="postComment"></div>
     </div>
-    <button ref="submitButton" class="submitButton" type="submit" @click="postComment">(ctrl + enter)提交</button>
+    <button ref="submitButton" class="submitButton" type="submit" @click="postComment">
+      <span class="code">(ctrl + enter)</span>
+      <span>提交</span>
+    </button>
   </div>
 </template>
 
@@ -117,12 +120,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/mixins.scss';
+
 .richeditBox {
   display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .richedit {
-  width: 37rem;
+  width: 89%;
+  height: 100%;
   border: 1px solid #DDE1E5;
   position: relative;
 }
@@ -130,6 +138,9 @@ export default {
 .edit-controller {
   background: #ECEEF0;
   padding: .3rem;
+  @include mediaQ(480px) {
+    padding: .2rem;
+  }
 
   .command-button {
     border: none;
@@ -141,6 +152,10 @@ export default {
     width: 2rem;
     height: 2rem;
     transition: all .3s;
+    @include mediaQ(480px) {
+      width: 1.7rem;
+      height: 1.7rem;
+    }
 
     &:hover {
       background: #D0D6D9;
@@ -189,5 +204,15 @@ export default {
   color: white;
   margin: 0 0 1rem 1rem;
   cursor: pointer;
+  @include mediaQ(480px) {
+    padding: .5rem .3;
+    margin: 0 0 0 .5rem;
+  }
+
+  .code {
+    @include mediaQ(480px) {
+      display: none;
+    }
+  }
 }
 </style>
