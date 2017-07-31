@@ -210,7 +210,7 @@ export default {
   }
 
   .code {
-    @include mediaQ(480px) {
+    @include mediaQ(768px) {
       display: none;
     }
   }

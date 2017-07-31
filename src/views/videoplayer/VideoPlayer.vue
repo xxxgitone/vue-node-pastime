@@ -186,8 +186,11 @@ export default {
       const { video } = this.$refs
       // 隐藏加载
       this.loading = false
-      // 将声音设置成默认0.5
-      video.volume = this.volume
+
+      if (video) {
+        // 将声音设置成默认0.5
+        video.volume = this.volume
+      }
     },
     // 控制播放和暂停
     togglePlay () {
@@ -208,14 +211,16 @@ export default {
     // 更新红色进度条
     updateBar () {
       const { video, progressBar } = this.$refs
-      // 改变红色进度条的右偏移量，进度条是左边开始，所以需要用1减去
-      const precent = (1 - (video.currentTime / video.duration)) * 100
-      progressBar.style.right = `${precent}%`
+      if (video) {
+        // 改变红色进度条的右偏移量，进度条是左边开始，所以需要用1减去
+        const precent = (1 - (video.currentTime / video.duration)) * 100
+        progressBar.style.right = `${precent}%`
 
-      this.playIcon = video.currentTime === video.duration || video.paused ? '►' : 'Ⅱ'
+        this.playIcon = video.currentTime === video.duration || video.paused ? '►' : 'Ⅱ'
 
-      // 更新当前时间
-      this.currentTime = Math.floor(video.currentTime)
+        // 更新当前时间
+        this.currentTime = Math.floor(video.currentTime)
+      }
     },
     // 处理音量
     handleVolume (e) {
@@ -303,6 +308,13 @@ export default {
     padding: 3.2rem 0 0 0; 
     overflow: hidden;
   }
+  @include mediaQ(768px, 481px) {
+    padding: 3.7rem 0 0 0;
+    height: 35rem;
+  }
+  @include mediaQ(960px, 769px) {
+    height: 37rem;
+  }
 }
 
 .player-wrapper {
@@ -312,8 +324,10 @@ export default {
   position: relative;
   overflow: hidden;
   @include mediaQ(480px) {
-    width: 100%;
     height: 22rem;
+  }
+  @include mediaQ(960px) {
+    width: 100%;
   }
 
   &:hover > .slide {
@@ -334,6 +348,8 @@ export default {
     @include mediaQ(480px) {
       position: absolute;
       top: -10%;
+    }
+    @include mediaQ(968px) {
       width: 100%;
     }
   }
@@ -343,7 +359,7 @@ export default {
     position: absolute;
     top: 10%;
     right: 10%;
-    height: 15rem;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -599,6 +615,22 @@ export default {
       left: 0;
       top: 0;
     }
+    @include mediaQ(768px, 481px) {
+      height: 32rem;
+      width: 100%;
+      left: 0;
+      top: 5%;
+    }
+    @include mediaQ(960px, 768px) {
+      height: 32rem;
+      width: 100%;
+      left: 0;
+      top: 5%;
+    }
+    @include mediaQ(1365px, 961px) {
+      left: 5%;
+      top: 5%;
+    }
 
     img {
       width: 10%;
@@ -618,6 +650,9 @@ export default {
       top: 15%;
       transform: translateX(-50%);
     }
+    @include mediaQ(1365px, 481px) {
+      top: 25%;
+    }
 
     svg {
       width:3rem;
@@ -636,8 +671,14 @@ export default {
     display: flex;
     background: #F3F5F7;
     padding: 1rem;
-    @include mediaQ(480px) {
+    @include mediaQ(768px) {
       width: 100%;
+    }
+    @include mediaQ(960px, 769px) {
+      width: 90%;
+    }
+    @include mediaQ(1365px, 961px) {
+      width: 80%;
     }
     
 
@@ -661,8 +702,14 @@ export default {
     width: 63%;
     margin: 0 auto;
     margin-bottom: 1rem;
-    @include mediaQ(480px) {
+    @include mediaQ(768px) {
       width: 100%;
+    }
+    @include mediaQ(960px, 769px) {
+      width: 90%;
+    }
+    @include mediaQ(1365px, 961px) {
+      width: 80%;
     }
     
     h4 {
@@ -671,6 +718,15 @@ export default {
     }
     @include mediaQ(480px) {
       min-height: 25.5vh;
+    }
+    @include mediaQ(768px, 480px) {
+      min-height: 19.5vh;
+    }
+    @include mediaQ(960px, 769px) {
+      min-height: 27.5vh;
+    }
+    @include mediaQ(1365px, 961px) {
+      min-height: 26vh;
     }
   }
 </style>
