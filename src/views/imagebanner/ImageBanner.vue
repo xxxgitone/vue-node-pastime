@@ -134,6 +134,13 @@ export default {
     height: 100%;
     width: 100%;
   }
+  @include mediaQ(960px, 481px) {
+    flex-wrap: wrap;
+    height: 90%;
+  }
+  @include mediaQ(1365px, 481px) {
+    width: 90%;
+  }
   
   @include mediaQ(480px) {
     .img-wrapper:hover ~ .next {
@@ -146,7 +153,7 @@ export default {
   .img-wrapper {
     height: 100%;
     width: 65%;
-    @include mediaQ(480px) {
+    @include mediaQ(960px) {
       width: 100%;
       height: 50%;
     }
@@ -160,7 +167,7 @@ export default {
   .details {
     height: 100%;
     width: 35%;
-    @include mediaQ(480px) {
+    @include mediaQ(960px) {
       width: 100%;
       height: 40%;
     }
@@ -243,6 +250,13 @@ export default {
     transform: rotate(180deg);
     transition: all .3s;
     transform-origin: center center;
+    @include mediaQ(1365px, 481px) {
+      right: -30px;
+    }
+    @include mediaQ(1365px, 969px) {
+      top: -70px;
+      font-size: 3rem;
+    }
 
     &:hover {
       color: red;
