@@ -115,6 +115,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/mixins.scss';
+
 .imageBanner {
   font-size: 1rem;
   position: fixed;
@@ -127,9 +129,27 @@ export default {
   box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .7);
   background: white;
   display: flex;
+  @include mediaQ(480px) {
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+  }
+  
+  @include mediaQ(480px) {
+    .img-wrapper:hover ~ .next {
+      transform: translate3d(0,0,0);
+    }
+    .img-wrapper:hover ~ .pre {
+      transform: translate3d(0,0,0);
+    }
+  }
   .img-wrapper {
     height: 100%;
     width: 65%;
+    @include mediaQ(480px) {
+      width: 100%;
+      height: 50%;
+    }
     border-right: 1px solid #eee;
   }
   img {
@@ -140,6 +160,10 @@ export default {
   .details {
     height: 100%;
     width: 35%;
+    @include mediaQ(480px) {
+      width: 100%;
+      height: 40%;
+    }
 
     .userInfo {
       display: flex;
@@ -237,6 +261,10 @@ export default {
     transform: translateY(-50%);
     cursor: pointer;
     transition: all .3s;
+    @include mediaQ(480px) {
+      width: 3rem;
+      top: 25%;
+    }
 
     &:hover {
       background: red;
@@ -245,9 +273,17 @@ export default {
 
   .pre {
     left: -3.5rem;
+    @include mediaQ(480px) {
+      left: 0;
+      transform: translate3d(-100%,0,0)
+    }
   }
   .next {
-    right: -3.5rem
+    right: -3.5rem;
+    @include mediaQ(480px) {
+      right: 0;
+      transform: translate3d(100%,0,0)
+    }
   }
 }
 </style>
