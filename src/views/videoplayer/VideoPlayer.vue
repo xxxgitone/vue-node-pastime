@@ -451,7 +451,7 @@ export default {
       display: flex;
       align-items: center;
       @include mediaQ(480px) {
-        width: 65%;
+        width: 72%;
       }
 
       .progress-bar {
@@ -492,6 +492,9 @@ export default {
       align-items: center;
       cursor: pointer;
       position: relative;
+      @include mediaQ(960px) {
+        display: none;
+      }
       
       &:hover .volume-bar {
         display: block;
