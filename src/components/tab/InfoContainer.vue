@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .info-container {
-   width: 60%;
+   width: 100%;
    margin: 1rem auto 0 auto;
    border: 1px solid #eee;
    background: white;

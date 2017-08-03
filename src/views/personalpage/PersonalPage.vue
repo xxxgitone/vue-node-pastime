@@ -13,7 +13,9 @@
             @click="switchShowFlag">+</span>
         </div>
       </div>
-      <InfoContainer></InfoContainer>
+      <div class="info-wrapper">
+        <InfoContainer></InfoContainer>
+      </div>
       <Upload v-show="showFlag" @close="closeUpload"></Upload>
     </div>
     <AppFooter></AppFooter>
@@ -72,6 +74,9 @@ export default {
 
 .personalPage {
     @include stickFooter;
+    @include mediaQ(480px) {
+      padding-top: 3rem;
+    }
     background: #eee;
     padding-bottom: 1rem;
 }
@@ -80,6 +85,9 @@ export default {
   width: 100%;
   height: 25rem;
   position: relative;
+  @include mediaQ(480px) {
+    height: 23rem;
+  }
 
   img {
     max-height: 100%;
@@ -120,6 +128,23 @@ export default {
       border-radius: 50%;
       cursor: pointer;
     }
+  }
+}
+
+.info-wrapper {
+  width: 60%;
+  margin: 0 auto;
+  @include mediaQ(480px) {
+    width: 100%;
+  }
+  @include mediaQ(768px, 481px) {
+    width: 80%;
+  }
+  @include mediaQ(768px, 481px) {
+    width: 80%;
+  }
+  @include mediaQ(960px, 769px) {
+    width: 70%;
   }
 }
 </style>
