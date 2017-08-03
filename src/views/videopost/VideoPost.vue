@@ -70,6 +70,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/mixins.scss';
+
 .videopost {
   font-size: 1rem;
   min-height: calc(100vh - 7rem);
@@ -80,6 +82,15 @@ export default {
 .videopost-wrapper {
   width: 50%;
   margin: 0 auto;
+  @include mediaQ(480px) {
+    width: 80%;
+  }
+  @include mediaQ(768px, 481px) {
+    width: 70%;
+  }
+  @include mediaQ(960px, 769px) {
+    width: 60%;
+  }
 }
 .postForm {
   width: 100%;
