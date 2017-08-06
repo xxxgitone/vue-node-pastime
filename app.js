@@ -8,12 +8,19 @@ const imageRoutes = require('./server/api/image')
 const uploadRoutes = require('./server/api/upload')
 const socket = require('socket.io')
 const history = require('connect-history-api-fallback')
+const env = process.env.NODE_ENV || 'development'
 
-const app = express()
+let dbUrl = 'mongodb://vn-runner:Xu510*/@106.14.173.2:19999/vnpastime'
 
 // connect db
-mongoose.connect('mongodb://localhost:27017/vnpastime')
+if (env === 'development') {
+  dbUrl = 'mongodb://localhost:27017/vnpastime'
+}
+
+mongoose.connect(dbUrl)
 mongoose.Promise = global.Promise
+
+const app = express()
 
 app.set('tokenSecret', 'vnpastime')
 app.use(bodyParser.json())
