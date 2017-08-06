@@ -20,7 +20,7 @@
       "repo": "git@github.com:xxxgitone/vue-node-pastime.git",
       "path": "/www/vnpastime/production",
       "ssh_options": "StrictHostKeyChecking=no",
-      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production",
+      "post-deploy" : "npm install && npm run build && pm2 startOrRestart ecosystem.json --env production",
       "env"  : {
         "NODE_ENV": "production"
       }
