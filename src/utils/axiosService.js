@@ -3,7 +3,7 @@ import store from '../store/store'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'http://127.0.0.1:4000/',
+  baseURL: 'http://www.xxxuthus.cn/',
   timeout: 5000
 })
 
