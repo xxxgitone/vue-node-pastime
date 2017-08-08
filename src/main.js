@@ -30,7 +30,7 @@ Vue.filter('durationFormat', duration => {
 // vue全局拦截器
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) { // 如果需要权限
-    if (store.state.token) { // 存在的话，直接跳转过去
+    if (store.getters.token) { // 存在的话，直接跳转过去
       next()
     } else {
       next({ path: '/' })
