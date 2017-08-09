@@ -1,5 +1,4 @@
-// import axios from '../utils/axiosService'
-import axios from 'axios'
+import axios from '../utils/axiosService'
 
 export const fetchVideos = (p) => {
   if (!p) {
