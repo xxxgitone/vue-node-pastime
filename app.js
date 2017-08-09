@@ -10,7 +10,7 @@ const socket = require('socket.io')
 const history = require('connect-history-api-fallback')
 const env = process.env.NODE_ENV || 'development'
 
-let dbUrl = 'mongodb://vn_runner:Xu510*/@106.14.173.2:19999/vnpastime'
+let dbUrl = 'mongodb://vn_runner:Xu510*@106.14.173.2:19999/vnpastime'
 
 // connect db
 if (env === 'development') {
