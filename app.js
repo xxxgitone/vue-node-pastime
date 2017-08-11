@@ -33,7 +33,10 @@ app.use('/api', commentRoutes)
 app.use('/api', uploadRoutes)
 
 app.use(history())
-app.use(express.static('./dist'))
+
+if (env !== 'development') {
+  app.use(express.static('./dist'))
+}
 
 // 错误处理
 app.use((err, req, res, next) => {
