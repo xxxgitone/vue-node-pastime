@@ -18,51 +18,40 @@
             </span>
         </div>
     </div>
-    <button v-show="user.name === video.user.name" class="deleteButton" @click="showConfirm(video._id)">删除</button>
-    <Confirm v-show="showFlag" text="您确定删除吗？" @confirm="deleteVideo" @cancle="cancle"></Confirm>
+    <button v-show="user.name === video.user.name" class="deleteButton" @click="showConfirm">删除</button>
+    <confirm 
+      ref="confirm" 
+      text="您确定删除吗？"
+      @confirm="deleteVideo"
+    ></confirm>
   </div>
 </template>
 
 <script>
 import Confirm from 'components/confirm/Confirm'
 import { deleteVideoById } from 'api/video.js'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   props: ['video'],
-  data () {
-    return {
-      showFlag: false,
-      deleteVideoid: ''
-    }
-  },
   components: {
     Confirm
   },
   computed: {
-    ...mapState({
-      user: state => state.user
-    })
+    ...mapGetters([
+      'user'
+    ])
   },
   methods: {
     showConfirm (id) {
-      this.showFlag = true
-      // 将要删除的视频id
-      this.deleteVideoid = id
-    },
-    hide () {
-      this.showFlag = false
+      this.$refs.confirm.show()
     },
     deleteVideo () {
-      this.hide()
-      deleteVideoById(this.deleteVideoid).then(res => {
+      deleteVideoById(this.video._id).then(res => {
         if (res.data.success) {
           // 重新获取视频信息，
           this.$store.commit('FETCH_VIDEOS_BY_USERID', this.$route.query.user)
         }
       })
-    },
-    cancle () {
-      this.hide()
     }
   }
 }
