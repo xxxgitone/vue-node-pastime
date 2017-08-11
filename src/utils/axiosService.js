@@ -1,9 +1,14 @@
 import axios from 'axios'
 import store from '../store/store'
 
+let baseURL = 'http://www.xxxuthus.cn/'
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:8080'
+}
+
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'http://www.xxxuthus.cn/',
+  baseURL: baseURL,
   timeout: 5000
 })
 
