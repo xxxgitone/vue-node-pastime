@@ -2,19 +2,21 @@
   <div id="app">
     <header class="header" :class="{ headerBg: !isHome || scrolled}">
       <div class="navWrap" :class="{open: isOpen}">
-        <span class="logo"><router-link :to="'/'">vn-pastime</router-link></span>
-        <span class="menu-control" @click="openNav">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-menu"></use>
-          </svg>
-        </span>
+         <div class="logoWrapper"> 
+          <span class="logo"><router-link :to="'/'">vn-pastime</router-link></span>
+          <span class="menu-control" @click="openNav">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-menu"></use>
+            </svg>
+          </span>
+         </div> 
         <nav class="nav">
           <ul class="nav-list" @click="routerClick($event)">
             <li><router-link :to="'/home'">HOME</router-link></li>            
             <li><router-link :to="'/videolist'">VIDEO</router-link></li>
             <li><router-link :to="'/images'">IMAGES</router-link></li>
             <li><router-link :to="'/chat'" >DISCUSSING</router-link></li>
-            <li><a href="#">ABOUT</a></li>
+            <li><router-link :to="'/about'">ABOUT</router-link></li> 
             <li v-show="!token"><a href="#" @click.prevent="showSignDia">LOGIN</a></li>
           </ul>
         </nav>
@@ -147,53 +149,66 @@ export default {
 
   &.open {
     height: auto;
+    display: flex;
+    flex-direction: column;
 
-    .logo {
-      display: none;
+    .logoWrapper {
+      display: flex;
+      width: 100%;
+      background: #111111;
+      justify-content: space-between;
     }
 
-    .menu-control {
-      display: none;
-    }
     .nav {
+      width: 100%;
       display: block;
       background: #111;
     }
   }
 
-  .logo {
-    font-family:"Federant", cursive !important;
-    font-size:1.875rem;
-    font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  .logoWrapper {
     flex: 1;
     flex-basis: 15%;
-    transition: all .3s;
+    @include mediaQ(480px) {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
     @include mediaQ(768px, 481px) {
       display: none;
     }
+    .logo {
+      font-family:"Federant", cursive !important;
+      font-size:1.875rem;
+      font-style:normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: all .3s;
+      @include mediaQ(768px, 481px) {
+        display: none;
+      }
+      a {
+        color: red;
+      }
+    }
+    
+    .menu-control {
+      height: 3rem;
+      display: none;
+      flex-basis: 10%;
+      cursor: pointer;
+      transition: all .3s;
 
-    a {
-      color: red;
+      svg {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+      @include mediaQ(480px) {
+        display: block;
+      }
     }
   }
-  
-  .menu-control {
-    height: 3rem;
-    display: none;
-    flex-basis: 10%;
-    cursor: pointer;
-    transition: all .3s;
 
-    svg {
-      width: 2.5rem;
-      height: 2.5rem;
-    }
-    @include mediaQ(480px) {
-      display: block;
-    }
-  }
   .nav {
     flex: 2;
     height: 100%;
