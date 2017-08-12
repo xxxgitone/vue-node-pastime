@@ -5,7 +5,7 @@
 
 基于vue全家桶、mongodb和nodejs的全栈项目,其实是个大杂烩。通过这个项目，了解前后端的整合，以及产品上线的基本流程
 
-前端使用axios与后台api交互获取数据，vue全家桶进行数据的渲染，mongodb存储网上爬取的原始数据以及用户后期产生的数据，nodejs主要提供api接口以及token的签发与验证
+前端使用axios与后台api交互获取数据，vue全家桶进行数据的管理和渲染，mongodb存储网上爬取的原始数据以及用户后期产生的数据，nodejs主要提供api接口以及token的签发与验证
 
 线上使用阿里云服务器部署，nginx进行http反向代理，pm2管理Node应用的进程
 
@@ -50,6 +50,79 @@
 - [x] 图片滚动加载
 - [x] 图片详情页展示，支持上下张切换以及评论
 - [x] 使用socket.io进行简单聊天室
+- [x] 图片上传预览
+
+## 项目总结和感想
+#### 组件编写应该规范
+vue上手容易，可以很轻松的实现一些功能。但是要让代码变得更加容易维护和扩展，还得做点其他工作。组件编写规范化便是一个非常有效的方法，组件一般分为基础组件和业务组件，组件应该各司其职，比如基础组件就不应该包含跟业务相关的具体代码，只是返回一个信息，给引用它的组件。这样可以降低组件的耦合度，提升组件的可复用性。
+
+比如一个confirm组件
+
+```
+<template>
+  <transition name="confirm">
+    <div class="info-confirm" v-show="showFlag">
+      <div class="info-header">
+          <span>提示信息</span>
+      </div>
+      <div class="info-text">
+        {{ text }}
+      </div>
+      <div class="info-button">
+        <a href="#" @click.prevent="confirm">{{ confirmBtnText }}</a>
+        <a href="#" @click.prevent="cancle">{{ cancleBtnText }}</a>
+      </div>
+    </div>
+  </transition>
+</template>
+
+<script>
+export default {
+  props: {
+    text: {
+      type: String,
+      default: ''
+    },
+    confirmBtnText: {
+      type: String,
+      default: '确定'
+    },
+    cancleBtnText: {
+      type: String,
+      default: '取消'
+    }
+  },
+  data () {
+    return {
+      showFlag: false
+    }
+  },
+  methods: {
+    hide () {
+      this.showFlag = false
+    },
+    show () {
+      this.showFlag = true
+    },
+    confirm () {
+      this.hide()
+      this.$emit('confirm')
+    },
+    cancle () {
+      this.hide()
+      this.$emit('cancle')
+    }
+  }
+}
+</script>
+```
+
+在点击确认后，不应该直接在这里组件里面处理接下来的逻辑（比如删除或着清空），而是应该通过`this.$emit('confirm')`向父组件传递一个确认的信息，父组件监听这个方法，然后再处理接下来的逻辑
+
+这个项目后续将会重点围绕这点来进行优化
+
+#### 前后端如何分离
+
 
 ## Build Setup
 
