@@ -10,6 +10,7 @@ const PersonalPage = resolve => require(['views/personalpage/PersonalPage'], res
 const ImageList = resolve => require(['views/imagelist/ImageList'], resolve)
 const ImageBanner = resolve => require(['views/imagebanner/ImageBanner'], resolve)
 const Chat = resolve => require(['views/chat/Chat'], resolve)
+const About = resolve => require(['views/about/about'], resolve)
 
 Vue.use(Router)
 
@@ -74,6 +75,10 @@ export default new Router({
       meta: {
         requireAuth: true
       }
+    },
+    {
+      path: '/about',
+      component: About
     }
   ]
 })
