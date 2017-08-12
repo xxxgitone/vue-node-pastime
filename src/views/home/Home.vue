@@ -56,7 +56,6 @@
         <router-link :to="'/images'">READMORE</router-link>
       </div>
     </section>
-
     <section class="tecStack">
       <h3 class="ts-title">Technology Stack</h3>
       <div class="logo-list" ref="logoList">
@@ -75,9 +74,7 @@
         <span v-show="showMore">CLOSE</span>
       </button>
     </section>
-
-    <section>
-      fdg
+    <section class="gap">
     </section>
     <AppFooter></AppFooter>
   </div>
@@ -536,6 +533,11 @@ section {
     }
   }
 }
+
+.gap {
+    width: 100%;
+    height: 2rem;
+  }
 
 
 </style>
