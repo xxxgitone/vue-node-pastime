@@ -122,17 +122,98 @@ export default {
 这个项目后续将会重点围绕这点来进行优化
 
 #### 前后端如何分离
+这是之前我最想知道的问题，听过很多前后端分离，但是都是只闻其声，不见其形。
+
+之前同学问过我这样一个问题，**为什么前端也要单独起一个服务**，当时我脑海里，闪过的第一个答案就是，现在前端构建项目需要依赖很多包，需要通过node环境来安装各种依赖工作，帮助我们工作。
+
+现在看来这个答案大错特错了，问的是服务，而不是node环境。其实这个问题的答案和前后端分离也和相关
+
+在传统web开发的时候，前端和后端的工作比较耦合，后端人员要做着很多前端的工作，不停切换，比如发送后台请求。这样导致前后端分工不明确，效率反而更加低。不仅如此，而且前后端还要搭建同样的开发环境，让前端开发去搭建一个Java开发环境，显得有些复杂，而且确实没必要。
+
+现代web开发，前后端各司其职，开发之前约定好数据接口和格式，就可以同时开发了。
+
+前端负责静态样式的编写，以及发送ajax请求，后台负责api的开发和测试。双方都不用管对方具体怎么实现。
+
+![](http://i1.nbimg.com/605011/2a88410dc66eb685.png)
+
+前面也说到过前端不应该去搭建一个复杂的Java或者其他后台服务，我们可以通过nodejs来搭建一个服务器，寥寥几行代码，便可快速搭建，搭建nodejs服务器的好处
+
+* 可以模拟线上环境，毕竟本地静态文件和线上还是有些差别，比如路径等
+* 发送ajax，还要处理跨域
+* 部署线上，中间层，用于加载静态文件
+
+### 前后端如何部署
+在前后端完全分离的情况下，前端和后端当然是分别部署(本案例由于是自己一个人写的，并且后台语言正好是nodejs，所以没有将前后端分别部署），比如`www.xxxuthus.cn`，那么后台api可以使用一个二级域名`api.xxxuthus.cn`
+
+前端部署，nodejs为一个中间层，作为静态文件服务器，比如将`webpack`打包后的`dist`作为静态资源
+
+```javascript
+const express = require('express')
+const env = process.env.NODE_ENV || 'development'
+const app = express()
+
+app.use(express.static('./dist'))
+
+const server = app.listen(4000, () => {
+  console.log(`Express started in ${app.get('env')} mode on http://localhsot:4000`)
+})
+```
+
+使用nginx进行反向代理，当用户访问静态资源的时候，返回静态资源，当前台访问api的时候，转发到后台服务器
+
+该配置文件是该项目的，该项目没有严格按照前后端分离部署，所以其它场景配置文件仅供参考
+
+```nginx
+  upstream xxxuthus {
+  server 127.0.0.1:4000;
+}
+
+server {
+  listen 80;
+  server_name www.xxxuthus.cn;
+
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Nginx-Proxt true;
+
+    proxy_pass http://xxxuthus;
+    proxy_redirect off;
+  }
+
+  location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|js|pdf|txt) {
+    root /www/vnpastime/production/current/dist;
+  }
+}
+```
+
+![](http://i4.fuimg.com/605011/eab2fb317a1632e0.png)
+
+### 跨域
 
 
 ## Build Setup
 
 ``` bash
+# clone项目
+git clone git@github.com:xxxgitone/vue-node-pastime.git
+
+cd vue-node-pastime
+
 # install dependencies
 npm install
 
-# 搭建mongodb服务
+# 还原数据，为了方便展示，我将数据库上传到了项目中，文件名为vnpastime
+# --host 数据库服务
+# -d 数据库名
+# 最后面是备份文件的路径,如果不在该目录下记得填写绝对路径
+mongorestore --host 127.0.0.1:27017 -d vnpastime ./vnpastime/
 
-# 先启动后台服务
+# 启动mongodb服务
+mongo
+
+# 启动后台服务
 node app.js
 
 # 再启动前台
@@ -140,7 +221,4 @@ npm run dev
 
 # build for production with minification
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
