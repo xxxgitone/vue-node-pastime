@@ -191,7 +191,88 @@ server {
 ![](http://i4.fuimg.com/605011/eab2fb317a1632e0.png)
 
 ### 跨域
+前后端分离，就会面临着跨域问题，比较常用的跨域CORS，proxy代理以及nginx反向代理
 
+在开发环境中我一般使用proxy代理的方式，通过在`config/index.js`下面设置
+
+```javascript
+proxyTable: {
+  '/api':{
+    target: 'http://localhost:4000',
+    changeOrigin: true
+  },
+  '/auth':{
+    target: 'http://localhost:4000',
+    changeOrigin: true
+  }
+},
+```
+
+我们前端服务为`8080`，当我们访问`/api/**`的时候，便会转发到端口为`4000`的服务上
+
+生产环境我使用的是nginx代理，前面已经有所介绍
+
+### nodejs项目部署工具pm2
+
+pm2是node的一个进程管理器，能够保证进程永远或者，使用它部署变得相当容易
+
+```bash
+npm install pm2 -g
+```
+
+配置文件，在项目根目录项新建文件`ecosystem.json`
+
+```
+
+{
+  "apps": [
+    {
+      "name": "vnpastime",
+      "script": "app.js",
+      "env": {
+        "COMMON_VARIABLE": "true"
+      },
+      "env_production" : {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user": "xuthus_y",
+      "host": ["106.14.173.2"],
+      "port": "22",
+      "ref": "origin/master",
+      "repo": "git@github.com:xxxgitone/vue-node-pastime.git",
+      "path": "/www/vnpastime/production",
+      "ssh_options": "StrictHostKeyChecking=no",
+      "post-deploy" : "npm install && npm run build && pm2 startOrRestart ecosystem.json --env production",
+      "env"  : {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
+```
+
+将该文件push到github中，初次启动执行
+```bash
+pm2 deploy ecosystem.json production setup
+```
+
+然后
+```bash
+pm2 deploy ecosystem.json production
+```
+可以在服务器，通过`pm2 list`和`pm2 logs`分别查看部署成功的应用和部署日志
+
+以后每次修改的项目，push到github后，直接在本地通过
+```bash
+pm2 deploy ecosystem.json production
+```
+就可以更新线上的内容了
+
+> [这里](https://github.com/xxxgitone/learningProcess/blob/master/linux/%E4%BA%91%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2.md)记录了我部署过程中的一些关键步骤，可以参考
 
 ## Build Setup
 
