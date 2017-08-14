@@ -9,6 +9,9 @@
 
 线上使用阿里云服务器部署，nginx进行http反向代理，pm2管理Node应用的进程
 
+* 线上地址： [http://www.xxxuthus.cn](http://www.xxxuthus.cn/home)
+* 仓库地址: [https://github.com/xxxgitone/vue-node-pastime](https://github.com/xxxgitone/vue-node-pastime)
+
 ## 功能介绍
 
 这个项目本身并不复杂，最主要的是清扫了一些后台的盲区，满足了自己的好奇心，特别是在项目部署这一块。虽然还没有达到熟悉的地步，但提起也不至于什么也不知道。
