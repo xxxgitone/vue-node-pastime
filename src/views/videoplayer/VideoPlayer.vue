@@ -158,7 +158,6 @@ export default {
               let task = fetchCommentById(child)
               tasks.push(task)
             })
-
             Promise.all(tasks).then(childComments => {
               // 数据中包含这个字段，但是存储的是二级评论的id，先把id给截断，存储二级评论具体信息
               comment.children.splice(0)
@@ -167,8 +166,7 @@ export default {
               })
             }).then(() => {
               // console.log(data)
-              data.sort((n1, n2) => n1.created_at > n2.created_at ? '-1' : 1)
-              this.comments.push(...data)
+              this.comments = data.sort((n1, n2) => n1.created_at > n2.created_at ? '-1' : 1)
             })
           }
         })
