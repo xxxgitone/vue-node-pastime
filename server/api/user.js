@@ -77,7 +77,7 @@ router.post('/users', (req, res, next) => {
         const userInfo = {
           name: username,
           password: hash,
-          avatar_url: 'http://img3.duitang.com/uploads/item/201503/25/20150325034337_PaHTH.thumb.700_0.jpeg'
+          avatar_url: 'http://i1.fuimg.com/605011/1f0138a7b101b0f1.jpg'
         }
         User.create(userInfo).then(user => {
           const userToken = {
