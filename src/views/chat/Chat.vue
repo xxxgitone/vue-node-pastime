@@ -63,7 +63,11 @@ export default {
     }
   },
   created () {
-    this.socket = io.connect('http://localhost:4000')
+    let url = 'www.xxxuthus.cn'
+    if (process.env.NODE_ENV === 'development') {
+      url = 'http://localhost:4000'
+    }
+    this.socket = io.connect(url)
   },
   computed: {
     ...mapState({
