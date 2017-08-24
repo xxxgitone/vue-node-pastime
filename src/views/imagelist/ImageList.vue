@@ -4,7 +4,8 @@
       <Loading :center="true" v-show="!images.length"></Loading>
       <ImageItem v-for="image in images" :key="image._id" :image="image"></ImageItem>  
     </div>
-     <a href="#" class="loadMore" @click.prevent="fetchMore" v-show="images.length">加载更多</a> 
+    <a href="#" class="loadMore" @click.prevent="fetchMore" v-show="images.length && fetchCount <= 1">加载更多</a>  
+    <Loading v-show="this.$store.state.isFetch"></Loading> 
     <router-view></router-view>
     <AppFooter v-show="images.length"></AppFooter>
   </div>
@@ -41,7 +42,7 @@ export default {
     window.addEventListener('scroll', () => {
       const scrollTop = document.body.scrollTop || document.documentElement.scrollTop
       // 页面滚动的高度 + 浏览器窗口的视口（viewport）高度 >= 整个页面可视区域高度 - 页面底部高度
-      if (scrollTop + window.innerHeight >= document.body.clientHeight - 90 && this.$store.state.isFetch === false && this.fetchCount >= 2) {
+      if (scrollTop + window.innerHeight >= document.body.clientHeight - 50 && this.$store.state.isFetch === false && this.fetchCount >= 2) {
         this.$store.state.isFetch = true
         this.fetchMore()
       }
