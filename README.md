@@ -23,7 +23,7 @@
         ├── app.js   // 后台入口
         ├── index.html
         ├── server  // 服务端文件
-        │   ├── api  // api借口
+        │   ├── api  // api接口
         │   ├── middlewares
         │   │   └── jwtMid.js  // token验证中间件
         │   ├── models  // mongodb的文档模型
