@@ -6,6 +6,7 @@ import router from './router'
 import store from './store/store'
 import axios from './utils/axiosService'
 import moment from 'moment'
+import VueLazyload from 'vue-lazyload'
 
 import './assets/scss/index.scss'
 
@@ -13,6 +14,10 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
 moment.locale('zh-cn')
+
+Vue.use(VueLazyload, {
+  loading: require('./assets/img/placeholder.png')
+})
 
 // 处理时间的全局过滤器
 Vue.filter('timeAgo', timestamp => {
