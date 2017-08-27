@@ -2,7 +2,7 @@
     <div class="video">
         <div class="video-top">
           <div class="video-img">
-              <img :src="video.coverSrc">
+              <img v-lazy="video.coverSrc">
           </div>
           <div class="video-mask">
               <router-link :to="`/video/${video._id}`">

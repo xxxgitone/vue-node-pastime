@@ -7,7 +7,7 @@
         </span>
     </div>
     <div class="image-wrapper">
-      <router-link :to="`/images/${image._id}`"><img class="image" :src="image.image_url"></router-link>
+      <router-link :to="`/images/${image._id}`"><img class="image" v-lazy="image.image_url"></router-link>
     </div>
     <div class="description" v-show="image.description">
         <span v-html="image.description"></span>
