@@ -295,7 +295,7 @@ npm install
 mongorestore --host 127.0.0.1:27017 -d vnpastime ./vnpastime/
 
 # 启动mongodb服务
-mongo
+mongod
 
 # 启动后台服务
 node app.js

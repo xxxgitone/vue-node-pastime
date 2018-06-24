@@ -9,8 +9,9 @@ const uploadRoutes = require('./server/api/upload')
 const socket = require('socket.io')
 const history = require('connect-history-api-fallback')
 const env = process.env.NODE_ENV || 'development'
+const mongoConf = require('./mongo_conf')
 
-let dbUrl = 'mongodb://vn_runner:Xu510*@127.0.0.1:19999/vnpastime'
+let dbUrl = mongoConf.mongoUrl
 
 // connect db
 if (env === 'development') {
