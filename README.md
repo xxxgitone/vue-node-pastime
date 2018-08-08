@@ -7,7 +7,7 @@
 
 前端使用axios与后台api交互获取数据，vue全家桶进行数据的管理和渲染，mongodb存储网上爬取的原始数据以及用户后期产生的数据，nodejs主要提供api接口以及token的签发与验证
 
-线上使用阿里云服务器部署，nginx进行http反向代理，pm2管理Node应用的进程
+线上使用阿里云服务器部署，nginx进行http反向代理，pm2管理Node应用的进程(阿里云服务器到期，域名迁移备案中...)
 
 * 线上地址： [http://www.xxxuthus.cn](http://www.xxxuthus.cn/home)
 * 仓库地址: [https://github.com/xxxgitone/vue-node-pastime](https://github.com/xxxgitone/vue-node-pastime)
